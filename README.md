@@ -27,6 +27,14 @@ https://github.com/user-attachments/assets/323db34d-44cc-488f-b7ee-f24b2a54848d
 
 </td><td width="15%"></td></tr></table>
 
+### 플레이어 가게 운영
+
+<table width="100%"><tr><td width="15%"></td><td width="70%">
+
+https://github.com/user-attachments/assets/7d8ccc65-6963-42f6-9d65-13b7b26946dc
+
+</td><td width="15%"></td></tr></table>
+
 ## 핵심 구현
 
 ### 1. MemoryPack과 재사용 버퍼로 저장 직렬화 비용 감소
