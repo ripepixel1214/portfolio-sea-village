@@ -1,0 +1,2680 @@
+[
+  {
+    "file": "Source/.github/workflows/build.yml",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d9f33e1a4254c3adedca4826960631c43abb5df227196356fedee9c4c5f41e92",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/DollEntry.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "573e4d75770bcf3162e80a83c0dfdb7cc658499e6c0294cf1b8d22521fc44617",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/BuildScript.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "47720f753ece88c8fe3f7fbae38a8ec2d58b00e9e48580b2e54fec7a0e6febd0",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/Player/Tests/ItemInformationViewPolicyTests.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c5a4c65e6be41c1fa9155002fca1b9bd1e2bcfff19047f2e0584a49a9c9b5bc3",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/Player/Tests/PlayerGenderContractTests.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "41962629ac182dad99a891676b9c8aed555283c074ce4166496ef7c9272a2f7e",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/Player/Tests/PlayerInventoryPrefabContractTests.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0cd74e94e74d05fac0e202c2a10fa4d536917452f99d75a001047f0d2de89282",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/Player/Tests/PlayerInventoryViewPolicyTests.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5fec8a82731562790e22f910a3bd999c7b36ec9d92b92f7cd838cc865ea97971",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/PriceLookupBenchmarks/PriceLookupBenchmarkRunner.cs",
+    "source_commit": "6460c30ef83390774f864c2ba320260b82e3eb92",
+    "sha256_lf": "4cc94cb9161c17c02248e978224826ab5fdf49bd9f9077bf2595c70ce579fd35",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/PriceLookupBenchmarks/PriceLookupPerformanceWindow.cs",
+    "source_commit": "6460c30ef83390774f864c2ba320260b82e3eb92",
+    "sha256_lf": "5069dffeac7d1f66c5b436da2ea036738c33173d5f1fda49d3f351c7d7f1f1a8",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/SaveLoadBenchmarks/SaveLoadBenchmarkResultWindow.cs",
+    "source_commit": "52f9fda256a81e2213cfc904b734481e4a3ab125",
+    "sha256_lf": "0ca524a02828571f442a2beacf57809bb19ed085053983d92a4e428e868d4c78",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/SaveLoadBenchmarks/SaveLoadBenchmarkRunner.cs",
+    "source_commit": "52f9fda256a81e2213cfc904b734481e4a3ab125",
+    "sha256_lf": "284b678155e07ae135554ebfc3ca204c0054994429415ad70ecde378835bcf72",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/Tutorial/Tests/TutorialLegacyContractTests.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7f27f913815df478278a015d617a7912348abd492fcc5c83e95ca0c9597023b0",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Editor/Tutorial/TutorialDefinitionValidator.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "706b5b754de77251e300213d351f415eeda4f74a7c85437fadb438f6a9d54038",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/PlayerShopSettlementPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "6a67f7307c29c07a6de5a419088a714ca59a83ba89c5db34cebdf7bbe771b101",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Audio/AudioManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1a7596752aa84abb735030b3e5ef9ed3f8940c2b55f6b54da5cc4494112b7ad3",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Audio/SceneBgm.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4de6bf6968b01edb1df91fdd88f128576d7bc1ffcbdeeb7d70d2d6d7a58b036c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Account/Account.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5259c6e071493cb5aa783138eac0c100b980e3cefa1b96513df1bd0d35ec604b",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Account/CurrencyManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "184305a4c2097d469a37ef54dbe1ad0227a27f8f93cbc5aaa672629818638fc6",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Account/Data/CustomerWallet.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "44c197b81892553debc3bfe9d256190e38d80d13c3ac2dccd8f304dc054c8fcb",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/DeveloperUGUIController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "53b0529b032f32bb5c20323864519c727dff2017224b6a04afb01f6d2449cf16",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/GameBootstrapper.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "80c6255ee291ad1ebcabe72cb5d1e520b33d275d8ff3fe4a95c823e6b4f156e6",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/GameManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1ea3975a679270c5147bb4078d445f1c67f0c6d167031b96bd8c0266e8b6d546",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/GameState.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e2cae95f00b5d31c7e1cb71b64a1fd71fe767d3e4fb3cf7bd3eb92ca0a5643b8",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/HarborSettlementProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5f09efb1701be157cb3b5af10c00761a8b584c9b79957cb4cdc489aa309ed810",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Inventory/InventoryData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "94067d79d38b81cbbe611f7ed933dc39520480249e6cfd364fa0c17c8c47e790",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Inventory/InventoryItem.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "6f54a5da5e1db292fe593703ce70405074e1452a8e8866f0e4c5449e3d45d0dd",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Inventory/InventoryManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9f971aa2a2aa318e2d169991e6ce03002a106a10128cda29a2a91021b223613c",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/ISceneRoot.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "12b1430aceb0d7d3ff41906cce7a2a39e0a94864bb8fb876155e8c17d3ff1a5d",
+    "git_authors": [
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerGender.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "020a76fd0f0b68b5be9d3a390f5a5b4defe6b11ba806efe9475897c455407457",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopBuildStage.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e97eb26e68b102b76a2953c8cc7d72400467e99796c95d5af18c94486ae16174",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopItem.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8558a6d564d7ad91554708ffa8daba70dfc960ffa5f3b0a3c02c97daa4b45e79",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopItemReadOnly.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7ce09c3704775f4a62196a1214fe3380d65afcd085764a9a4087c3b9085b072c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "03659bbfccf75f896f651954bbc35282429e7f716869ddd8452599c6eaac8dbb",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopOperatingRules.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "715f47edd60f91d9dc50b1b93561168935a42aa32657ccbaa43379c2d17879ff",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopSaleOffer.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "083e8f8b7150217e015729de633f97c12c8042d5db9bab3dfe18ab4bd92f3c0e",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopSaleRequest.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b6e47b0a819fdff8390ecc47c6f7155cb4b204dd9d254377194514e1bf76d647",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopSaleResult.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f63b10cb6826f5bece633ff785b84fa9f3b834ee8a370d82ab96458a07ab6135",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopSalesRecord.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "aa0e858696dd037d0195aed3bfaf5d593a5ee07fd731b6e971d659b9e2ef2b04",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopSettlementItem.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "262f995c58f7ed8d3abdd12db967b230540f3cab847e4af68ba0c5e445579d27",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopStateByTown.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d83c69ef82cd0a5077069104268e4929c6dc4d320b08c86e47d7f030d86f752a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopStateReadOnly.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "64c1e763d050aa40663a85281e9b07f36f60c749fc850d231ffee249002cf42b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/PlayerShopTownProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a7d81f6321df583c29503cae0e329bec24c076206f2ee7baa9d1b4b677f51fef",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/StaffEffectReadOnly.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "86d4a77bbe92f9808afdbb0ba94bca7bb8227f06881395219dd39fd286e827c6",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/StaffInfo.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "832b182d487e73216e3d28ad07940738e1c20b4043195050f657a8807b6f55ee",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/StaffProfile.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4259a6e2aa06e873ba9d7d1bc65157ee0ae96a596632939d35b8c0535ba40c24",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/StaffRole.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "849a90961faab7c826cb5fb5d1932f7ef1d8e6af24bb2d3699adfaa50a5914a0",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerShop/StaffRules.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "232d9be0275a5988a2e35f149784e7b872bf4cc2dd8f1cc15ae01620d9b1e7da",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerStateChecker.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b12a7c44cd93a9a46d5d3caf4bb1b01880d2934854587c11dc94f0d59e773eff",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/PlayerStatManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8e45a961ec0f491b15c3c8346bf3bd083b341fb91a92c2e5404b39d30fbc5557",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/ItemUseService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1c16e3fb6eb1a4d8cae76877b54473d6e9cdf611fd367c996529e26261c8c13a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/DailyExchangePolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7dd1a89fc1e96a1bbbdaef0d6a5a3ddbcab9fe1866e3eca6d3195883aebb282c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/DollEffectPolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9c85dcc058ea9c6aaa003d41ee97dc4d8dc06ab7bce3390950586fecb4def6cc",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/DollRewardProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d7cf771144c29fac2daeccad51b39b1ca60457e5858f8de266bd6a88b1114fd0",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/DollUnlockPolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9d6278eece58cd20ce9262cff43e17135ce6a026ead571dd9f81b339ee167662",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/EnhancementProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "fad1158c45e90684531418b53bc1324bc3157f27cc5c6aea067c094ac09f4d03",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/EnhancementRule.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "024837fec093e552a4bd88447190f9e632875249fbce3e2e0d0eecc6e96696da",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/ExchangeOffer.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7b2b63ad9da0e85d3d337e5e7724ad6e32280a904ace1b2fb8e52bc755f3f20c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/ExchangeProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "cfb1635088f21ca201dbb85a1b060e2b9c42d6079c9b95724f744b47d19baae4",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/InventoryTransaction.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "02d36eff602a9267fb488960c6552e7941fda7b5ac6c89a64cb5829d11ebcb78",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/MineExchangeCatalog.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7d80bd8c6687253507120e12ee804f8d241e5e731dece40fa06806eb87122713",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/MineForgeCatalog.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d9e4c7049976f7900873206e0ffb1f03584906845af2941f612e41b2b0201286",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/RecipeCraftProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8c7df1fa81c2509cd60169864bc174c237856f9387adad1da834da92ac4c0c35",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/ShipUpgradeProcessor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1da4f32bdd5184270186d27f987680c27b75364a75a95b831031850a4d78b68d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Services/SpecialShop/SpecialShopAccessPolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "80a2621bc69e253d5318a5ec12f4e5af417e8cfc0e44ddb02934caf8d2e802db",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Shop/GoldPurchasePolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "86fafa7cf62f59d0b77a2488fcd5e4b6ad4478b91e9c145e9f9d970bc5b1eb0f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Shop/ShopStockManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "db7780df81a2989962a1293cfba98798e3b6c816bd9c8f45c63e50e31a9fa931",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/TimeManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "3db78f10349ac257d1b3027e9000fe904c9b8bee4d8131822209ba6db7b8a3aa",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/TownAffinityRules.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "db836f5aa8b4bd65704a0fc660787d8309ddc8d6a26411991479536c12f15bb1",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/TownKey.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c8f8e85cd5add9f7a404725a7b4aab54fe227e41ce80806d75ae5629fbd2888f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/TownKeyUtility.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "2070448c1262c3299df93774656e670ab8fbe039bb2378410a611aa91bf67243",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/TownProgressionManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8dfba5fd97823645cd478b713470c9074e9b40cba9af4a33caca7c718b3cc9f1",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/GuideMove.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "91f7e828282ac587901dbf4e1321764188ed78479e80339368fa4403454c8201",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialContracts.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0f700a29e1472097e1f97d63c19f0539baeff6fca964ff30cb4985833fa5ecef",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a95417cecdf7b3d861ee8de7db910245a4a9347147756d662d9ccc9a344daea8",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialControlPolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d1fa2b1241c8f844e6d3c31f9049d94af92977ff77ceb014e99bafb22acc3822",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialDefinitionCatalog.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a7fd6d47c03c44a8627c9901464bf0c1acd5b5efb5e9e333e607110c035d46c1",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialDefinitions.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "bd2b40c5fb94370d66d908f7c57ca5b41f9646c19ba1d15abe55ee6de43da3fb",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialEffectExecutor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "71509888262964b7138979264110acf0e6d279f01f1fce376897e49530095253",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialEvents.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e3e74d65cdd5649ff02a6e1f2dc6c266e63d9fc67edb7d8f73bf0bf0c81f3630",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialKeys.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "152ead68e691ce26874e4915e383b3bcc984912345f47cb9edf6caf283478331",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "90e10a0e1933c836086ca2c539973e0b3d97b119d3f9111021d1324879976072",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialRuntime.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "2a8996ce147d0b4fa64c55ddd03d2b45f9f9fd8fcbec95a220d8205bc9df8b34",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Core/Tutorial/TutorialSequenceSettings.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8319a10194387ec500d458315f277f79c2ece2530f0fb0fe5332998e1baa3508",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/BoardDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b8b4434e594a2b3e459a62eada3c633344dbfb98063b06da5f8b18a22a99a566",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/CustomerDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4b30c7066b4065117a7713efb69e15ad9ab76090ee9aa483dbf0341d3e599818",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/DataStructures.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4076f71c8df4af79f989ccf591755e851f1689480f02ca7a4603e1011e39af6f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/EventDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b84594784eeadfd241e18aaeade78efa4d4774c6e3ee8b158d371af41b10009d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/GameDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "61f8804325ebe5f9923036f4587fa80e246b51dabda425d4b86c5a1cc518a5df",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/ItemDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "91cdfb9fcff6065bde7a9db945c4980326f80844020694f7bd5be5b3706eaa3b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/ItemPriceDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "89e0ddc1c1ca827e23d0f02898bac738f006bc564ee90568a351296d3c6ffb79",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/ItemTypeDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "bf00b2d8afefc2c8acf62cc51fc27bbc1ff26f5e04ee784d1b435eb6da4b1e98",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/KeyStructure/ItemPriceKey.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "80b6aca7c4909f9dbaa9048d348c5ce210e7ceff61eb92ca54b2a51110c12ab7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/KeyStructure/ShopKey.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c7ef84e42e8b0dbe9912583dce8ae2ee551dc63f0b1828faac06666b28103fc7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/RecipeDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "6af535c2c83ce609977a7ff61438db2222650643569995f0b1364de39b281d4c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/ScriptDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "75945049d7e2b20ca16f1c932595ab56e2605a938871a5653bc857810aa3a9ea",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/ShopDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "2909d9fdef532c8b23c3af523bee1113d7e642405149a9cde115c6750a4aded9",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/SpecialEffectDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1b398628736b913cc663381aaf34a93ab2d88511df248a9596ee08e500ec4b1a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/Database/TutorialDatabase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "088264d860daab95dc30ba441e70e217c5695f4170421c7e2b1968a2cd06f12a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/DataConverter.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "2e8da23c111ecb3bcb47bbe305a2fd8d25c6f24e16c2b4e914b6cd57a93f7884",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/DataManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5cc7c2b07d08df4d6269c1490bb9c17eb25d0dc0e4591b4950316fd9f4a6d69c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/DataValidator.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "48231b5ca393fe834b746461a64dfe2184727eb669dc594943b33d875fd31968",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/EditorCsvReader.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "66ebaa166faf5644b603e667efba90319d7cb7030df1075f92d20b0407acdb14",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/EffectSaveData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b46ea4fcb907dada3652c48d92bd8e90ac2752d4d948760af674b9eb562a90ff",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/FirstWreckRecoverySaveData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a8e7f9300ca2d088736e30465abff174d9b5022e550c4fb581ae05e997295c11",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/GoogleSheetDownloader.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c6fa8d1df60f0ede0f548d177e7b1e1fc55fce639ee8324c4eb6b3f63a8c17dd",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/GoogleSheetSettings.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "ff6899e48e301a039b91b7e6b01187b337cb1a143aee07627559147e39c8f237",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": "spreadsheetId default removed"
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/NormalEffectManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8bac1e9feee75e112d4c462c247861051bd8517789bba4e24024c1e0de0eeafa",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/PlayerShopDataStructures.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "ed86d6100af2d3bcefd8f05b932fa77a864930484e70e24f6ac278f4c58fcf3b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/PlayerShopUpgradeCatalog.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "57902dda3070085cfd51e4719de33411849a84c0e583e6ef59398c8f4d4572c6",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/ProgressionSaveData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "24300b55ebdbcc41bf6e778dda5d18e7b4cd652c92aa2a004576ea1786232301",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/RuntimeItemPriceManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "ad2549934d602f6b817c26f5d1ce046b21514d19d411f213a6a33e47435958a9",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/SaveData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f82d230e5e186f39ec6efb093448ad942af84ef1695db18a919488dc723b32ce",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/SaveLoadManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5b5c03871911d58791be2475d7cde074545f190577c6bc790e3d202bbee0248d",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/SaveSnapshotList.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "159f6deee1b62cec3943ac1242f490eee4e2845f58f82e24a38b5cb7b295b785",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/SheetMapping.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a91004caa14ff62b48ff153b3b147ed19ee6855db74a6be0a32a1c8d5206f368",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/ShopStockSaveData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "de159804a18cc4c387da73addc207761455a56765c583986aa1b5ef0616d76a0",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/SpecialEffectManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f72ce913d587421791aa1e1232345ebce0f3d79200f232e7c7a610fabd563dac",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/SpecialShopContentCatalog.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "01978dd0aec9db7d7ce6f161f26353d5ebd5b682e6ba5320f503f6f8628ed405",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/StaffCatalog.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "56b4d59e66f6a4a9322d6ddb66808b440433b58b9e495721b85e890cbca4e7b5",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/TownDisplayNames.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e0df8df4566d828ddcad2e19040e6a86051ee13d29055922856af1eaf474dfe7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/TutorialCsvParser.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "62b287e66f04646344686f36c933dcbdcc3ac710d849dceba3e82a3f6b64a9a2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Data/TutorialProgressSaveData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e50d24bc19392bf40ca125c893d80bf47c2d4022e342b61632db43ea7daf9a7c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/BoardQuest/BoardQuestSlot.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "cc62e3c08567c06a50eb1b12d1a422d5164be7a18eca1106b342d8b8c082354d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/BoardQuest/BulletinBoardService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d3c7f4d76f3c0d1b123ce1c2ca32aa725a646b9e8c12d1462203fa99844a6b31",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/BoardQuest/Data/BoardQuestSlotState.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "599fa669ad06631857c54e96ebe9b6c196cc2442c50fa941b9ca03e2e3f4dce5",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/EventCommand.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b09305760d89338f29195eb2b058a9bc2cc21caf452241911813506823e4f071",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/EventManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8fa8ecedaf4652a840dbcf53416827c74b59b04630ab863ec42e91c1dca33269",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/EventRuntimeStore.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "15d3d6dd1b53ba569badc22d0cb656f67d31211191d48ab31f6e958d55fac581",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Runtime/EventExecutionContext.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "97071d81bc05586d1b3425db74e7633b97db29c579bd4d2edcd48bde19fca031",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Runtime/EventState.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5564a07d70801ada50943d424b810e16f11d03b219498b8476694bad6393479d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/DefaultChoiceService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0b5d03e597c77f58e9661e86c9913d69345811b2a12cfffbe5643e720c6eedd4",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/DefaultNpcInteractionService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "28ad620e49ce59ff8a6d421da3f08d8f9411f9ae28d94162fab92eb871086fea",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/DefaultQuestService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c52e52599efccbba8660a244176c903a949d46c13803c2ecc6f57d7494c3e4cb",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/DefaultStatService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5993409669aaed27c15fbf4344a08ae377903dd3a8fe0793b9b6c725f9b5d478",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/DefaultUIService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "69c818a58bab262ec5c0261bc9101acd4adb09edc4ec77f3fab521e43b92c00d",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/IChoiceService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "66805379116ff8180593de88a7c8c4bf97950fc4d92957c0e844f31a1fec11c1",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/INpcInteractionService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5aab9a8689839e004d4107062da5e0fb0902ee5830f3535cb0b74df284e95fe5",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/IQuestService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c0a9ffc9867c7431165949ac0db709e886304f305353d50bdc026ae854039a41",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/IStatService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7bab7abf226418d99275d1a189fdd5eccac2d939ebb1b71cc6d3138c5dfb3105",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Event/Services/IUIService.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4f97333adc1acd199b9878b0016fa623ce65fd19097f98a34a4205ae1c6f6887",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/BaseInteractable.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "82129f9141685c963a1288b10d3e1fabb501c2a63cabdbcb5679a336481f25f6",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/PlayerShopBuildInteractable.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7afc3d15174b7d7db6d1538f1d434f0788b6bb01c3c13a716f053f7f7dd5b402",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/PlayerShopInteractable.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7bed82340969639261d1f1ae85f5e802b8eae07f7705d6f7d6c9d0d8f700f504",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/PlayerShopInteractableBase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d5eedec6bcdbe34fddc0886ea837407f27fd9bdf558fc1b5ea9933d2edd2339e",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/ShopInteractable.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a73452f7aca07c84bf161ad5acb9fbb5e3db74a66ed81075a0ddab0b1857fb40",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/SpecialShopInteractable.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5971fd3b0b6c5a51f9dff925663cfa9135a0b78b101c4b20d3b85836f40d6794",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interactables/SpecialShopType.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d49a2737dc44349648fc660bda2c1fd43237a7cea327d54f309517abff07e1e6",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interface/IInteractable.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "95737938d3a29bb7730ef60f5d374f99cb629d5031578595b144c3ef6d06f79d",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Interface/InteractionType.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "341d64bdb9db69f23c3af864c9dd64955c492c2a61f79fe9566f248ce99fac7c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/NPC/Customer/Purchase/CustomerPurchaseLogic.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1263e4ca544adbe059f702d9f635f148531335739895422ec8f59feb1779cf75",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/NPC/Customer/Visit/CustomerVisitPresentation.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "04418f0286c71f2ef02d2dae2b85ab5f931695bab7d7ec622877c712e124fb1c",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/NPC/Customer/Visit/CustomerVisitStep.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1fe4b30b958f7307d82447323bae518978a357fe67494730dd07fa2441fc992e",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/NPC/Customer/Visit/NPCDestinationSelector.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0d25281024aa7124c7a749eb3068dcb888d4ae59bc7d271d22ed80725ed78923",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Ocean/Events/OceanEventManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b4dd3c0c2feaa0edbd771c01fddfcf4aae656a32228c52595273354bbfafaca6",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Ocean/Islands/IslandFleet.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c4905031a9690c02c6a585c2169e7fc23aef55331598a31b4ebce5c536769d42",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Ocean/OceanManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "674e0a30cd41ae014d831f4bdd445876112ee5e0861697508352b249221c5bdd",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Ocean/Persistence/MinimapFogState.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d8bcd5e6303aa29d02f0f4021c2fe7969c5b92aef68dbfada397e27d6386517f",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Ocean/Ship/ShipController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "dd866cff275559ee0051039cd27690b3dadb58211e654a2b18d897dd03f41bd1",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Player/Player.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "ddc2fb89325228caae2665aff878682b477f54b268f98d99460a0d01d75b62d4",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Player/PlayerAppearance.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "30fb18ba421f2846f6ef3fd4b5c9936651a7c80725ccfadc94e6a7c135c4c51d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Player/PlayerController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "576973f95a98cace8ed9b6767c8cfb4965a4a45fcc3c1e0d1a1b28eafe0fd095",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Player/PlayerInteractor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b1ac19b3fd1698a259a98d6e043b4ba8df568d1fb2e8aed909e70805d2ece23c",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Status/NPCStatus.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0e9954bed93128e61afd14954430f4d2081652b67aa06c52362bf41b597443c2",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Status/Status.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a9ad46283ce0cbcefebe930ad55b98c4458a0607c8998016f5547d164b7f5d70",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Status/StatusData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c3a30c6f5ea125236e840fe7fa1e2273231149598f4b5a1ef90ab351f3fd976d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Status/StatusType.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c7501d0fe64ceb0aaac263dd8cd34f4020e645d739887989372ea7af9cab7d17",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/Interface/IPlayerShopSalesTarget.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9889603c9a8b8f56b6e1f9e76a36051afe6ce797f4664a67e3c121d16abc6d39",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/Shop/PlayerShop.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "471f72416fed73c5d7f567b9555b7a8c95a4c673b3783da11aaa77047e8f8a97",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/Shop/ShopBase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "dfeda2d598568919e2988b56a6a5c14c130077814a9fa922d8ed36d6702e87ac",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/Shop/ShopStaffRoster.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "6318104c6d0254e1bf6861d63fed457198bf6605957e33468cd447273cf9db49",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/Shop/ShopType.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "41016fdd615084a1b810e4403eb2724d8e72e981bff9bbd2b4c6882d858d837f",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/SubTownResolver.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "20fd38f6076e0e206216a713fa3fc513adf5ff51b5916512ea1164bb186226b7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Town/TownController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5d30cc19460dac7837919673d5499bf6dc328cbc5ad01a34833629fc661ecd68",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Controllers/BaseUIController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "3e438aa4380a94a83f23bd0f7e09accb5f70cb1d2ccf0931b62c4a2426ce839c",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Controllers/MainMenuUIController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "028d9070c824b8648fc3d9c7ab2b9c866e13316fa827cfe65ddead348356188b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Controllers/OceanUIController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "89f7a93c7d685a9c1632393150ea590e82ad2ce41cf49afae6b7f81b3754e373",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Controllers/TownUIController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4a38af2d1ccc86ba6e0bf47da6f5beed9da9f207041281367bc4cddc38ab6698",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Controls/UIFloatingEffect.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "aa9a58536511b3e854a4c6ad537818f5ba924211e9c066acc112c86016de561c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Data/UIRegistry.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "171bd6b87771db780e3d258237fed702e3c624bb86b4fd165bced7f312ad32f7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Dialogue/NPC/SpeechBubblePool.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1c04f0c4d8d7f574033ca94d90db944006f079710a8b1ea1568e12abd7ebcebc",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Dialogue/NPC/UISpeechBubbleController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7cd45d9b5cbf2f5d86566add93cf5fa0a7035d9b63d6a498264f0848d911d17b",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Dialogue/NPC/UISpeechBubbleView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "bc3a3fea7a12cde6b017130e20d00de12189cef0ac08c648f97e72638f1ec2fc",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/FavorabilityDisplay.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "2ed3c6aeaca76951259e7bbacb7b5178bf9f46c126a9fef47a3c5cc00e4e76a7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Gauge/Gauge.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "96461c06c69061d29f9251948e72e0b731e3139b896c0cac9f655f2bf44462ea",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Gauge/IncreasableGauge.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7baff31860c72ed9ef1e2dd629294ad652fdb6f0dccce7129ea2934d2832829d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Graph/PriceGraphScaleUtility.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4b30e288c786a997d57219fd4030b8751bc02063852312aad18a1b0eed808afd",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Graph/PriceHistoryGraphDisplay.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e204a8e320537c6e130b40f48c677460db11b816638e19e3d6fefb98dcd118cd",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Graph/PriceHistoryGraphRenderer.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "023e027c9884beece5f12fb4d016588bf707adff1c6a2beca727ec51578f8235",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Inventory/ItemInformationViewPolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "63baf4d39c7dc9a5f590b73429324a48ce286426601e805417836f5af1944993",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Inventory/PlayerInventoryViewPolicy.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d8bd79ba54b9856295b068abb98b851a8072dc23ba2d8241a2afc3f308ca0645",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/News/NormalNewsItem.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "92442311718632ade378fb1ed7dc669e13258deea7a39452d5b271fdf1ec375e",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/News/SpecialNewsItem.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9cb71e4779e9e55f02528d520b8d95a88a5bf60dd7cd97d06d0188ce90cd63a2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/BulletinBoardPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8ae313bf07b8e4578343a676a4ae41e017f310733a9919d53ebc5c931d42bf4b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/DailySettlementPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "185f2dbc4463e922aaeb32da64175dc25556be19c9118cdd2d7f785a72f2ce8a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Data/NavigationArea.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8d58682cd177ea951fb41acc83a5464ca3ccfc85e90f2e885a5df3ab46722fa1",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Data/PanelState.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5ff58c9e3a9ca3fb0a874f5cfe9a4ec1a2524e56b7bd0ea31216531a1964b8a9",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/DialogPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d965c0b69a4b68e9ece7944e4d68f371cb6650fb4b42f9946f175c204161be55",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/GameSaveLoadPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1d7676e17f282ffc732315eccd03f458d4a125db197c63c34b70edeff7bd5816",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/GameSettingsPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "dbd72120fba9eef6c05922afe962611aec07eb3bb2eb393efde8831d8212489c",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/IContextualPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "bdaa6dd446402fc1ec4eaa8b7f37ade9fdb3d3149f92557775b22853c0fa7955",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Main/GenderSelectionPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "6bce88612d7dd05c057df5879151c81a21b6c9f7542c662f54e8d91f1b10a57b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Main/MainSaveSlotPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7a278d55142fd91d54eab5d1e3394340a37a641e3af87a5df5f2735fe24b132f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Main/MainSettingsPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "52e67f57e1f0ea37533793eb519263f96a8b8a15afe31d24e4968688f5ef6dc2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/MenuBarPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "656d1a93cf90ed8c72e94193497418e0a6f3de680a829cb3c9a625a23160836e",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/MenuPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "69b220ac765cd0adb43598584fc51962d29c27ccb1a0e69076d1b4aa6ec1ff31",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/NewsPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f24de8d4929246775d5f125d72c3be58ae53f822d503acd8e1482bef704d3eed",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerInfoPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "afe256243352929d2a733a4ad88d90d02027dbae779c862ba554a1641093c4f2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerInventoryPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "840ed76c4e57300483b36fc4b5a71cc4456b703f763200a2fc86c9ac8ed7c88b",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/PlayerShopBuildPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4b9add5021ac52d24c205c49ac9b85cc37bf615908dac7081f0cb3529de40f8b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/PlayerShopInfoPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9c4aab6ab1cf1fc29c8b43f83c42f881fa60a2ee781e5638611a2b3f0242a1cd",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/PlayerShopPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c19f2b422d9f4e096b5a97ca5b475fca80e11a54d8c80fbbe10c7039d5d6534d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/PlayerShopStandPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "7f64775be49ba9db9531164734d72319d8d4fc56d1ecb098f14e27716eabf65f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/PlayerShopStockPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "fcf7b5a0f5e76c0c0c72a68756aaf876c9b9d9c67ae1ffa00299bab26a1e00b8",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/StaffChangePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c06ae35f78ecd1cbea1bbff28331eb6c94b1fb5518be6c96377e27b73661c814",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/PlayerShop/StaffPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d77bb218b663775049231a3a9d5305dc6390fa8f26cafdcf487d2eb0e56513b2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/QuestPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f6b7675d195bf9eba7b0a871c86d28a2c6e4b7692cf88a7c48cf8d4b9bf3bd39",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Ship/ItemInformationPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b16ebcebf6e16ca99af8146420afd7b6c25272c71411742df920fb2483400066",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Ship/SailPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a0dfe85b4786d7b94e4868953a7501c81192a4d11953052426f6c42303c4b24f",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Ship/ShipInventoryPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "fe9cc9e2b6b2b939e480728888305a8c8c4034610899f2e6e2cf5dd06a014aed",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Ship/ShipPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e679e6cbda6920822b7fe6406f8d922848d3404e807fb18b68d83569342ee802",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/ItemCategoryView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e721ed03f29c71d602c212fabd866f623afeaa5e14371ed517b0840854cc42e0",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/MVP/IShopView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "dbb755e51e95ba9d80435350d19b3465aeda44626e9c2af4b86637cb42bcb575",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/MVP/PurchasePresenter.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "41c2c89e97da0db45c24c5d9c680522a7a3f7989bb284418d6a6e278a24a75f5",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/MVP/SellPresenter.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "966f91d0d2e5b525e66c788de858edf3bd54ac561535c35fb456974b13e988ad",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/MVP/ShopModel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0203cadab62807947d125cd7404903fecc519536403f6153b17f3010c550675f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/PurchaseInformationPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "6534d6dafe578793c01ff81d6b4061cf72450bc3ada26abe45f84dc6177f20fd",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/PurchasePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "183a0cd5598424998c8e7d9365812bece0d4ae2915579a9d2d4e1fb6ddcad072",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/SellInformationPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0afb112d45479147112a2eb7c5b66adf09e74e1c0e6917d1362f3287bebe51c4",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/SellPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0a374927aa1e2ff0db63337e226ad0106ebfb489402535dff95a02a87095c406",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/ShopItemPriceGraphView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0c7c2b36266cb1eb5ef82b4cb2aa7b96fc8d1ff712c353b7fe12ffe11cffe9b9",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/ShopPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "522d0ac7054e31507d74325b8fbd414460628e53beb2c49ef7525d900bdbefec",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/Shop/ShopUtility.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "656b5a5875ea745c885b83c9de4d71628a060e7eea5367016f34b53d8a9f8ccb",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/AcornWorkshopPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e9b6f665d0a5e9da254e2516b32cfdd2e54e9f2b40d93ffa88b89589ccd212dc",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/CookPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b28677b7cb4ca0d0ff622f894c6e07b9cc0c0af2f99fc3b2ad8042e8830ebeb6",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/CraftPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "30ce212363a88ab8b9415e1e19739d5ba4f6726f649ef2601789799ebdba0609",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/DevilPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a22d6bb652517410aa90a1b95cff07af6b61880c06fffc904335d6e8b520f5ab",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/DollPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c72037a711404644e37652862a6643e3637e464a1f27c2752de6c3574ab1f83b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/EmploymentPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9737118a0cc3e9ea6a78021f60b08952f8307c92c413a762694b43334cd70c9e",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/EnhancementPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "383cef7e3159ed9be3e3521b57437b2ce414ca194a3a5bf90177314b822c7302",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/ExchangePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5c4fa1d7c4de44b8ddf819e45ec9671f88a748ead4a19fc2c3ac35c675ce6d34",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/ExchangerPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8eed8e91f259afa496eb8f1fcd6cff3f9f62a6c57dc2b052b4ca1f4286f46244",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/ForgePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c03eefbf79e9dcaa125ab9b5569e577d245356f72a3ef2cc965f8784f7e62d8e",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/OfficePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "2b346497ce720ba89e452840652dfa6a5f590de40d78ce5f7b51d291a9e20c8b",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/PotionCraftPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "16686280637b3d3f9082107ab0f63c5b657a9202215397be49423dfc8eb3ef9d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/PotionShopPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "74d20e45d0eb595482ef0330b7be39b68dbdc506530412bfff766ac0e27e54be",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/RestaurantPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a6c3bd828edd34857f2d90b292c501e5533b572fcb75ec949528e5f2eb33cc41",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/ShipUpgradePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0bb20253557f0faef0be202408713f97a435638c09df89544444d0f10d53ea37",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/SpecialShopDetailPanelBase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d5ecfefc2a94acce26ec2477408d148bf0da3156441672af1b3c2903995f2a51",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/SpecialShopMenuPanelBase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0260ce45aacad0ed0cb9fc606d97b945f6f8e299e66052c7bb3c82d3e18842d4",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/SpecialShopPanelUtility.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4faeab1f15ae882066f05efa57bba73490ed2b3a21f517248d9d885b96635d7d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/SpecialShopRecipePanelBase.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "c1e1158a875f4f73c5e49d72aaf75e714f90648544f58fa9a3e83dca134d3b33",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/StagePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "236321663a8db922b1aa6c8063b0de06ba611a55ad9677a62bca1081e9230cec",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SpecialShop/TailorHousePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "ab61fa6d597989d2a9d5c9bfbaa5f32821a0c2787bb4dc33ea88021f184838c7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SubmissionPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "47e1c9a9cfca3332e478c514be2d5392ba175ca54d56378cfd08a4b127ea889f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/SystemMessagePanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "49ceafeac9bb19bf6a36b8e95df6fee799ac5161b6131dcf6afa45b8df8f08e7",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Panels/UIPanel.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d91fd88aac4292081a180dd3b8f0846907d3c14a31be2d6df61c002251b3c572",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/BaseSlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1948f39de711befc521626f0fe5afab79d8f29d0efc630f39b72aeed107abc82",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/ExchangeOfferView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a443daf19b5c08c99e8c54b032f1724a2781890f447a203b812f933977a22c31",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/FoodItemCookEntryView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9f3241ceed3c901310f8a969ac210503a4d3ea40f433c501efc2990ec2268bfe",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/FoodItemRecipeSlotView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b19ead9e28deb8a2caea89ca068752eec37ecf1591ff05669febca51f87b0e34",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/InventorySlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "53b6d59ab28d4581230e97955ddd61edeb95459e3f27d208bbb63dda6f504b70",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/PlayerInventoryItemSlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "5b18247276b428741537d75185e68c4bbdcb6d3fa7c2a554cb6a931e4d3ff3ee",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/PlayerShopStandSlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e8205baad856e25caa44e20b10e5ee42778ad5e8caa9d831730b9d6df7cd3b2f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/SaveSlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0ee14e99c7208ca858d0d0567bfdb77ffdf6379b768e1ffc4081f05f88cf16d9",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/SettlementItemSlot.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "3f104d876956bc4ed47338d156b2235a36dced03e6d284c37165330204d522d2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/ShopSlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "a8cdd8d22d124fd8b58bd1d81e2bc6bfe3fa1528b2acff33191038b474689d40",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/SlotType.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f4d9ad69a2f80f3272e8d59af69603df4c563ba2e10892c7ac3356d0d563939a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/SpecialShopActionEntryView.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "66865efd4f0ec7afe4464fa3944abf7a93ed3e6c7293749b4f067411f007264d",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/StaffCandidateUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8a9f5aba715e04db39e0749778f878b23495edf92eb190ea9ddebd89116652b3",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/StaffOfferUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "099ea77b648d4267f14b575f0c6314220fd2261a76f6fcac1dce7d5eff5d1095",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Slots/StaffSlotUI.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9190cce800384b9f64ce3bf61d137cc607d90a1031b975406a801ce7a3fee2a2",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Tutorial/TutorialInputMask.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "62d1a1469d539ab0a63a97bd91501572c2d52c44e2de5a034cb9943536797b2a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Tutorial/TutorialPresentationController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "8705849c98be0d3f40d0e90ba7d4139450da45d8cd9e1b278db0c34c41410243",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Tutorial/TutorialUIAnchor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "b72bd754a6d2aaad1fa3a2db190e48da69a93b534092acc85ef0216c7e24c397",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/Tutorial/TutorialUIBinding.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "49206072aceca236ead10626113b60a8f02aebc03c17d08e61c1d19a53e8dd2e",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/UI/UIManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "f3a1561b4c7a1ebc0cab27ff8b7cc758d2c236924c68e6fbc898f4432514c814",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/Editor/FadeControllerEditor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "4fa913d03d8526843f946b983e6ab0d14869a2ffc297fa19d9316b2638592013",
+    "git_authors": [
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/Editor/SceneChangerEditor.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0054863d8c1d0912b7c96c3b6977e32c1fc0a091b7067cd997f49ec8fe423b53",
+    "git_authors": [
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/ExpressionEvaluator.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0862a87fb347aead5505e469c88ab23a862f3fee8650ffd1c4631a3fe2a0c405",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/FadeController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "1760fc556857cc6dac028ca07cf7496cb80b410b1261652abc38f431782bd9f1",
+    "git_authors": [
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/SceneChanger.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e84feb75d35cc610890324fc27c4d2b0109a1068951e82f421d3188f50c7da7d",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/Singleton.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9e2722f44c63a2d6e619ca0dee3814c69adc47b4d9f74c126d32d126b9468dd7",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/Utilities/SpriteOutliner.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "bfcc5f28dd600472bb8ad5909f8eb52d6bc8adcea139b232401b617a078c832a",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/VFX/TownVFXController.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "efebc7007482bd305ce4906bf4f0f1971075a7cb91f56700767ad80e6b67c624",
+    "git_authors": [
+      "Jinwon",
+      "rbase0218"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/VFX/VFXData.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "e46193c44fee84093baf21d46daca75180f1ecbc7a4fcdff4b4a0ea2c4d2ca7b",
+    "git_authors": [
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/VFX/VFXInstance.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "0fd23f7d40d1e312228c731032e1136683487bc270a764c8f38a2e32b7b58f5e",
+    "git_authors": [
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/VFX/VFXManager.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "946a4c75db9a3302f4741bba2e3b88458f72c77d41d7cfe7d2bd46e5063ae214",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Scripts/VFX/VFXTrigger.cs",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "d25c1f94f2d387c0a6f0f52014982d8a1f331a4c825b797f7391dbdfd353ab99",
+    "git_authors": [
+      "Jinwon",
+      "Jinwon Joung"
+    ],
+    "redaction": null
+  },
+  {
+    "file": "Source/Assets/Shaders/Outline.shader",
+    "source_commit": "1654ff64505357d3e528323193c2125b8c7c54ae",
+    "sha256_lf": "9e473cc00a19d35906b62c1ed4cf2c1dae7f489185f4491f15b56d976df2928f",
+    "git_authors": [
+      "Jinwon"
+    ],
+    "redaction": null
+  }
+]
