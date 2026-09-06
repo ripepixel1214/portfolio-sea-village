@@ -9,6 +9,24 @@
 | 환경 | Unity 6, C# |
 | 담당 | 저장과 데이터 관리, 경제 시스템, 튜토리얼, UI 연동, 에디터 도구, 자동 빌드 |
 
+## 플레이 영상
+
+### 항해
+
+<table width="100%"><tr><td width="15%"></td><td width="70%">
+
+https://github.com/user-attachments/assets/525bc75e-0066-4749-9abe-5113c124387e
+
+</td><td width="15%"></td></tr></table>
+
+### 물건 구매
+
+<table width="100%"><tr><td width="15%"></td><td width="70%">
+
+https://github.com/user-attachments/assets/323db34d-44cc-488f-b7ee-f24b2a54848d
+
+</td><td width="15%"></td></tr></table>
+
 ## 핵심 구현
 
 ### 1. MemoryPack과 재사용 버퍼로 저장 직렬화 비용 감소
