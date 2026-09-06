@@ -21,3 +21,13 @@ Git 작성자 목록은 공동 수정 여부를 확인하는 보조 정보입니
 | [Assets/Editor/SaveLoadBenchmarks/SaveLoadBenchmarkResultWindow.cs](../Source/Assets/Editor/SaveLoadBenchmarks/SaveLoadBenchmarkResultWindow.cs) | `52f9fda256a8` | Jinwon |
 | [Assets/Editor/PriceLookupBenchmarks/PriceLookupBenchmarkRunner.cs](../Source/Assets/Editor/PriceLookupBenchmarks/PriceLookupBenchmarkRunner.cs) | `6460c30ef833` | Jinwon |
 | [Assets/Editor/PriceLookupBenchmarks/PriceLookupPerformanceWindow.cs](../Source/Assets/Editor/PriceLookupBenchmarks/PriceLookupPerformanceWindow.cs) | `6460c30ef833` | Jinwon |
+| [Assets/Scripts/Core/Tutorial](../Source/Assets/Scripts/Core/Tutorial/) | `1654ff645053` | Jinwon |
+| [Assets/Scripts/UI/Tutorial](../Source/Assets/Scripts/UI/Tutorial/) | `1654ff645053` | Jinwon |
+| [Assets/Scripts/Data/TutorialProgressSaveData.cs](../Source/Assets/Scripts/Data/TutorialProgressSaveData.cs) | `1654ff645053` | Jinwon |
+| [Assets/Editor/Tutorial/TutorialDefinitionValidator.cs](../Source/Assets/Editor/Tutorial/TutorialDefinitionValidator.cs) | `1654ff645053` | Jinwon |
+| [Assets/Editor/Tutorial/Tests/TutorialLegacyContractTests.cs](../Source/Assets/Editor/Tutorial/Tests/TutorialLegacyContractTests.cs) | `1654ff645053` | Jinwon |
+| [Assets/Scripts/UI/Graph](../Source/Assets/Scripts/UI/Graph/) | `1654ff645053` | Jinwon |
+| [Assets/Scripts/UI/Panels/Shop/ShopItemPriceGraphView.cs](../Source/Assets/Scripts/UI/Panels/Shop/ShopItemPriceGraphView.cs) | `1654ff645053` | Jinwon |
+| [Assets/Shaders/Outline.shader](../Source/Assets/Shaders/Outline.shader) | `1654ff645053` | Jinwon |
+| [Assets/Scripts/Utilities/SpriteOutliner.cs](../Source/Assets/Scripts/Utilities/SpriteOutliner.cs) | `1654ff645053` | Jinwon |
+| [.github/workflows/build.yml](../Source/.github/workflows/build.yml) | `1654ff645053` | Jinwon |

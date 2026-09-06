@@ -1,0 +1,62 @@
+name: Master Build and Release
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      - name: 2-1. Free up disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/.cache
+          docker system prune -af
+          df -h
+
+      - name: 3. Unity Build (Windows 64)
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 6000.0.58f1
+          targetPlatform: StandaloneWindows64
+          buildMethod: BuildScript.PerformBuild
+
+      # 실행 필수 런타임 파일(UnityPlayer.dll, MonoBleedingEdge 등)까지 포함하도록 전체 폴더 압축
+      - name: 4. Zip Build Files
+        run: zip -r Windows-Build.zip Builds/
+
+      # 날짜+시간 기반 버전 태그 (e.g. v20260314-1530)
+      - name: 5. Generate Release Tag
+        id: tag
+        run: echo "release_tag=v$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
+
+      # 압축 파일 업로드
+      - name: 6. Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.release_tag }}
+          name: Release ${{ env.release_tag }}
+          files: Windows-Build.zip
+          generate_release_notes: true # 포함된 PR이나 커밋 내역을 바탕으로 릴리스 노트 자동 작성
