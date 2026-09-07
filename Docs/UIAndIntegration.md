@@ -29,4 +29,4 @@
 | 말풍선 표시와 재사용 | [SpeechBubblePool](../Source/Assets/Scripts/UI/Dialogue/NPC/SpeechBubblePool.cs), [UISpeechBubbleController](../Source/Assets/Scripts/UI/Dialogue/NPC/UISpeechBubbleController.cs) |
 | 마을 효과 연결 | [TownVFXController](../Source/Assets/Scripts/VFX/TownVFXController.cs), [VFXManager](../Source/Assets/Scripts/VFX/VFXManager.cs): 공동 효과 시스템의 화면 연동 |
 
-렌더링과 효과 에셋 전체 제작이 아닌, 셰이더 구현과 게임 상태에 따른 표현 연결을 구분했습니다.
+셰이더 구현과 게임 상태에 따른 효과 연동을 담당했습니다.

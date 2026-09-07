@@ -46,4 +46,4 @@
 | 공통 아이템 소모와 복구 | [InventoryTransaction](../Source/Assets/Scripts/Core/Services/SpecialShop/InventoryTransaction.cs) |
 | 보상 해금과 지급 | [DollUnlockPolicy](../Source/Assets/Scripts/Core/Services/SpecialShop/DollUnlockPolicy.cs), [DollRewardProcessor](../Source/Assets/Scripts/Core/Services/SpecialShop/DollRewardProcessor.cs) |
 
-제작 코드에는 재료 소모 도중 또는 결과물 지급 실패 시 이미 소모한 재료를 되돌리는 경로를 구현했습니다. 이는 게임 내 실패 처리이며 데이터베이스 수준의 트랜잭션 보장을 뜻하지 않습니다.
+제작 코드에는 재료 소모 도중 또는 결과물 지급 실패 시 이미 소모한 재료를 되돌리는 경로를 구현했습니다.

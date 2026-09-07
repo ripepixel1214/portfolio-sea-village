@@ -16,13 +16,13 @@
 
 에디터 메뉴는 `SeaVillage > Google Sheet Downloader`와 `SeaVillage > Data Converter`입니다. 다운로드 후 자동 변환을 선택할 수 있습니다. 런타임은 변환된 에셋을 사용하므로 CSV 수정만으로 게임 데이터가 바뀌지는 않습니다.
 
-튜토리얼은 전체 변환을 시작하기 전에 데이터와 실행 계약을 검사하고, 실패하면 기존 데이터가 교체되지 않도록 했습니다. 이는 모든 테이블을 하나의 원자적 작업으로 교체한다는 의미는 아닙니다.
+튜토리얼은 전체 변환을 시작하기 전에 데이터와 실행 계약을 검사하고, 실패하면 기존 데이터가 교체되지 않도록 했습니다. 검사 대상은 튜토리얼 데이터이며, 전체 테이블 변환은 단일 트랜잭션으로 묶지 않았습니다.
 
 ## 자동 빌드와 산출물 배포
 
 [빌드 워크플로](../Source/.github/workflows/build.yml)는 원본 저장소의 master push를 기준으로 GameCI를 실행하고, Windows 빌드 폴더 전체를 압축해 GitHub Release에 게시하도록 구성했습니다.
 
-[BuildScript](../Source/Assets/Editor/BuildScript.cs)는 개발용과 배포용 빌드 옵션을 구분합니다. 씬 목록은 EditorBuildSettings의 활성 항목을 사용해 별도의 목록을 중복 관리하지 않도록 했습니다. 게임 서비스 업데이트가 아닌 빌드 산출물 배포 자동화입니다.
+[BuildScript](../Source/Assets/Editor/BuildScript.cs)는 개발용과 배포용 빌드 옵션을 구분합니다. 씬 목록은 EditorBuildSettings의 활성 항목을 사용해 별도의 목록을 중복 관리하지 않도록 했습니다.
 
 ## 개발 중 확인 도구
 

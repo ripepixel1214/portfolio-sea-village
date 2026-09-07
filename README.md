@@ -2,10 +2,10 @@
 
 여러 마을을 항해하며 지역별 시세에 맞춰 물건을 거래하고, 직접 가게를 운영해 자산을 늘리는 2D 무역 경영 시뮬레이션입니다.
 
-<table align="center">
+<table align="center" width="100%">
   <tr>
     <th>구분</th>
-    <th>내용</th>
+    <th width="100%">내용</th>
   </tr>
   <tr>
     <td>개발</td>
@@ -34,10 +34,10 @@
 
 ## 구현 상세와 코드
 
-<table align="center">
+<table align="center" width="100%">
   <tr>
     <th>기능</th>
-    <th>설명</th>
+    <th width="100%">설명</th>
   </tr>
   <tr>
     <td><a href="Docs/StorageAndPrices.md">저장과 시세</a></td>
@@ -73,24 +73,24 @@
 
 ### 항해
 
-<table align="center" width="100%"><tr><td width="15%"></td><td width="70%" align="center">
+<table align="center" width="100%"><tr><td width="1200" align="center">
 
 https://github.com/user-attachments/assets/525bc75e-0066-4749-9abe-5113c124387e
 
-</td><td width="15%"></td></tr></table>
+</td></tr></table>
 
 ### 물건 구매
 
-<table align="center" width="100%"><tr><td width="15%"></td><td width="70%" align="center">
+<table align="center" width="100%"><tr><td width="1200" align="center">
 
 https://github.com/user-attachments/assets/323db34d-44cc-488f-b7ee-f24b2a54848d
 
-</td><td width="15%"></td></tr></table>
+</td></tr></table>
 
 ### 플레이어 가게 운영
 
-<table align="center" width="100%"><tr><td width="15%"></td><td width="70%" align="center">
+<table align="center" width="100%"><tr><td width="1200" align="center">
 
 https://github.com/user-attachments/assets/7d8ccc65-6963-42f6-9d65-13b7b26946dc
 
-</td><td width="15%"></td></tr></table>
+</td></tr></table>

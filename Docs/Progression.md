@@ -38,4 +38,4 @@
 
 [HarborSettlementProcessor](../Source/Assets/Scripts/Core/HarborSettlementProcessor.cs)에서 다음 날짜의 비용과 식량 변화를 미리 계산하고, 실행 시 보유량을 다시 확인하도록 했습니다. 비용 지불과 식량 소모 후 체류 상태를 기록하고 날짜를 진행합니다.
 
-[TimeManager](../Source/Assets/Scripts/Core/TimeManager.cs)의 날짜 변경과 [TownProgressionManager](../Source/Assets/Scripts/Core/TownProgressionManager.cs)의 진행 상태에 연동했습니다. 시간 시스템 전체보다는 정산과 가게, 튜토리얼을 연결한 범위가 담당 내용입니다.
+[TimeManager](../Source/Assets/Scripts/Core/TimeManager.cs)의 날짜 변경과 [TownProgressionManager](../Source/Assets/Scripts/Core/TownProgressionManager.cs)의 진행 상태에 연동했습니다. 날짜 변경에 정산과 가게, 튜토리얼 진행을 연결하는 작업을 담당했습니다.
