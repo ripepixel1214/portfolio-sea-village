@@ -4,8 +4,8 @@
 
 <table align="center" width="100%">
   <tr>
-    <th>구분</th>
-    <th width="1200">내용</th>
+    <th width="360">구분</th>
+    <th width="840">내용</th>
   </tr>
   <tr>
     <td>개발</td>
@@ -36,8 +36,8 @@
 
 <table align="center" width="100%">
   <tr>
-    <th>기능</th>
-    <th width="1200">설명</th>
+    <th width="360">기능</th>
+    <th width="840">설명</th>
   </tr>
   <tr>
     <td><a href="Docs/StorageAndPrices.md">저장과 시세</a></td>
