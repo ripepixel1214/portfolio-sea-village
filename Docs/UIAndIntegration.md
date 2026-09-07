@@ -18,7 +18,7 @@
 
 [SceneChanger](../Source/Assets/Scripts/Utilities/SceneChanger.cs)에서 페이드와 씬 전환을 처리하고, 화면 전환 뒤 [ISceneRoot](../Source/Assets/Scripts/Core/ISceneRoot.cs)의 초기화를 호출하도록 연결했습니다. [GameBootstrapper](../Source/Assets/Scripts/Core/GameBootstrapper.cs)와 [GameManager](../Source/Assets/Scripts/Core/GameManager.cs)는 매니저 준비와 씬 루트를 연결하는 코드입니다.
 
-육지의 [PlayerController](../Source/Assets/Scripts/Player/PlayerController.cs)와 항해의 [ShipController](../Source/Assets/Scripts/Ocean/Ship/ShipController.cs)에는 튜토리얼 행동 보고와 제어 제한을 연결했습니다. 항해, 이동, 고객 AI 등 공동 모듈 전체를 단독 구현한 것은 아닙니다. 저장 복사와 진행 연동을 수정한 파일도 원래 구조를 따라 확인할 수 있도록 함께 수록했습니다.
+육지의 [PlayerController](../Source/Assets/Scripts/Player/PlayerController.cs)와 항해의 [ShipController](../Source/Assets/Scripts/Ocean/Ship/ShipController.cs)에는 튜토리얼 행동 보고와 제어 제한을 연결했습니다. 항해, 이동, 고객 AI는 공동 모듈이며, 저장 복사와 진행 연동을 수정했습니다.
 
 ## 오디오와 시각 피드백
 

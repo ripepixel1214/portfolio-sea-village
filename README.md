@@ -18,7 +18,7 @@
 
 ## 구현 상세와 코드
 
-| 확인할 내용 | 설명 |
+| 기능 | 설명 |
 | --- | --- |
 | [저장과 시세](Docs/StorageAndPrices.md) | 스냅샷, 버퍼 수명, 저장 실패 처리, 캐시 갱신, 측정 자료 |
 | [가게 운영과 거래](Docs/ShopSystems.md) | 직원, 재고, 판매 정산, 구매와 판매 UI, 제작과 교환 |
@@ -26,6 +26,7 @@
 | [UI와 씬 연동](Docs/UIAndIntegration.md) | 패널 수명, 인벤토리 표시, 입력 연결, 오디오와 외곽선 |
 | [데이터 제작과 빌드 도구](Docs/Tools.md) | Sheets 다운로드, CSV 검증과 에셋 변환, 자동 빌드 |
 | [전체 코드 목록](Docs/CodeIndex.md) | 기능별 파일 탐색 |
+| [소스 출처](Docs/SourceMap.md) | 원본 경로, 기준 커밋과 공동 작업 |
 
 ## 플레이 영상
 
@@ -52,5 +53,3 @@ https://github.com/user-attachments/assets/323db34d-44cc-488f-b7ee-f24b2a54848d
 https://github.com/user-attachments/assets/7d8ccc65-6963-42f6-9d65-13b7b26946dc
 
 </td><td width="15%"></td></tr></table>
-
-[공개 범위와 권리 안내](NOTICE.md)
