@@ -2,12 +2,28 @@
 
 여러 마을을 항해하며 지역별 시세에 맞춰 물건을 거래하고, 직접 가게를 운영해 자산을 늘리는 2D 무역 경영 시뮬레이션입니다.
 
-| 구분 | 내용 |
-| :---: | :---: |
-| 개발 | 2025.09~진행 중, 출시 예정 |
-| 팀 | 6명 |
-| 환경 | Unity 6, C# |
-| 담당 | 저장과 경제 시스템, 가게 운영, 거래 UI, 튜토리얼, 데이터 제작 도구 |
+<table align="center">
+  <tr>
+    <th>구분</th>
+    <th>내용</th>
+  </tr>
+  <tr>
+    <td>개발</td>
+    <td>2025.09~진행 중, 출시 예정</td>
+  </tr>
+  <tr>
+    <td>팀</td>
+    <td>6명</td>
+  </tr>
+  <tr>
+    <td>환경</td>
+    <td>Unity 6, C#</td>
+  </tr>
+  <tr>
+    <td>담당</td>
+    <td>저장과 경제 시스템, 가게 운영, 거래 UI, 튜토리얼, 데이터 제작 도구</td>
+  </tr>
+</table>
 
 ## 주요 기여
 
@@ -18,15 +34,40 @@
 
 ## 구현 상세와 코드
 
-| 기능 | 설명 |
-| :---: | :---: |
-| [저장과 시세](Docs/StorageAndPrices.md) | 스냅샷, 버퍼 수명, 저장 실패 처리, 캐시 갱신, 측정 자료 |
-| [가게 운영과 거래](Docs/ShopSystems.md) | 직원, 재고, 판매 정산, 구매와 판매 UI, 제작과 교환 |
-| [튜토리얼과 게임 진행](Docs/Progression.md) | 행동 신호, 진행 복원, 구제 조건, 이벤트와 날짜 정산 |
-| [UI와 씬 연동](Docs/UIAndIntegration.md) | 패널 수명, 인벤토리 표시, 입력 연결, 오디오와 외곽선 |
-| [데이터 제작과 빌드 도구](Docs/Tools.md) | Sheets 다운로드, CSV 검증과 에셋 변환, 자동 빌드 |
-| [전체 코드 목록](Docs/CodeIndex.md) | 기능별 파일 탐색 |
-| [소스 출처](Docs/SourceMap.md) | 원본 경로, 기준 커밋과 공동 작업 |
+<table align="center">
+  <tr>
+    <th>기능</th>
+    <th>설명</th>
+  </tr>
+  <tr>
+    <td><a href="Docs/StorageAndPrices.md">저장과 시세</a></td>
+    <td>스냅샷, 버퍼 수명, 저장 실패 처리, 캐시 갱신, 측정 자료</td>
+  </tr>
+  <tr>
+    <td><a href="Docs/ShopSystems.md">가게 운영과 거래</a></td>
+    <td>직원, 재고, 판매 정산, 구매와 판매 UI, 제작과 교환</td>
+  </tr>
+  <tr>
+    <td><a href="Docs/Progression.md">튜토리얼과 게임 진행</a></td>
+    <td>행동 신호, 진행 복원, 구제 조건, 이벤트와 날짜 정산</td>
+  </tr>
+  <tr>
+    <td><a href="Docs/UIAndIntegration.md">UI와 씬 연동</a></td>
+    <td>패널 수명, 인벤토리 표시, 입력 연결, 오디오와 외곽선</td>
+  </tr>
+  <tr>
+    <td><a href="Docs/Tools.md">데이터 제작과 빌드 도구</a></td>
+    <td>Sheets 다운로드, CSV 검증과 에셋 변환, 자동 빌드</td>
+  </tr>
+  <tr>
+    <td><a href="Docs/CodeIndex.md">전체 코드 목록</a></td>
+    <td>기능별 파일 탐색</td>
+  </tr>
+  <tr>
+    <td><a href="Docs/SourceMap.md">소스 출처</a></td>
+    <td>원본 경로, 기준 커밋과 공동 작업</td>
+  </tr>
+</table>
 
 ## 플레이 영상
 
