@@ -2,7 +2,7 @@
 
 [프로젝트](../README.md) / [소스 출처](SourceMap.md)
 
-담당 기능의 구현 파일과 연결에 필요한 공동 코드를 기능별로 정리했습니다. 파일별 담당 범위는 소스 출처에 기록했습니다.
+저장과 시세는 [저장 코드와 측정 결과](StorageAndPrices.md), 튜토리얼은 [진행과 복원](Progression.md)에서 주요 파일을 볼 수 있습니다.
 
 ## 빌드와 개발 도구
 
@@ -56,7 +56,7 @@
 - [Assets/Scripts/UI/Slots/StaffOfferUI.cs](../Source/Assets/Scripts/UI/Slots/StaffOfferUI.cs)
 - [Assets/Scripts/UI/Slots/StaffSlotUI.cs](../Source/Assets/Scripts/UI/Slots/StaffSlotUI.cs)
 
-## Editor 계약 테스트
+## 에디터에서 실행하는 계약 테스트
 
 - [Assets/Editor/Player/Tests/ItemInformationViewPolicyTests.cs](../Source/Assets/Editor/Player/Tests/ItemInformationViewPolicyTests.cs)
 - [Assets/Editor/Player/Tests/PlayerGenderContractTests.cs](../Source/Assets/Editor/Player/Tests/PlayerGenderContractTests.cs)
@@ -260,7 +260,7 @@
 - [Assets/Scripts/Event/Services/IStatService.cs](../Source/Assets/Scripts/Event/Services/IStatService.cs)
 - [Assets/Scripts/Event/Services/IUIService.cs](../Source/Assets/Scripts/Event/Services/IUIService.cs)
 
-## 공동 모듈 연동
+## 항해, 선박과 고객 구매
 
 - [Assets/Scripts/NPC/Customer/Purchase/CustomerPurchaseLogic.cs](../Source/Assets/Scripts/NPC/Customer/Purchase/CustomerPurchaseLogic.cs)
 - [Assets/Scripts/NPC/Customer/Visit/CustomerVisitPresentation.cs](../Source/Assets/Scripts/NPC/Customer/Visit/CustomerVisitPresentation.cs)

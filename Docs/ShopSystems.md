@@ -4,40 +4,40 @@
 
 ## 마을별 가게 상태
 
-마을을 떠나도 직원, 진열 재고와 정산 내역이 유지돼야 하므로, 화면 오브젝트가 아닌 [PlayerShopManager](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopManager.cs)에서 마을별 상태를 관리하도록 했습니다. 외부에는 읽기 전용 상태를 제공하고 변경은 건설, 업그레이드, 직원 배치, 진열 명령으로 요청하도록 구성했습니다.
+마을을 떠나도 직원, 진열 재고와 정산 내역이 남아 있어야 했습니다. 화면을 닫아도 상태를 유지하도록 [PlayerShopManager](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopManager.cs)에 마을별 데이터를 뒀습니다. 화면은 상태를 읽고 건설, 업그레이드, 직원 배치나 진열을 매니저에 요청합니다.
 
 - [PlayerShopStateByTown](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopStateByTown.cs): 마을별 가게 상태
-- [PlayerShopStateReadOnly](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopStateReadOnly.cs): 외부 조회 경계
+- [PlayerShopStateReadOnly](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopStateReadOnly.cs): 화면에서 가게 상태를 읽을 때 사용
 - [PlayerShopTownProcessor](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopTownProcessor.cs): 가게 구매와 업그레이드 조건
 - [가게 UI](../Source/Assets/Scripts/UI/Panels/PlayerShop/): 건설, 진열, 재고와 직원 화면
 
 ## 직원 고용과 배치
 
-[StaffProfile](../Source/Assets/Scripts/Core/PlayerShop/StaffProfile.cs)의 고용 상태와 마을별 역할 배치를 분리했습니다. `TryHireStaff`, `TryAssignStaff`에서 비용과 배치 조건을 확인하고, [StaffRules](../Source/Assets/Scripts/Core/PlayerShop/StaffRules.cs)에서 역할별 효과를 계산하도록 했습니다. 직원 화면은 Manager API를 통해 상태를 변경하도록 연결했습니다.
+직원 고용은 [StaffProfile](../Source/Assets/Scripts/Core/PlayerShop/StaffProfile.cs)에 기록하고, 어느 마을에서 어떤 역할을 맡는지는 따로 관리합니다. 직원 화면에서 `TryHireStaff`나 `TryAssignStaff`로 요청하면 매니저가 비용과 배치 조건을 확인합니다. 배치 효과는 [StaffRules](../Source/Assets/Scripts/Core/PlayerShop/StaffRules.cs)에서 계산합니다.
 
 ## 판매 확정과 정산
 
-`TryRecordSaleBatch`에서 한 고객의 구매 항목을 아이템별로 합산한 뒤 재고, 구매 수량과 누적 금액 범위를 검사합니다. 검사가 끝나면 재고와 판매 내역을 반영하고 화면에 변경을 알리도록 했습니다. 반복 항목은 Dictionary로 합치지만 거래 전체에는 항목 순회와 검증이 필요합니다.
+한 고객이 같은 품목을 여러 번 사면 `TryRecordSaleBatch`에서 Dictionary로 수량을 합칩니다. 전체 구매 항목의 재고, 수량과 누적 금액이 유효한지 확인한 뒤 재고와 판매 내역을 바꾸고 화면에 알립니다.
 
-플레이어가 있는 마을에서는 고객 구매 결과를 가게에 반영하고, 다른 마을은 `HandleDayChanged`와 `SimulateOneDay`에서 미처리 날짜의 판매를 계산합니다. 마지막 처리 날짜를 기준으로 진행하며, 정산금 수령은 `TryCollectSettlement`로 분리했습니다.
+플레이어가 있는 마을은 고객이 구매할 때 판매를 기록합니다. 다른 마을은 날짜가 바뀔 때 `HandleDayChanged`와 `SimulateOneDay`에서 마지막으로 처리한 날 이후의 판매를 계산합니다. 정산금은 `TryCollectSettlement`로 받습니다.
 
 - [판매 요청](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopSaleRequest.cs), [판매 결과](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopSaleResult.cs)
 - [정산 내역](../Source/Assets/Scripts/Core/PlayerShop/PlayerShopSalesRecord.cs), [정산 화면](../Source/Assets/PlayerShopSettlementPanel.cs)
-- [고객 구매 연동](../Source/Assets/Scripts/NPC/Customer/Purchase/CustomerPurchaseLogic.cs): 팀 공동 모듈의 가게 판매 연결 코드
+- [고객 구매 연동](../Source/Assets/Scripts/NPC/Customer/Purchase/CustomerPurchaseLogic.cs): 고객이 구매한 물건을 가게 재고와 판매 내역에 반영
 
-고객 AI와 이동 전체가 아닌 가게 상태와 구매 결과의 연결을 담당했습니다.
+팀의 고객 코드에서 가게 상태와 구매 결과를 연결하는 부분을 맡았습니다.
 
-이벤트에서 상점 NPC가 필요하면 [EventNpcRuntime](../Source/Assets/Scripts/Event/Runtime/EventNpcRuntime.cs)이 [상점 배치 지점](../Source/Assets/Scripts/Event/Runtime/EventNpcShopSpawnPoint.cs)과 연결된 NPC를 준비합니다. [상점 NPC 표시](../Source/Assets/Scripts/Event/Runtime/EventNpcShopVisual.cs)에서 외형과 말풍선 위치를 설정합니다.
+이벤트에서 상점 NPC가 필요하면 [EventNpcRuntime](../Source/Assets/Scripts/Event/Runtime/EventNpcRuntime.cs)이 [상점 배치 지점](../Source/Assets/Scripts/Event/Runtime/EventNpcShopSpawnPoint.cs)에 맞는 NPC를 준비합니다. 외형과 말풍선 위치는 [EventNpcShopVisual](../Source/Assets/Scripts/Event/Runtime/EventNpcShopVisual.cs)에서 정합니다.
 
 ## 물건 구매와 판매 UI
 
-[ShopModel](../Source/Assets/Scripts/UI/Panels/Shop/MVP/ShopModel.cs)에 원본 재고와 선택 수량을 분리했습니다. 수량을 바꿀 때 허용 재고와 구매 무게를 검사하고 `OnDataChanged`로 표시를 갱신합니다. [PurchasePresenter](../Source/Assets/Scripts/UI/Panels/Shop/MVP/PurchasePresenter.cs)와 [SellPresenter](../Source/Assets/Scripts/UI/Panels/Shop/MVP/SellPresenter.cs)가 각각 구매와 판매 화면을 연결합니다.
+[ShopModel](../Source/Assets/Scripts/UI/Panels/Shop/MVP/ShopModel.cs)에서 현재 재고와 플레이어가 고른 수량을 따로 관리했습니다. 수량이 바뀌면 재고 한도와 구매 무게를 확인하고 `OnDataChanged`로 화면을 갱신합니다.
 
-공통 모델을 사용하되 구매의 무게 제한과 판매의 출처 인벤토리처럼 서로 다른 조건은 유지했습니다.
+[PurchasePresenter](../Source/Assets/Scripts/UI/Panels/Shop/MVP/PurchasePresenter.cs)와 [SellPresenter](../Source/Assets/Scripts/UI/Panels/Shop/MVP/SellPresenter.cs)는 같은 모델을 씁니다. 구매는 무게 한도를 확인하고, 판매는 물건을 가져올 인벤토리를 지정합니다.
 
 ## 제작, 교환과 강화
 
-화면 입력과 실행 규칙을 분리해 패널에서 처리 결과와 실패 사유를 받아 표시하도록 했습니다.
+화면에서 받은 입력은 아래 실행 코드에 넘깁니다. 처리가 끝나면 화면에서 결과나 실패 이유를 보여줍니다.
 
 | 기능 | 실행 코드 |
 | --- | --- |
@@ -48,4 +48,4 @@
 | 공통 아이템 소모와 복구 | [InventoryTransaction](../Source/Assets/Scripts/Core/Services/SpecialShop/InventoryTransaction.cs) |
 | 보상 해금과 지급 | [DollUnlockPolicy](../Source/Assets/Scripts/Core/Services/SpecialShop/DollUnlockPolicy.cs), [DollRewardProcessor](../Source/Assets/Scripts/Core/Services/SpecialShop/DollRewardProcessor.cs) |
 
-제작 코드에는 재료 소모 도중 또는 결과물 지급 실패 시 이미 소모한 재료를 되돌리는 경로를 구현했습니다.
+재료를 빼는 도중 문제가 생기거나 결과물을 줄 수 없으면, 제작에 이미 쓴 재료를 돌려주게 했습니다.
