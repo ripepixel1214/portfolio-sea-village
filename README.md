@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td>개발</td>
-    <td>2025.09~진행 중, 출시 예정</td>
+    <td>2025.09~2026.09</td>
   </tr>
   <tr>
     <td>팀</td>
@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <td>환경</td>
-    <td>Unity 6, C#</td>
+    <td>Unity 6, C# / Android</td>
   </tr>
   <tr>
     <td>담당</td>
