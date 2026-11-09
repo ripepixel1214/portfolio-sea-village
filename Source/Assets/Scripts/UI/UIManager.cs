@@ -184,6 +184,9 @@ namespace SeaVillage.UI
 
         public T OpenPanel<T>() where T : UIPanel
         {
+            if (DialogueInputLock.IsActive)
+                return null;
+
             Type panelType = typeof(T);
             bool useContextParenting = typeof(IContextualPanel).IsAssignableFrom(panelType);
             UIPanel ownerPanel = _currentActivePanel;
@@ -201,6 +204,7 @@ namespace SeaVillage.UI
                 Transform parent = useContextParenting ? ResolveSpawnParent(ownerPanel) : panelRoot;
                 GameObject instance = Instantiate(prefab, parent);
                 instance.name = prefab.name;
+                parent?.GetComponentInParent<SafeAreaCanvas>()?.RefreshTargets();
                 T panelComponent = instance.GetComponent<T>();
 
                 if (panelComponent == null)

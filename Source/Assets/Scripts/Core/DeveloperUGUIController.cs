@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 using SeaVillage.Player;
 using SeaVillage.Data;
-using SeaVillage.Event;
 using SeaVillage.NPC.Components;
 using SeaVillage.Utilities;
 
@@ -17,7 +19,7 @@ namespace SeaVillage.Core
     /// </summary>
     public class DeveloperUGUIController : MonoBehaviour
     {
-        private const KeyCode ToggleKey = KeyCode.F1;
+        private const Key ToggleKey = Key.F1;
 
         private static readonly string[] DebugSceneNames =
         {
@@ -47,6 +49,7 @@ namespace SeaVillage.Core
         private bool _shouldPersistTownLoveLevels;
         private bool _shouldPersistShipMoveSpeed;
         private bool _targetShipInventory;
+        private string _lastAffinitySceneName = string.Empty;
 
         private float _persistedDayDuration = 30f;
         private float _persistedMoveSpeedMultiplier = 1f;
@@ -58,7 +61,7 @@ namespace SeaVillage.Core
         private InventoryManager _inventoryManager;
         private PlayerController _playerController;
         private PlayerStatManager _playerStatManager;
-        private EventManager _eventManager;
+        private TownProgressionManager _townProgressionManager;
         private SeaVillage.Ocean.ShipController _shipController;
 
         private GameObject _panelRoot;
@@ -85,6 +88,7 @@ namespace SeaVillage.Core
         private Text _inventoryWeightText;
         private Text _shipWeightText;
         private Text _shipCapacityText;
+        private Text _shipFoodText;
 
         private Transform _townLoveLevelRoot;
         private readonly Dictionary<string, int> _persistedTownLoveLevelValues = new Dictionary<string, int>(System.StringComparer.OrdinalIgnoreCase);
@@ -125,7 +129,7 @@ namespace SeaVillage.Core
 
         private void Update()
         {
-            if (Input.GetKeyDown(ToggleKey))
+            if (Keyboard.current != null && Keyboard.current[ToggleKey].wasPressedThisFrame)
                 SetVisible(!_isVisible);
 
             RefreshReferences();
@@ -160,7 +164,7 @@ namespace SeaVillage.Core
 
             var eventSystem = new GameObject("EventSystem");
             eventSystem.AddComponent<EventSystem>();
-            eventSystem.AddComponent<StandaloneInputModule>();
+            eventSystem.AddComponent<InputSystemUIInputModule>();
             DontDestroyOnLoad(eventSystem);
         }
 
@@ -202,10 +206,19 @@ namespace SeaVillage.Core
 
             _playerStatManager = PlayerStatManager.HasInstance ? PlayerStatManager.Instance : null;
 
-            EventManager newEventManager = EventManager.Instance;
-            if (_eventManager != newEventManager)
+            TownProgressionManager newTownProgressionManager = TownProgressionManager.HasInstance
+                ? TownProgressionManager.Instance
+                : null;
+            if (_townProgressionManager != newTownProgressionManager)
             {
-                _eventManager = newEventManager;
+                _townProgressionManager = newTownProgressionManager;
+                ApplyPersistedTownLoveLevels();
+            }
+
+            string activeSceneName = SceneManager.GetActiveScene().name;
+            if (!string.Equals(_lastAffinitySceneName, activeSceneName, System.StringComparison.Ordinal))
+            {
+                _lastAffinitySceneName = activeSceneName;
                 ApplyPersistedTownLoveLevels();
             }
 
@@ -232,7 +245,9 @@ namespace SeaVillage.Core
             if (_shouldPersistShipMoveSpeed && _shipController != null)
                 _persistedShipMoveSpeed = _shipController.MoveSpeed;
 
-            if (_shouldPersistTownLoveLevels && _eventManager != null)
+            if (_shouldPersistTownLoveLevels
+                && _townProgressionManager != null
+                && _townProgressionManager.IsInitialized)
             {
                 for (int i = 0; i < TownAffinityOrder.Length; i++)
                 {
@@ -274,15 +289,15 @@ namespace SeaVillage.Core
 
         private void ApplyPersistedTownLoveLevels()
         {
-            if (!_shouldPersistTownLoveLevels || _eventManager == null)
+            if (!_shouldPersistTownLoveLevels
+                || _townProgressionManager == null
+                || !_townProgressionManager.IsInitialized)
                 return;
 
             foreach (KeyValuePair<string, int> pair in _persistedTownLoveLevelValues)
             {
-                int currentValue = GetTownLoveLevel(pair.Key);
-                int delta = pair.Value - currentValue;
-                if (delta != 0)
-                    _eventManager.ChangeStat(TownKeyUtility.ToLoveLevelKey(pair.Key), delta);
+                if (TownKeyUtility.TryParse(pair.Key, out TownKey townKey))
+                    _townProgressionManager.SetAffinity(townKey, pair.Value);
             }
         }
 
@@ -335,14 +350,20 @@ namespace SeaVillage.Core
 
         private bool WasOutsideClick(EventSystem eventSystem)
         {
-            if (Input.GetMouseButtonDown(0))
-                return !IsScreenPositionInsideDeveloperPanel(eventSystem, Input.mousePosition);
+            Mouse mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasPressedThisFrame
+                && !IsScreenPositionInsideDeveloperPanel(eventSystem, mouse.position.ReadValue()))
+                return true;
 
-            for (int i = 0; i < Input.touchCount; i++)
+            Touchscreen touchscreen = Touchscreen.current;
+            if (touchscreen == null)
+                return false;
+
+            for (int i = 0; i < touchscreen.touches.Count; i++)
             {
-                Touch touch = Input.GetTouch(i);
-                if (touch.phase == TouchPhase.Began
-                    && !IsScreenPositionInsideDeveloperPanel(eventSystem, touch.position))
+                var touch = touchscreen.touches[i];
+                if (touch.press.wasPressedThisFrame
+                    && !IsScreenPositionInsideDeveloperPanel(eventSystem, touch.position.ReadValue()))
                     return true;
             }
 
@@ -530,6 +551,8 @@ namespace SeaVillage.Core
             _inventoryWeightText = CreateText("InventoryWeightText", parent, 18, TextAnchor.MiddleLeft);
             _shipWeightText = CreateText("ShipWeightText", parent, 18, TextAnchor.MiddleLeft);
             _shipCapacityText = CreateText("ShipCapacityText", parent, 18, TextAnchor.MiddleLeft);
+            _shipFoodText = CreateText("ShipFoodText", parent, 18, TextAnchor.MiddleLeft);
+            CreateButton(parent, "Refill Ship Food", RefillShipFood);
 
             CreateSectionTitle(parent, "Town Affinity");
             _townLoveLevelRoot = CreateVerticalGroup("TownAffinityRoot", parent, 8f);
@@ -623,12 +646,16 @@ namespace SeaVillage.Core
                     : "Ship Weight: N/A";
 
                 _shipCapacityText.text = $"Ship Max Capacity: {_inventoryManager.ShipMaxCapacity:F1}";
+                _shipFoodText.text =
+                    $"Ship Food: {_inventoryManager.ShipFoodStorage:F1}/{_inventoryManager.ShipFoodCapacity:F1} " +
+                    $"({_inventoryManager.ShipFoodDays} days)";
             }
             else
             {
                 _inventoryWeightText.text = "Player Weight: N/A";
                 _shipWeightText.text = "Ship Weight: N/A";
                 _shipCapacityText.text = "Ship Max Capacity: N/A";
+                _shipFoodText.text = "Ship Food: N/A";
             }
 
             RefreshTownLoveLevelControls();
@@ -786,6 +813,29 @@ namespace SeaVillage.Core
             RefreshRuntimeTexts();
         }
 
+        private void RefillShipFood()
+        {
+            if (_inventoryManager == null || !_inventoryManager.IsShipInventoryReady)
+            {
+                SetMessage("Ship inventory not ready.");
+                return;
+            }
+
+            float refillAmount = _inventoryManager.ShipFoodCapacity - _inventoryManager.ShipFoodStorage;
+            if (refillAmount <= 0f)
+            {
+                SetMessage("Ship food is already full.");
+                RefreshRuntimeTexts();
+                return;
+            }
+
+            bool refilled = _inventoryManager.TryAddShipFood(refillAmount);
+            SetMessage(refilled
+                ? $"Refilled Ship Food to {_inventoryManager.ShipFoodStorage:F1}/{_inventoryManager.ShipFoodCapacity:F1}"
+                : "Refill Ship Food failed.");
+            RefreshRuntimeTexts();
+        }
+
         private void ToggleTargetInventory()
         {
             _targetShipInventory = !_targetShipInventory;
@@ -843,26 +893,27 @@ namespace SeaVillage.Core
 
         private int GetTownLoveLevel(string townName)
         {
-            if (_eventManager == null || string.IsNullOrWhiteSpace(townName))
+            if (_townProgressionManager == null
+                || !_townProgressionManager.IsInitialized
+                || !TownKeyUtility.TryParse(townName, out TownKey townKey))
                 return 0;
 
-            return _eventManager.GetStat(TownKeyUtility.ToLoveLevelKey(townName));
+            return _townProgressionManager.GetAffinity(townKey);
         }
 
         private void OnTownLoveLevelChanged(string townName, float value)
         {
-            if (_eventManager == null || string.IsNullOrWhiteSpace(townName))
+            if (string.IsNullOrWhiteSpace(townName)
+                || !TownKeyUtility.TryParse(townName, out TownKey townKey))
                 return;
 
             int targetLoveLevel = TownAffinityRules.Clamp(Mathf.RoundToInt(value));
-            int currentLoveLevel = GetTownLoveLevel(townName);
-            int delta = targetLoveLevel - currentLoveLevel;
 
             _shouldPersistTownLoveLevels = true;
             _persistedTownLoveLevelValues[townName] = targetLoveLevel;
 
-            if (delta != 0)
-                _eventManager.ChangeStat(TownKeyUtility.ToLoveLevelKey(townName), delta);
+            if (_townProgressionManager != null && _townProgressionManager.IsInitialized)
+                _townProgressionManager.SetAffinity(townKey, targetLoveLevel);
 
             if (_townLoveLevelValueTexts.TryGetValue(townName, out Text valueText))
                 valueText.text = targetLoveLevel.ToString(CultureInfo.InvariantCulture);

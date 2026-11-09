@@ -33,8 +33,14 @@ namespace SeaVillage.Data
     [CreateAssetMenu(fileName = nameof(StaffCatalog), menuName = "SeaVillage/Staff Catalog")]
     public class StaffCatalog : ScriptableObject
     {
+        [Header("기본 계산원 프로필")]
+        [SerializeField] private Sprite _malePlayerIcon;
+        [SerializeField] private Sprite _femalePlayerIcon;
+
         [SerializeField] private List<StaffDefinition> _definitions = new List<StaffDefinition>();
 
+        public Sprite MalePlayerIcon => _malePlayerIcon;
+        public Sprite FemalePlayerIcon => _femalePlayerIcon;
         public IReadOnlyList<StaffDefinition> All => _definitions;
 
         /// <summary>인덱스 위치의 직원 정의, 범위를 벗어나면 false</summary>

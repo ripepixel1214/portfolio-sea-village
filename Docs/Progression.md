@@ -20,7 +20,9 @@
 
 ## 진행 복원과 실행 계약
 
-[TutorialProgressSaveData](../Source/Assets/Scripts/Data/TutorialProgressSaveData.cs)에 현재 단계, 대사와 조건 진행도를 보관합니다. [TutorialDefinitionValidator](../Source/Assets/Editor/Tutorial/TutorialDefinitionValidator.cs)와 [TutorialLegacyContractTests](../Source/Assets/Editor/Tutorial/Tests/TutorialLegacyContractTests.cs)에서 데이터와 실행 계약을 확인하는 경로를 제공합니다.
+[TutorialProgressSaveData](../Source/Assets/Scripts/Data/TutorialProgressSaveData.cs)에 현재 단계, 대사, 조건 진행도와 적용된 연출 ID를 보관합니다. 로드 후 [TutorialController](../Source/Assets/Scripts/Core/Tutorial/TutorialController.cs)는 씬과 UI가 준비되면 [TutorialEffectExecutor](../Source/Assets/Scripts/Core/Tutorial/TutorialEffectExecutor.cs)로 입력 제한과 안내 연출을 복원합니다. [TutorialUIRecovery](../Source/Assets/Scripts/UI/Tutorial/TutorialUIRecovery.cs)는 현재 단계와 조건 진행도에 맞는 화면을 다시 엽니다.
+
+복원 중 화면을 열면서 발생한 이벤트는 [TutorialManager](../Source/Assets/Scripts/Core/Tutorial/TutorialManager.cs)에서 걸러 진행 조건을 소비하지 않도록 했습니다. [TutorialRuntime](../Source/Assets/Scripts/Core/Tutorial/TutorialRuntime.cs)은 이미 입력이나 조건을 기다리던 상태에서 대사를 다시 표시해도 기존 진행도를 유지합니다. [정의 검증](../Source/Assets/Editor/Tutorial/TutorialDefinitionValidator.cs)과 [계약 테스트](../Source/Assets/Editor/Tutorial/Tests/TutorialContractTests.cs)에 대사와 단계 계약, 진행도 복원 사례를 모았습니다.
 
 ## 진행 불가 상황의 구제 조건
 
@@ -33,6 +35,10 @@
 [EventExecutionContext](../Source/Assets/Scripts/Event/Runtime/EventExecutionContext.cs)에 현재 단계와 다음 단계를 보관하고, [EventCommand](../Source/Assets/Scripts/Event/EventCommand.cs)와 [서비스 인터페이스](../Source/Assets/Scripts/Event/Services/)를 통해 대화, 선택지, 상태 변경과 UI를 연결했습니다. [EventRuntimeStore](../Source/Assets/Scripts/Event/EventRuntimeStore.cs)는 실행 상태를 관리합니다.
 
 [BulletinBoardService](../Source/Assets/Scripts/Event/BoardQuest/BulletinBoardService.cs)는 마을별 퀘스트 목록과 화면 슬롯을 관리합니다. [BulletinBoardPanel](../Source/Assets/Scripts/UI/Panels/BulletinBoardPanel.cs)에서 표시하고 실제 이벤트 진행으로 연결했습니다. 공동 수정된 이벤트 코드의 파일별 이력은 [소스 출처](SourceMap.md)에 함께 기록했습니다.
+
+[SaveData](../Source/Assets/Scripts/Data/SaveData.cs)는 동시에 활성화된 퀘스트 ID와 퀘스트별 시퀀스 단계, 마을을 저장합니다. [SaveLoadManager](../Source/Assets/Scripts/Data/SaveLoadManager.cs)는 활성 목록이 없는 저장 데이터에서 이전의 단일 ID 필드를 읽습니다. [EventSequenceEntryResolver](../Source/Assets/Scripts/Event/Runtime/EventSequenceEntryResolver.cs)는 시퀀스와 NPC 정의를 바탕으로 현재 마을에서 이어갈 진입 단계를 찾습니다.
+
+[EventNpcRuntime](../Source/Assets/Scripts/Event/Runtime/EventNpcRuntime.cs)은 이벤트 진행에 필요한 NPC를 찾거나 배치하고 대화, 연출과 상호작용을 연결합니다. NPC 종류와 배치 지점은 [EventNpcCatalog](../Source/Assets/Scripts/Event/EventNpcCatalog.cs)와 [EventNpcSpawnPoint](../Source/Assets/Scripts/Event/EventNpcSpawnPoint.cs)에서 확인할 수 있습니다.
 
 ## 날짜 진행과 항구 정산
 

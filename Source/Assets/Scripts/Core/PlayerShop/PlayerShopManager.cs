@@ -10,6 +10,14 @@ namespace SeaVillage.Core
     /// <summary>PlayerShop 운영 상태를 마을 단위로 관리하는 클래스</summary>
     public class PlayerShopManager : Singleton<PlayerShopManager>
     {
+        private static readonly StaffProfile DefaultCashierProfile = new StaffProfile
+        {
+            staffId = 0,
+            intelligence = 0,
+            charm = 0,
+            isTownHired = false,
+        };
+
         [Header("PlayerShop Rules")]
         [SerializeField] private int _level1SlotCapacity = 5;
         [SerializeField] private int _level2SlotCapacity = 7;
@@ -204,8 +212,9 @@ namespace SeaVillage.Core
             if (state == null)
                 return null;
 
-            int staffId = role == StaffRole.Cashier ? state.cashierStaffId : state.salesStaffId;
-            StaffProfile profile = GetAssignedStaffProfile(staffId);
+            StaffProfile profile = role == StaffRole.Cashier
+                ? GetCashierProfile(state)
+                : GetAssignedStaffProfile(state.salesStaffId);
             return profile != null ? new StaffInfo(profile) : null;
         }
 
@@ -278,7 +287,7 @@ namespace SeaVillage.Core
             if (state == null || !state.IsBuilt)
                 return StaffEffectReadOnly.Empty;
 
-            StaffProfile cashierProfile = GetAssignedStaffProfile(state.cashierStaffId);
+            StaffProfile cashierProfile = GetCashierProfile(state);
             StaffProfile salesProfile = GetAssignedStaffProfile(state.salesStaffId);
 
             return new StaffEffectReadOnly(
@@ -841,7 +850,7 @@ namespace SeaVillage.Core
                 ? null
                 : new PlayerShopStateReadOnly(
                     state,
-                    GetAssignedStaffProfile(state.cashierStaffId),
+                    GetCashierProfile(state),
                     GetAssignedStaffProfile(state.salesStaffId));
         }
 
@@ -1231,7 +1240,7 @@ namespace SeaVillage.Core
                 ? customerPayment - revenue
                 : StaffRules.CalculateIntelligenceBonus(
                     revenue,
-                    GetAssignedStaffProfile(state.cashierStaffId)?.intelligence ?? 0);
+                    GetCashierProfile(state)?.intelligence ?? 0);
             int tipValue = ToIntAmount(intelligenceBonus);
             int grossRevenueValue = tipValue >= 0 && CanAddAmount(revenueValue, tipValue)
                 ? revenueValue + tipValue
@@ -1599,6 +1608,14 @@ namespace SeaVillage.Core
             return _hiredStaffById.TryGetValue(staffId, out StaffProfile profile)
                 ? profile
                 : null;
+        }
+
+        private StaffProfile GetCashierProfile(PlayerShopStateByTown state)
+        {
+            if (state == null || !state.IsBuilt)
+                return null;
+
+            return GetAssignedStaffProfile(state.cashierStaffId) ?? DefaultCashierProfile;
         }
 
         private void NotifyStaffProfileChanged(int staffId)

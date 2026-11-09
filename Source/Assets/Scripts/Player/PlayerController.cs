@@ -18,11 +18,11 @@ namespace SeaVillage.Player
         private const string UIActionMapName = "UI";
         private const string IdleAnimation = "Player_Idle";
         private const string WalkAnimation = "Player_Walk";
+        private const float PlayerMoveSpeed = 3f;
 
         /// <summary>
         /// 플레이어 이동 속도는 PlayerStats의 Dex 스탯에 의해 결정
         /// </summary>
-        [SerializeField] private float playerMoveSpeed = 3f;
         [SerializeField] private float debugMoveSpeedMultiplier = 1f;
 
         private Vector2 _moveInput;
@@ -38,9 +38,9 @@ namespace SeaVillage.Player
         private bool _playerStatEventsBound;
         private bool _uiEventsBound;
 
-        public float BaseMoveSpeed => playerMoveSpeed;
+        public float BaseMoveSpeed => PlayerMoveSpeed;
         public float DebugMoveSpeedMultiplier => debugMoveSpeedMultiplier;
-        public float EffectiveMoveSpeed => playerMoveSpeed
+        public float EffectiveMoveSpeed => PlayerMoveSpeed
             * ResolveAgilitySpeedMultiplier()
             * debugMoveSpeedMultiplier
             * DollEffectPolicy.PlayerSpeedMultiplier;
@@ -69,7 +69,10 @@ namespace SeaVillage.Player
 
         private void FixedUpdate()
         {
-            if (IsCommandInputBlocked || _moveInput == Vector2.zero || UIManager.Instance.IsAnyPanelOpened)
+            if (IsCommandInputBlocked
+                || DialogueInputLock.IsActive
+                || _moveInput == Vector2.zero
+                || UIManager.Instance.IsAnyPanelOpened)
             {
                 PlayLocomotionAnimation(IdleAnimation);
                 return;
@@ -170,7 +173,7 @@ namespace SeaVillage.Player
         /// </summary>
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (IsCommandInputBlocked)
+            if (IsCommandInputBlocked || DialogueInputLock.IsActive)
             {
                 _moveInput = Vector2.zero;
                 return;
@@ -195,7 +198,7 @@ namespace SeaVillage.Player
         /// </summary>
         public void OnInventory(InputAction.CallbackContext context)
         {
-            if (IsCommandInputBlocked) return;
+            if (IsCommandInputBlocked || DialogueInputLock.IsActive) return;
 
             if (context.performed)
             {
@@ -208,7 +211,7 @@ namespace SeaVillage.Player
         /// </summary>
         public void OnPlayerInfo(InputAction.CallbackContext context)
         {
-            if (IsCommandInputBlocked) return;
+            if (IsCommandInputBlocked || DialogueInputLock.IsActive) return;
 
             if (context.performed)
             {
@@ -223,7 +226,7 @@ namespace SeaVillage.Player
         /// </summary>
         public void OnUINavigate(InputAction.CallbackContext context)
         {
-            if (IsCommandInputBlocked) return;
+            if (IsCommandInputBlocked || DialogueInputLock.IsActive) return;
 
             if (context.performed && UIManager.HasInstance && UIManager.Instance.IsAnyPanelOpened)
             {
@@ -249,7 +252,7 @@ namespace SeaVillage.Player
         /// </summary>
         public void OnUISubmit(InputAction.CallbackContext context)
         {
-            if (IsCommandInputBlocked) return;
+            if (IsCommandInputBlocked || DialogueInputLock.IsActive) return;
 
             if (context.performed && UIManager.HasInstance && UIManager.Instance.IsAnyPanelOpened)
             {
@@ -264,7 +267,7 @@ namespace SeaVillage.Player
         /// </summary>
         public void OnUICancel(InputAction.CallbackContext context)
         {
-            if (IsCommandInputBlocked) return;
+            if (IsCommandInputBlocked || DialogueInputLock.IsActive) return;
 
             if (context.performed)
                 UIManager.Instance?.CloseCurrentPanel();

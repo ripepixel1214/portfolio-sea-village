@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SeaVillage.Event.Services
 {
@@ -10,10 +11,6 @@ namespace SeaVillage.Event.Services
     {
         IEnumerator StartQuest(string questId);
 
-        IEnumerator UpdateQuest(string questId, string data);
-
-        IEnumerator CompleteQuest(string questId);
-
         /// <summary>
         /// 퀘스트 완료 상태를 즉시 기록 (동기, 이벤트 종료 등 비코루틴 컨텍스트에서 호출)
         /// </summary>
@@ -24,6 +21,21 @@ namespace SeaVillage.Event.Services
         /// </summary>
         bool IsQuestCompleted(string questId);
 
+        bool IsQuestActive(string questId);
+
+        /// <summary>
+        /// 현재 진행 중인 퀘스트 ID 목록을 반환
+        /// </summary>
+        IReadOnlyCollection<string> GetActiveQuestIds();
+
+        /// <summary>
+        /// 현재 진행 중인 퀘스트 ID를 저장 버퍼에 복사
+        /// </summary>
+        void CopyActiveQuestIdsTo(List<string> target);
+
+        /// <summary>
+        /// 구버전 호출자 호환용 첫 번째 활성 퀘스트 ID
+        /// </summary>
         string GetActiveQuestId();
     }
 }

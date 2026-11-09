@@ -110,19 +110,24 @@ namespace SeaVillage.Core
             if (!TryGetCurrentDialogue(out TutorialData dialogue, out failReason))
                 return false;
 
-            if (PlaybackState != TutorialPlaybackState.Presenting)
-            {
-                failReason = $"현재 상태에서는 대사 표시 완료를 처리할 수 없습니다: {PlaybackState}";
-                return false;
-            }
-
-            PlaybackState = dialogue.Type switch
+            TutorialPlaybackState waitingState = dialogue.Type switch
             {
                 TutorialDialogueType.Stop => TutorialPlaybackState.WaitingForInput,
                 TutorialDialogueType.Auto => TutorialPlaybackState.WaitingForAutoAdvance,
                 TutorialDialogueType.Box => TutorialPlaybackState.WaitingForTrigger,
                 _ => TutorialPlaybackState.Inactive
             };
+
+            if (PlaybackState == waitingState && waitingState != TutorialPlaybackState.Inactive)
+                return true;
+
+            if (PlaybackState != TutorialPlaybackState.Presenting)
+            {
+                failReason = $"현재 상태에서는 대사 표시 완료를 처리할 수 없습니다: {PlaybackState}";
+                return false;
+            }
+
+            PlaybackState = waitingState;
 
             if (PlaybackState != TutorialPlaybackState.Inactive)
                 return true;

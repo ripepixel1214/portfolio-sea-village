@@ -215,6 +215,11 @@ namespace SeaVillage.Core
                     () => PlayerStatManager.Instance,
                     manager => ((PlayerStatManager)manager).IsInitialized),
                 new ManagerInitializationStep(
+                    nameof(InventoryManager),
+                    () => FindAnyObjectByType<InventoryManager>(),
+                    () => InventoryManager.Instance,
+                    manager => ((InventoryManager)manager).IsShipInventoryReady),
+                new ManagerInitializationStep(
                     nameof(TownProgressionManager),
                     () => FindAnyObjectByType<TownProgressionManager>(),
                     () => TownProgressionManager.Instance,

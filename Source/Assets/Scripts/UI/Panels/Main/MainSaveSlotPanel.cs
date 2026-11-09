@@ -28,8 +28,9 @@ namespace SeaVillage.UI
             if (mainMenuController == null)
                 mainMenuController = FindFirstObjectByType<MainMenuUIController>();
 
+            InitializeSlotsForLoading();
+            SetBusy(true);
             base.OnOpen();
-            SetBusy(false);
             StartInitializeSlots();
         }
 
@@ -82,13 +83,52 @@ namespace SeaVillage.UI
 
         private async Task InitializeSlotsAsync(CancellationToken token)
         {
+            try
+            {
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    if (token.IsCancellationRequested)
+                        return;
+
+                    try
+                    {
+                        await InitializeSlotAsync(i, token);
+                    }
+                    catch (System.OperationCanceledException) when (token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    catch (System.Exception exception)
+                    {
+                        Debug.LogException(exception, this);
+                        InitializeSlotAsUnavailable(i);
+                    }
+
+                    RefreshInputState();
+                }
+            }
+            finally
+            {
+                if (!token.IsCancellationRequested && isActiveAndEnabled)
+                    SetBusy(false);
+            }
+        }
+
+        private void InitializeSlotsForLoading()
+        {
             for (int i = 0; i < slots.Length; i++)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
-                await InitializeSlotAsync(i, token);
+                if (slots[i] != null)
+                    slots[i].SetLoading(i);
             }
+        }
+
+        private void InitializeSlotAsUnavailable(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= slots.Length || slots[slotIndex] == null)
+                return;
+
+            slots[slotIndex].Initialize(slotIndex, false, "Day ??", "??");
         }
 
         /// <summary>
@@ -112,7 +152,12 @@ namespace SeaVillage.UI
 
             string day = hasSaveData ? $"Day {previewData.gameDate}" : "Day ??";
             string gold = hasSaveData ? previewData.gold + "골드" : "??";
-            slots[slotIndex].Initialize(slotIndex, hasSaveData, day, gold);
+            slots[slotIndex].Initialize(
+                slotIndex,
+                hasSaveData,
+                day,
+                gold,
+                previewData?.playerGender);
         }
 
         private void OnSlotClicked(int slotIndex, bool hasSaveData)
@@ -163,9 +208,15 @@ namespace SeaVillage.UI
         private void SetBusy(bool isBusy)
         {
             _isBusy = isBusy;
+            RefreshInputState();
+        }
+
+        private void RefreshInputState()
+        {
+            bool interactable = !_isBusy;
 
             if (closeButton != null)
-                closeButton.interactable = !isBusy;
+                closeButton.interactable = interactable;
 
             foreach (var slot in slots)
             {
@@ -174,7 +225,11 @@ namespace SeaVillage.UI
 
                 Button slotButton = slot.GetSlotButton();
                 if (slotButton != null)
-                    slotButton.interactable = !isBusy;
+                    slotButton.interactable = interactable;
+
+                Button deleteButton = slot.GetDeleteButton();
+                if (deleteButton != null)
+                    deleteButton.interactable = interactable;
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using SeaVillage.Event;
 using SeaVillage.Utilities;
 
 namespace SeaVillage.Data
@@ -44,6 +45,7 @@ namespace SeaVillage.Data
         [SerializeField] private TutorialDatabase tutorialDatabase;
         [SerializeField] private GameDatabase gameDatabase;
         [SerializeField] private SpecialEffectDatabase specialEffectDatabase;
+        [SerializeField] private EventNpcCatalog eventNpcCatalog;
         [SerializeField] private StaffCatalog staffCatalog;
         [SerializeField] private PlayerShopUpgradeCatalog playerShopUpgradeCatalog;
         [SerializeField] private SpecialShopContentCatalog specialShopContentCatalog;
@@ -61,6 +63,7 @@ namespace SeaVillage.Data
         public TutorialDatabase TutorialDatabase => tutorialDatabase;
         public GameDatabase GameDatabase => gameDatabase;
         public SpecialEffectDatabase SpecialEffectDatabase => specialEffectDatabase;
+        public EventNpcCatalog EventNpcCatalog => eventNpcCatalog;
         public StaffCatalog StaffCatalog => staffCatalog;
         public PlayerShopUpgradeCatalog PlayerShopUpgradeCatalog => playerShopUpgradeCatalog;
         public SpecialShopContentCatalog SpecialShopContentCatalog => specialShopContentCatalog;
@@ -108,6 +111,9 @@ namespace SeaVillage.Data
             
             if (specialEffectDatabase == null)
                 specialEffectDatabase = Resources.Load<SpecialEffectDatabase>(Path.Combine(RESOURCES_SO_PATH, nameof(SpecialEffectDatabase)));
+
+            if (eventNpcCatalog == null)
+                eventNpcCatalog = Resources.Load<EventNpcCatalog>(Path.Combine(RESOURCES_SO_PATH, nameof(EventNpcCatalog)));
 
             if (staffCatalog == null)
                 staffCatalog = Resources.Load<StaffCatalog>(Path.Combine(RESOURCES_SO_PATH, nameof(StaffCatalog)));
@@ -162,6 +168,9 @@ namespace SeaVillage.Data
             
             if (specialEffectDatabase == null)
                 Debug.LogWarning($"{nameof(SpecialEffectDatabase)}를 찾을 수 없습니다. {SO_FOLDER_PATH} 폴더에 {nameof(SpecialEffectDatabase)}.asset이 있는지 확인하세요.");
+
+            if (eventNpcCatalog == null)
+                Debug.LogWarning($"{nameof(EventNpcCatalog)}를 찾을 수 없습니다. {SO_FOLDER_PATH} 폴더에 {nameof(EventNpcCatalog)}.asset이 있는지 확인하세요.");
 
             if (staffCatalog == null)
                 Debug.LogWarning($"{nameof(StaffCatalog)}를 찾을 수 없습니다. {SO_FOLDER_PATH} 폴더에 {nameof(StaffCatalog)}.asset이 있는지 확인하세요.");

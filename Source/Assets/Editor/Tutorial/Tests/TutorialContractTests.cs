@@ -5,18 +5,19 @@ using SeaVillage.Core;
 using SeaVillage.Data;
 using UnityEditor;
 using UnityEngine;
+using SeaVillage.UI.Tutorial;
+using System.Reflection;
 
 namespace SeaVillage.Editor.Tests
 {
-    public static class TutorialLegacyContractTestRunner
+    public static class TutorialContractTestRunner
     {
         [MenuItem("SeaVillage/Tutorial/Run Contract Tests")]
         public static void RunFromMenu() => RunAll();
-        public static void RunFromCommandLine() => RunAll();
 
         private static void RunAll()
         {
-            var tests = new TutorialLegacyContractTests();
+            var tests = new TutorialContractTests();
             tests.Definitions_MatchCurrentDialogueDatabase();
             tests.Definitions_FollowSpreadsheetOrderWithUniqueStepIds();
             tests.Definitions_ReorderedSpreadsheetChangesRuntimeOrder();
@@ -28,12 +29,17 @@ namespace SeaVillage.Editor.Tests
             tests.Runtime_AllThirtyStepsCompleteFromDefinitions();
             tests.ControlScope_DisposeAlwaysReleasesPolicies();
             tests.ProgressSaveData_RoundTripsWithoutDataLoss();
-            Debug.Log("[TutorialContractTests] 11개 회귀 검증 통과");
+            tests.Runtime_RepeatedPresentationPreservesAllWaitingStates();
+            tests.Runtime_RepeatedPresentationPreservesPartialProgress();
+            tests.Recovery_MapsEveryStepAndSequentialBoundary();
+            tests.Recovery_DoesNotConsumePresentationEvents();
+            tests.Time_TutorialCleanupPreservesOtherPauseOwners();
+            Debug.Log("[TutorialContractTests] 16개 회귀 검증 통과");
         }
     }
 
     [TestFixture]
-    public sealed class TutorialLegacyContractTests
+    public sealed class TutorialContractTests
     {
         private const string DatabasePath = "Assets/Resources/Data/ScriptableObjects/TutorialDatabase.asset";
 
@@ -253,6 +259,113 @@ namespace SeaVillage.Editor.Tests
 
             Assert.That(TutorialInteractionPolicy.IsRestricted, Is.False);
             Assert.That(TutorialCommandInputPolicy.IsBlocked, Is.False);
+        }
+
+        [Test]
+        public void Runtime_RepeatedPresentationPreservesAllWaitingStates()
+        {
+            foreach (string step in new[] { "town.intro", "town.overview", "settlement.first_news" })
+            {
+                TutorialRuntime runtime = CreateWaitingRuntime(step);
+                TutorialPlaybackState before = runtime.PlaybackState;
+                Assert.That(runtime.NotifyCurrentDialoguePresented(out string failure), Is.True, failure);
+                Assert.That(runtime.NotifyCurrentDialoguePresented(out failure), Is.True, failure);
+                Assert.That(runtime.PlaybackState, Is.EqualTo(before));
+                Assert.That(runtime.DialogueIndex, Is.Zero);
+                Assert.That(runtime.IsStepCompleted(step), Is.False);
+            }
+        }
+
+        [Test]
+        public void Runtime_RepeatedPresentationPreservesPartialProgress()
+        {
+            TutorialRuntime runtime = CreateWaitingRuntime("trade.return_to_shop");
+            Report(runtime, TutorialEventType.UiElementActivated, TutorialTargetIds.SettlementProceed, TutorialSignalResult.ConditionProgressed);
+            Assert.That(runtime.NotifyCurrentDialoguePresented(out string failure), Is.True, failure);
+            Assert.That(runtime.ConditionProgress, Is.EqualTo(1));
+            Report(runtime, TutorialEventType.UiElementActivated, TutorialTargetIds.SettlementProceed, TutorialSignalResult.Ignored);
+            Report(runtime, TutorialEventType.InteractionCompleted, TutorialTargetIds.FoodShop, TutorialSignalResult.ConditionProgressed);
+        }
+
+        [Test]
+        public void Recovery_MapsEveryStepAndSequentialBoundary()
+        {
+            foreach (TutorialStepDefinition step in CreateRepository().AllSteps)
+            {
+                foreach (TutorialDialogueDefinition dialogue in step.Dialogues)
+                {
+                    for (int progress = 0; progress < System.Math.Max(1, dialogue.RequiredEvents.Count); progress++)
+                        Assert.DoesNotThrow(() => TutorialUIRecovery.GetView(step.StepId, progress));
+                }
+            }
+            Assert.That(TutorialUIRecovery.GetView("trade.return_to_shop", 0), Is.EqualTo(TutorialRecoveryView.Settlement));
+            Assert.That(TutorialUIRecovery.GetView("trade.return_to_shop", 1), Is.EqualTo(TutorialRecoveryView.None));
+            Assert.That(TutorialUIRecovery.GetView("trade.return_to_shop", 2), Is.EqualTo(TutorialRecoveryView.Shop));
+            Assert.That(TutorialUIRecovery.GetView("ship.start_sailing", 0), Is.EqualTo(TutorialRecoveryView.Inventory));
+            Assert.That(TutorialUIRecovery.GetView("ship.start_sailing", 1), Is.EqualTo(TutorialRecoveryView.Ship));
+            Assert.That(TutorialUIRecovery.GetView("ship.start_sailing", 2), Is.EqualTo(TutorialRecoveryView.Sail));
+            Assert.That(TutorialUIRecovery.GetView("trade.select_and_graph", 1), Is.EqualTo(TutorialRecoveryView.PurchaseInformation));
+            Assert.That(TutorialUIRecovery.GetView("trade.confirm_purchase", 0), Is.EqualTo(TutorialRecoveryView.PurchaseMessage));
+            Assert.That(TutorialUIRecovery.GetView("ship.confirm_recharge", 0), Is.EqualTo(TutorialRecoveryView.FoodMessage));
+        }
+
+        [Test]
+        public void Recovery_DoesNotConsumePresentationEvents()
+        {
+            var host = new GameObject("Tutorial recovery event test");
+            host.SetActive(false);
+            try
+            {
+                var manager = host.AddComponent<TutorialManager>();
+                var controller = host.AddComponent<TutorialController>();
+                TutorialRuntime runtime = CreateWaitingRuntime("shop.open_purchase");
+                SetField(manager, "_runtime", runtime);
+                SetField(manager, "_controller", controller);
+                SetField(manager, "<IsInitialized>k__BackingField", true);
+                SetField(controller, "_isRestoring", true);
+                int observed = 0;
+                manager.OnEventObserved += _ => observed++;
+                var input = new TutorialEvent(TutorialEventType.PanelOpened, TutorialTargetIds.PurchasePanel);
+                Assert.That(manager.TryReportEvent(input, out TutorialSignalResult result, out _), Is.True);
+                Assert.That(result, Is.EqualTo(TutorialSignalResult.Ignored));
+                Assert.That(observed, Is.Zero);
+                Assert.That(runtime.IsStepCompleted("shop.open_purchase"), Is.False);
+            }
+            finally { Object.DestroyImmediate(host); }
+        }
+
+        [Test]
+        public void Time_TutorialCleanupPreservesOtherPauseOwners()
+        {
+            var host = new GameObject("Tutorial pause test");
+            host.SetActive(false);
+            try
+            {
+                var time = host.AddComponent<TimeManager>();
+                var effects = host.AddComponent<TutorialEffectExecutor>();
+                MethodInfo setPause = typeof(TimeManager).GetMethod("SetTutorialPaused", BindingFlags.Instance | BindingFlags.NonPublic);
+                foreach (System.Action cleanup in new System.Action[] { effects.ReleaseControlScope, effects.SkipSequence, effects.ResetProgress })
+                {
+                    setPause.Invoke(time, new object[] { true });
+                    SetField(effects, "_pausedTimeManager", time);
+                    time.PauseTimeProgress();
+                    time.ResumeTimeProgress();
+                    Assert.That(time.IsPaused, Is.True, "일반 재개가 튜토리얼 정지를 해제하면 안 됨");
+                    time.PauseTimeProgress();
+                    cleanup();
+                    Assert.That(time.IsPaused, Is.True, "튜토리얼 정리가 메뉴 정지를 해제하면 안 됨");
+                    time.ResumeTimeProgress();
+                    Assert.That(time.IsPaused, Is.False, "튜토리얼 정지가 남으면 안 됨");
+                    cleanup();
+                    Assert.That(time.IsPaused, Is.False);
+                }
+            }
+            finally { Object.DestroyImmediate(host); }
+        }
+
+        private static void SetField(object target, string name, object value)
+        {
+            target.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(target, value);
         }
 
         private static TutorialRuntime CreateWaitingRuntime(string stepId)

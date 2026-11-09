@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -39,16 +40,19 @@ namespace SeaVillage.UI
         private CurrencyManager _currencyManager;
         private GameManager _gameManager;
         private TownProgressionManager _progressionManager;
+        private Coroutine _progressionBindingRoutine;
 
         private void OnCurrentTownChanged(TownKey townKey) => RefreshTownContext(townKey);
 
         private void OnEnable()
         {
             SubscribeProgression();
+            StartProgressionBindingIfNeeded();
         }
 
         private void OnDisable()
         {
+            StopProgressionBinding();
             UnsubscribeProgression();
         }
 
@@ -194,6 +198,7 @@ namespace SeaVillage.UI
                 _gameManager.OnCurrentTownChanged += OnCurrentTownChanged;
 
             SubscribeProgression();
+            StartProgressionBindingIfNeeded();
         }
 
         private void HandleAffinityChanged(TownKey townKey, int affinity)
@@ -253,6 +258,8 @@ namespace SeaVillage.UI
                 _gameManager.OnCurrentTownChanged -= OnCurrentTownChanged;
                 _gameManager = null;
             }
+
+            StopProgressionBinding();
         }
 
         private void SubscribeProgression()
@@ -263,6 +270,42 @@ namespace SeaVillage.UI
 
             _progressionManager = TownProgressionManager.Instance;
             _progressionManager.OnAffinityChanged += HandleAffinityChanged;
+        }
+
+        private void StartProgressionBindingIfNeeded()
+        {
+            if (_progressionManager != null || _progressionBindingRoutine != null)
+                return;
+
+            _progressionBindingRoutine = StartCoroutine(BindProgressionWhenReady());
+        }
+
+        private IEnumerator BindProgressionWhenReady()
+        {
+            while (isActiveAndEnabled && _progressionManager == null)
+            {
+                if (TownProgressionManager.HasInstance
+                    && TownProgressionManager.Instance.IsInitialized)
+                {
+                    SubscribeProgression();
+                    if (_gameManager != null)
+                        RefreshTownContext(_gameManager.CurrentTownKey);
+                    break;
+                }
+
+                yield return null;
+            }
+
+            _progressionBindingRoutine = null;
+        }
+
+        private void StopProgressionBinding()
+        {
+            if (_progressionBindingRoutine == null)
+                return;
+
+            StopCoroutine(_progressionBindingRoutine);
+            _progressionBindingRoutine = null;
         }
 
         private void UnsubscribeProgression()

@@ -20,9 +20,9 @@
 
 ## 자동 빌드와 산출물 배포
 
-[빌드 워크플로](../Source/.github/workflows/build.yml)는 원본 저장소의 master push를 기준으로 GameCI를 실행하고, Windows 빌드 폴더 전체를 압축해 GitHub Release에 게시하도록 구성했습니다.
+[빌드 워크플로](../Source/.github/workflows/build.yml)는 원본 저장소의 `master`에 푸시하거나 수동 실행할 때 GameCI로 Windows Development와 Android Release를 각각 빌드합니다. Android 빌드에서 서명된 AAB를 만들고, 별도 작업에서 [APK 생성 스크립트](../Source/.github/scripts/build-universal-apk.sh)와 Bundletool로 범용 APK를 생성합니다. Windows ZIP, AAB, APK를 같은 GitHub Release에 첨부하도록 구성했습니다.
 
-[BuildScript](../Source/Assets/Editor/BuildScript.cs)는 개발용과 배포용 빌드 옵션을 구분합니다. 씬 목록은 EditorBuildSettings의 활성 항목을 사용해 별도의 목록을 중복 관리하지 않도록 했습니다.
+[BuildScript](../Source/Assets/Editor/BuildScript.cs)는 활성 빌드 대상에 맞는 진입점을 실행하고 Android 배포 설정과 서명을 확인합니다. 씬 목록은 EditorBuildSettings의 활성 항목을 사용합니다. AAB와 APK를 만드는 CI 구성은 원본 프로젝트의 빌드 절차를 보여줍니다.
 
 ## 개발 중 확인 도구
 

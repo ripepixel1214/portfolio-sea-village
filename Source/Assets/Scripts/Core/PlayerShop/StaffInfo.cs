@@ -7,7 +7,7 @@ namespace SeaVillage.Core
         public int Intelligence { get; }
         public int Charm { get; }
         public bool IsTownHired { get; }
-        public bool IsAssigned => StaffId > 0;
+        public bool IsAssigned { get; }
 
         internal StaffInfo(StaffProfile source)
         {
@@ -15,6 +15,7 @@ namespace SeaVillage.Core
             Intelligence = source?.intelligence ?? 0;
             Charm = source?.charm ?? 0;
             IsTownHired = source?.isTownHired ?? false;
+            IsAssigned = source != null;
         }
     }
 }

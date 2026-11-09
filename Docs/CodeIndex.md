@@ -7,6 +7,7 @@
 ## 빌드와 개발 도구
 
 - [.github/workflows/build.yml](../Source/.github/workflows/build.yml)
+- [.github/scripts/build-universal-apk.sh](../Source/.github/scripts/build-universal-apk.sh)
 - [Assets/Editor/BuildScript.cs](../Source/Assets/Editor/BuildScript.cs)
 - [Assets/Scripts/Core/DeveloperUGUIController.cs](../Source/Assets/Scripts/Core/DeveloperUGUIController.cs)
 - [Assets/Scripts/Utilities/Editor/FadeControllerEditor.cs](../Source/Assets/Scripts/Utilities/Editor/FadeControllerEditor.cs)
@@ -61,7 +62,9 @@
 - [Assets/Editor/Player/Tests/PlayerGenderContractTests.cs](../Source/Assets/Editor/Player/Tests/PlayerGenderContractTests.cs)
 - [Assets/Editor/Player/Tests/PlayerInventoryPrefabContractTests.cs](../Source/Assets/Editor/Player/Tests/PlayerInventoryPrefabContractTests.cs)
 - [Assets/Editor/Player/Tests/PlayerInventoryViewPolicyTests.cs](../Source/Assets/Editor/Player/Tests/PlayerInventoryViewPolicyTests.cs)
-- [Assets/Editor/Tutorial/Tests/TutorialLegacyContractTests.cs](../Source/Assets/Editor/Tutorial/Tests/TutorialLegacyContractTests.cs)
+- [Assets/Editor/Tutorial/Tests/TutorialContractTests.cs](../Source/Assets/Editor/Tutorial/Tests/TutorialContractTests.cs)
+- [Assets/Editor/Event/Tests/EventContractTests.cs](../Source/Assets/Editor/Event/Tests/EventContractTests.cs)
+- [Assets/Editor/Player/Tests/PlayerShopNpcContractTests.cs](../Source/Assets/Editor/Player/Tests/PlayerShopNpcContractTests.cs)
 
 ## 성능 측정
 
@@ -71,6 +74,8 @@
 - [Assets/Editor/SaveLoadBenchmarks/SaveLoadBenchmarkRunner.cs](../Source/Assets/Editor/SaveLoadBenchmarks/SaveLoadBenchmarkRunner.cs)
 
 ## 튜토리얼
+
+- [Assets/Scripts/UI/Tutorial/TutorialUIRecovery.cs](../Source/Assets/Scripts/UI/Tutorial/TutorialUIRecovery.cs)
 
 - [Assets/Editor/Tutorial/TutorialDefinitionValidator.cs](../Source/Assets/Editor/Tutorial/TutorialDefinitionValidator.cs)
 - [Assets/Scripts/Core/Tutorial/GuideMove.cs](../Source/Assets/Scripts/Core/Tutorial/GuideMove.cs)
@@ -142,6 +147,7 @@
 - [Assets/Scripts/Utilities/ExpressionEvaluator.cs](../Source/Assets/Scripts/Utilities/ExpressionEvaluator.cs)
 - [Assets/Scripts/Utilities/FadeController.cs](../Source/Assets/Scripts/Utilities/FadeController.cs)
 - [Assets/Scripts/Utilities/SceneChanger.cs](../Source/Assets/Scripts/Utilities/SceneChanger.cs)
+- [Assets/Scripts/Utilities/LoadingScreenView.cs](../Source/Assets/Scripts/Utilities/LoadingScreenView.cs)
 - [Assets/Scripts/Utilities/Singleton.cs](../Source/Assets/Scripts/Utilities/Singleton.cs)
 
 ## 저장, 시세와 기획 데이터
@@ -228,6 +234,15 @@
 
 ## 이벤트와 게시판
 
+- [Assets/Scripts/Event/EventNpcActor.cs](../Source/Assets/Scripts/Event/EventNpcActor.cs)
+- [Assets/Scripts/Event/EventNpcCatalog.cs](../Source/Assets/Scripts/Event/EventNpcCatalog.cs)
+- [Assets/Scripts/Event/EventNpcSpawnPoint.cs](../Source/Assets/Scripts/Event/EventNpcSpawnPoint.cs)
+- [Assets/Scripts/Event/Runtime/EventNpcRuntime.cs](../Source/Assets/Scripts/Event/Runtime/EventNpcRuntime.cs)
+- [Assets/Scripts/Event/Runtime/EventNpcShopSpawnPoint.cs](../Source/Assets/Scripts/Event/Runtime/EventNpcShopSpawnPoint.cs)
+- [Assets/Scripts/Event/Runtime/EventNpcShopVisual.cs](../Source/Assets/Scripts/Event/Runtime/EventNpcShopVisual.cs)
+- [Assets/Scripts/Event/Runtime/EventSequenceEntryResolver.cs](../Source/Assets/Scripts/Event/Runtime/EventSequenceEntryResolver.cs)
+- [Assets/Scripts/Event/Runtime/IEventNpcRuntime.cs](../Source/Assets/Scripts/Event/Runtime/IEventNpcRuntime.cs)
+
 - [Assets/Scripts/Event/BoardQuest/BoardQuestSlot.cs](../Source/Assets/Scripts/Event/BoardQuest/BoardQuestSlot.cs)
 - [Assets/Scripts/Event/BoardQuest/BulletinBoardService.cs](../Source/Assets/Scripts/Event/BoardQuest/BulletinBoardService.cs)
 - [Assets/Scripts/Event/BoardQuest/Data/BoardQuestSlotState.cs](../Source/Assets/Scripts/Event/BoardQuest/Data/BoardQuestSlotState.cs)
@@ -237,12 +252,10 @@
 - [Assets/Scripts/Event/Runtime/EventExecutionContext.cs](../Source/Assets/Scripts/Event/Runtime/EventExecutionContext.cs)
 - [Assets/Scripts/Event/Runtime/EventState.cs](../Source/Assets/Scripts/Event/Runtime/EventState.cs)
 - [Assets/Scripts/Event/Services/DefaultChoiceService.cs](../Source/Assets/Scripts/Event/Services/DefaultChoiceService.cs)
-- [Assets/Scripts/Event/Services/DefaultNpcInteractionService.cs](../Source/Assets/Scripts/Event/Services/DefaultNpcInteractionService.cs)
 - [Assets/Scripts/Event/Services/DefaultQuestService.cs](../Source/Assets/Scripts/Event/Services/DefaultQuestService.cs)
 - [Assets/Scripts/Event/Services/DefaultStatService.cs](../Source/Assets/Scripts/Event/Services/DefaultStatService.cs)
 - [Assets/Scripts/Event/Services/DefaultUIService.cs](../Source/Assets/Scripts/Event/Services/DefaultUIService.cs)
 - [Assets/Scripts/Event/Services/IChoiceService.cs](../Source/Assets/Scripts/Event/Services/IChoiceService.cs)
-- [Assets/Scripts/Event/Services/INpcInteractionService.cs](../Source/Assets/Scripts/Event/Services/INpcInteractionService.cs)
 - [Assets/Scripts/Event/Services/IQuestService.cs](../Source/Assets/Scripts/Event/Services/IQuestService.cs)
 - [Assets/Scripts/Event/Services/IStatService.cs](../Source/Assets/Scripts/Event/Services/IStatService.cs)
 - [Assets/Scripts/Event/Services/IUIService.cs](../Source/Assets/Scripts/Event/Services/IUIService.cs)
@@ -256,6 +269,8 @@
 - [Assets/Scripts/Ocean/Events/OceanEventManager.cs](../Source/Assets/Scripts/Ocean/Events/OceanEventManager.cs)
 - [Assets/Scripts/Ocean/Islands/IslandFleet.cs](../Source/Assets/Scripts/Ocean/Islands/IslandFleet.cs)
 - [Assets/Scripts/Ocean/OceanManager.cs](../Source/Assets/Scripts/Ocean/OceanManager.cs)
+- [Assets/Scripts/Ocean/OceanExploration.cs](../Source/Assets/Scripts/Ocean/OceanExploration.cs)
+- [Assets/Scripts/Ocean/Session/VoyageLifecycle.cs](../Source/Assets/Scripts/Ocean/Session/VoyageLifecycle.cs)
 - [Assets/Scripts/Ocean/Persistence/MinimapFogState.cs](../Source/Assets/Scripts/Ocean/Persistence/MinimapFogState.cs)
 - [Assets/Scripts/Ocean/Ship/ShipController.cs](../Source/Assets/Scripts/Ocean/Ship/ShipController.cs)
 - [Assets/Scripts/Status/NPCStatus.cs](../Source/Assets/Scripts/Status/NPCStatus.cs)
@@ -264,6 +279,9 @@
 - [Assets/Scripts/Status/StatusType.cs](../Source/Assets/Scripts/Status/StatusType.cs)
 
 ## UI와 입력
+
+- [Assets/Scripts/Core/DialogueInputLock.cs](../Source/Assets/Scripts/Core/DialogueInputLock.cs)
+- [Assets/Scripts/UI/Controls/SafeAreaCanvas.cs](../Source/Assets/Scripts/UI/Controls/SafeAreaCanvas.cs)
 
 - [Assets/Scripts/UI/Controllers/BaseUIController.cs](../Source/Assets/Scripts/UI/Controllers/BaseUIController.cs)
 - [Assets/Scripts/UI/Controllers/MainMenuUIController.cs](../Source/Assets/Scripts/UI/Controllers/MainMenuUIController.cs)

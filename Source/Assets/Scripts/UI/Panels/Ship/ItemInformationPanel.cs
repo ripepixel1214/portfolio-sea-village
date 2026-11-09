@@ -47,7 +47,10 @@ namespace SeaVillage.UI
                 return;
             }
 
-            itemName.text = DataManager.Instance.GetScriptTextKR(itemData.Name);
+            string localizedName = DataManager.Instance.GetScriptTextKR(itemData.Name);
+            itemName.text = string.IsNullOrWhiteSpace(localizedName)
+                ? $"Item {itemData.ID}"
+                : localizedName;
             itemTown.text = TownDisplayNames.GetTownDisplayName(itemData.Town);
             itemQuantity.text = quantity.ToString();
             unitWeight.text = $"{itemData.Weight:F1} kg";
@@ -59,7 +62,8 @@ namespace SeaVillage.UI
             string itemImageText = itemData.Image;
             if (string.IsNullOrEmpty(itemImageText))
             {
-                Debug.LogError($"Purchase Information Panel: Item data '{itemData.Name}' has no associated image.");
+                itemImage.sprite = null;
+                itemImage.enabled = false;
                 return;
             }
 
@@ -67,6 +71,8 @@ namespace SeaVillage.UI
                 itemImage.sprite = itemData.Icon;
             else
                 itemImage.sprite = UIManager.Instance.LoadItemIcon(itemImageText);
+
+            itemImage.enabled = itemImage.sprite != null;
         }
     }
 }

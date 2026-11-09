@@ -128,6 +128,18 @@ namespace SeaVillage.Data
             return converted;
         }
 
+        [MenuItem("SeaVillage/Data/Convert Event Data")]
+        public static void ConvertEventFromMenu()
+        {
+            var converter = CreateInstance<DataConverter>();
+            converter.csvFolderPath = DataManager.CSV_FOLDER_PATH;
+            converter.soFolderPath = DataManager.SO_FOLDER_PATH;
+            converter.CreateDirectoryIfNotExists(converter.soFolderPath);
+            converter.ConvertEventData();
+            AssetDatabase.Refresh();
+            DestroyImmediate(converter);
+        }
+
         private bool ConvertAllCSVFiles()
         {
             CreateDirectoryIfNotExists(soFolderPath);

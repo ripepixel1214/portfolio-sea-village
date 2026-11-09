@@ -116,10 +116,17 @@ namespace SeaVillage.Event
             EnsureTownSlots(townName);
 
             var slots = CreateEmptySlots();
-            var slotIds = _activatedQuestKeys[townName];
+            if (!_activatedQuestKeys.TryGetValue(townName, out var slotIds)
+                || slotIds == null)
+            {
+                return slots;
+            }
 
             for (int i = 0; i < MAX_DISPLAY_SLOTS; i++)
             {
+                if (i >= slotIds.Length)
+                    break;
+
                 if (string.IsNullOrEmpty(slotIds[i])) continue;
 
                 var board = FindBoardByQuestKey(slotIds[i]);
@@ -143,14 +150,6 @@ namespace SeaVillage.Event
 
             var slot = slots[slotIndex];
             return slot != null && !slot.IsEmpty ? slot : null;
-        }
-
-        public int GetDisplayedQuestCount(string townName)
-        {
-            if (string.IsNullOrEmpty(townName))
-                return 0;
-
-            return GetDisplayedQuests(townName).Count(slot => slot != null && !slot.IsEmpty);
         }
 
         public bool CanSubmitQuest(string townName, int slotIndex)
@@ -302,6 +301,15 @@ namespace SeaVillage.Event
             if (string.IsNullOrEmpty(townName))
                 return;
 
+            EnsureQuestPool();
+
+            if (_activatedQuestKeys.TryGetValue(townName, out var slotIds)
+                && slotIds != null
+                && slotIds.Length == MAX_DISPLAY_SLOTS)
+            {
+                return;
+            }
+
             _activatedQuestKeys[townName] = BuildAssignedSlots(townName, excludedQuestKey: null);
         }
 
@@ -368,12 +376,6 @@ namespace SeaVillage.Event
         }
 
         #region Persistence
-        /// <summary>
-        /// 슬롯 배정 데이터 반환
-        /// </summary>
-        public Dictionary<string, string[]> GetAssignedSlots()
-            => _activatedQuestKeys.ToDictionary(kvp => kvp.Key, kvp => (string[])kvp.Value.Clone());
-
         public void CopyAssignedSlotsTo(Dictionary<string, List<string>> target)
         {
             if (target == null)
@@ -393,62 +395,52 @@ namespace SeaVillage.Event
             {
                 if (!target.TryGetValue(kvp.Key, out List<string> savedSlots) || savedSlots == null)
                 {
-                    savedSlots = new List<string>(kvp.Value.Length);
+                    savedSlots = new List<string>(MAX_DISPLAY_SLOTS);
                     target[kvp.Key] = savedSlots;
                 }
 
                 savedSlots.Clear();
-                for (int i = 0; i < kvp.Value.Length; i++)
-                    savedSlots.Add(kvp.Value[i]);
+                string[] slotIds = kvp.Value ?? Array.Empty<string>();
+                for (int i = 0; i < MAX_DISPLAY_SLOTS; i++)
+                {
+                    string slotId = i < slotIds.Length ? slotIds[i] : null;
+                    savedSlots.Add(slotId ?? string.Empty);
+                }
             }
-        }
-
-        /// <summary>
-        /// 슬롯 배정 데이터 일괄 로드
-        /// </summary>
-        public void LoadAssignedSlots(Dictionary<string, string[]> data)
-        {
-            _activatedQuestKeys.Clear();
-            if (data == null) return;
-            foreach (var kvp in data)
-                _activatedQuestKeys[kvp.Key] = (string[])kvp.Value.Clone();
         }
 
         public void LoadAssignedSlotsFromSaveData(Dictionary<string, List<string>> data)
         {
-            _persistenceStaleKeys.Clear();
-            foreach (string key in _activatedQuestKeys.Keys)
-            {
-                if (data == null || !data.ContainsKey(key))
-                    _persistenceStaleKeys.Add(key);
-            }
-
-            for (int i = 0; i < _persistenceStaleKeys.Count; i++)
-                _activatedQuestKeys.Remove(_persistenceStaleKeys[i]);
-
+            _activatedQuestKeys.Clear();
             if (data == null)
                 return;
 
             foreach (var kvp in data)
             {
-                int slotCount = kvp.Value?.Count ?? MAX_DISPLAY_SLOTS;
-                if (!_activatedQuestKeys.TryGetValue(kvp.Key, out string[] slots)
-                    || slots == null
-                    || slots.Length != slotCount)
+                if (string.IsNullOrWhiteSpace(kvp.Key))
                 {
-                    slots = new string[slotCount];
-                    _activatedQuestKeys[kvp.Key] = slots;
-                }
-
-                if (kvp.Value == null)
-                {
-                    Array.Clear(slots, 0, slots.Length);
+                    Debug.LogWarning("[BulletinBoardService] 빈 마을 키의 슬롯 저장 데이터를 무시합니다.");
                     continue;
                 }
 
-                for (int i = 0; i < slotCount; i++)
-                    slots[i] = kvp.Value[i];
+                _activatedQuestKeys[kvp.Key] = NormalizeSlotIds(kvp.Value);
             }
+        }
+
+        private static string[] NormalizeSlotIds(IReadOnlyList<string> source)
+        {
+            var normalized = new string[MAX_DISPLAY_SLOTS];
+            if (source == null)
+                return normalized;
+
+            int count = Math.Min(source.Count, MAX_DISPLAY_SLOTS);
+            for (int i = 0; i < count; i++)
+                normalized[i] = string.IsNullOrWhiteSpace(source[i]) ? null : source[i];
+
+            if (source.Count > MAX_DISPLAY_SLOTS)
+                Debug.LogWarning($"[BulletinBoardService] 게시판 슬롯 저장 데이터가 최대 개수를 초과하여 {MAX_DISPLAY_SLOTS}개만 복원합니다.");
+
+            return normalized;
         }
 
         #endregion

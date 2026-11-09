@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using SeaVillage.UI;
 using SeaVillage.Core;
+using SeaVillage.Event;
 
 namespace SeaVillage.Player
 {
@@ -18,11 +19,12 @@ namespace SeaVillage.Player
         private List<IInteractable> nearbyInteractables = new List<IInteractable>();
         // 현재 가장 가까운 상호작용 타겟
         private IInteractable currentTarget;
+        private bool _consumeCurrentInteraction;
 
         // UI 이벤트(하이라이트 표시, 해제 등)
-        public System.Action<IInteractable> OnInteractableEnter;
-        public System.Action<IInteractable> OnInteractableExit;
-        public System.Action<IInteractable> OnInteract;
+        public event System.Action<IInteractable> OnInteractableEnter;
+        public event System.Action<IInteractable> OnInteractableExit;
+        public event System.Action<IInteractable> OnInteract;
 
         public bool HasInteractableTarget => currentTarget != null;
 
@@ -50,6 +52,9 @@ namespace SeaVillage.Player
         /// </summary>
         public void RegisterInteractable(IInteractable interactable)
         {
+            if (!IsActiveInteractable(interactable))
+                return;
+
             if (!nearbyInteractables.Contains(interactable))
             {
                 nearbyInteractables.Add(interactable);
@@ -59,7 +64,7 @@ namespace SeaVillage.Player
         }
 
         /// <summary>
-        /// 이미 범위 안에 겹쳐 있는 객체를 등록한다. 활성화 직후처럼 트리거 enter 가 발생하지 않는 경우 대비.
+        /// 이미 범위 안에 겹쳐 있는 객체를 등록한다. 활성화 직후처럼 트리거 enter 가 발생하지 않는 경우 대비
         /// </summary>
         public void RegisterIfOverlapping(IInteractable interactable)
         {
@@ -96,17 +101,27 @@ namespace SeaVillage.Player
         {
             IInteractable closest = null;
             float closestDistance = float.MaxValue;
+            bool closestIsEventNpc = false;
 
             foreach (var interactable in nearbyInteractables)
             {
-                if (interactable?.GameObject == null || !TutorialInteractionPolicy.IsAllowed(interactable))
+                if (!IsActiveInteractable(interactable)
+                    || !TutorialInteractionPolicy.IsAllowed(interactable)
+                    || !DialogueInputLock.IsInteractionAllowed(interactable))
                     continue;
 
                 float distance = Vector3.Distance(transform.position, interactable.GameObject.transform.position);
-                if (distance < closestDistance)
+                if (interactable is EventNpcActor eventNpc && !eventNpc.IsEventInteractionActive)
+                    continue;
+
+                bool isEventNpc = interactable is EventNpcActor activeEventNpc
+                    && activeEventNpc.IsEventInteractionActive;
+                if ((isEventNpc && !closestIsEventNpc)
+                    || (isEventNpc == closestIsEventNpc && distance < closestDistance))
                 {
                     closestDistance = distance;
                     closest = interactable;
+                    closestIsEventNpc = isEventNpc;
                 }
             }
 
@@ -130,11 +145,22 @@ namespace SeaVillage.Player
             UpdateCurrentTarget();
             if (currentTarget != null)
             {
+                _consumeCurrentInteraction = false;
                 // 상호작용 이벤트 발생
                 OnInteract?.Invoke(currentTarget);
+
+                if (_consumeCurrentInteraction)
+                    return;
+
                 currentTarget.Interact();
                 Debug.Log($"상호작용: {currentTarget.GameObject.name}");
             }
+        }
+
+        /// <summary>이벤트 런타임이 현재 입력을 소비해 기본 상호작용 실행을 막는다</summary>
+        public void ConsumeCurrentInteraction()
+        {
+            _consumeCurrentInteraction = true;
         }
 
         public void RefreshCurrentTarget()
@@ -160,6 +186,14 @@ namespace SeaVillage.Player
         {
             if (collision.TryGetComponent<IInteractable>(out var interactable))
                 UnregisterInteractable(interactable);
+        }
+
+        private static bool IsActiveInteractable(IInteractable interactable)
+        {
+            if (interactable == null || interactable.GameObject == null)
+                return false;
+
+            return interactable is not Behaviour behaviour || behaviour.isActiveAndEnabled;
         }
     }
 }

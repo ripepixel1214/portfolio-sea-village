@@ -1,62 +1,199 @@
-name: Master Build and Release
+name: Windows Development and Android Release
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: StandaloneWindows64
+            artifact: Windows-Development
+          - target: Android
+            artifact: Android-Release
     steps:
-      - name: 1. Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: 2. Cache Unity Library
-        uses: actions/cache@v4
+      - uses: actions/checkout@v4
         with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
+          lfs: true
 
-      - name: 2-1. Free up disk space
+      # GitHub 호스팅 러너의 사전 설치 SDK를 제거해 대형 Unity Docker 이미지 공간을 확보
+      - name: Free disk space for Unity Docker image
+        shell: bash
         run: |
+          echo "Disk usage before cleanup:"
+          df -h /
+
           sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/local/.ghcup
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/.cache
-          docker system prune -af
-          df -h
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          docker image prune --all --force
 
-      - name: 3. Unity Build (Windows 64)
+          echo "Disk usage after cleanup:"
+          df -h /
+
+      - name: Check Android signing secrets
+        if: matrix.target == 'Android'
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        run: |
+          for name in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASS ANDROID_KEYALIAS_NAME ANDROID_KEYALIAS_PASS; do
+            if [[ -z "${!name}" ]]; then
+              echo "::error::Missing GitHub secret: $name"
+              exit 1
+            fi
+          done
+
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('ProjectSettings/ProjectVersion.txt') }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('ProjectSettings/ProjectVersion.txt') }}-
+
+      - name: Check Android build disk budget
+        if: matrix.target == 'Android'
+        shell: bash
+        env:
+          MIN_ANDROID_BUILD_FREE_GIB: '50'
+        run: |
+          set -euo pipefail
+
+          echo "Disk usage before Android Unity build:"
+          df -h /
+          du -sh "$GITHUB_WORKSPACE" 2>/dev/null || true
+          du -sh "$GITHUB_WORKSPACE/Library" 2>/dev/null || true
+          docker system df || true
+
+          available_kib="$(df --output=avail / | tail -n 1 | tr -d ' ')"
+          required_kib="$((MIN_ANDROID_BUILD_FREE_GIB * 1024 * 1024))"
+          available_gib="$((available_kib / 1024 / 1024))"
+
+          if (( available_kib < required_kib )); then
+            echo "::error title=Insufficient Android build disk::Unity Android 빌드 시작 전 ${MIN_ANDROID_BUILD_FREE_GIB} GiB 이상이 필요하지만 ${available_gib} GiB만 남았습니다. 장시간 빌드를 시작하지 않습니다."
+            exit 1
+          fi
+
+          echo "Android build disk budget passed: ${available_gib} GiB available"
+
+      - name: Build Windows Development
+        if: matrix.target == 'StandaloneWindows64'
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 6000.0.58f1
+          unityVersion: auto
           targetPlatform: StandaloneWindows64
           buildMethod: BuildScript.PerformBuild
+          versioning: None
 
-      # 실행 필수 런타임 파일(UnityPlayer.dll, MonoBleedingEdge 등)까지 포함하도록 전체 폴더 압축
-      - name: 4. Zip Build Files
-        run: zip -r Windows-Build.zip Builds/
+      - name: Build signed Android Release AAB
+        if: matrix.target == 'Android'
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: auto
+          targetPlatform: Android
+          buildMethod: BuildScript.PerformBuild
+          versioning: None
+          androidExportType: androidAppBundle
+          androidKeystoreName: user.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
 
-      # 날짜+시간 기반 버전 태그 (e.g. v20260314-1530)
-      - name: 5. Generate Release Tag
-        id: tag
-        run: echo "release_tag=v$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
+      - name: Preserve Android AAB
+        if: matrix.target == 'Android'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-Release-AAB
+          path: Builds/Android/SeaVillage.aab
+          if-no-files-found: error
 
-      # 압축 파일 업로드
-      - name: 6. Create GitHub Release
+      - name: Package Windows runtime
+        if: matrix.target == 'StandaloneWindows64'
+        working-directory: Builds/Windows/Development
+        run: zip -r "$GITHUB_WORKSPACE/Windows-Development.zip" .
+
+      - name: Upload Windows Development
+        if: matrix.target == 'StandaloneWindows64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: Windows-Development.zip
+          if-no-files-found: error
+
+  android-apk:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Android AAB
+        uses: actions/download-artifact@v4
+        with:
+          name: Android-Release-AAB
+          path: Builds/Android
+
+      - name: Set up Java for bundletool
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Generate signed APK from AAB
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        run: bash .github/scripts/build-universal-apk.sh
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-Release-APK
+          path: Builds/Android/SeaVillage.apk
+          if-no-files-found: error
+
+  release:
+    needs: [build, android-apk]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Publish all builds
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.release_tag }}
-          name: Release ${{ env.release_tag }}
-          files: Windows-Build.zip
-          generate_release_notes: true # 포함된 PR이나 커밋 내역을 바탕으로 릴리스 노트 자동 작성
+          tag_name: build-${{ github.run_number }}-${{ github.run_attempt }}
+          target_commitish: ${{ github.sha }}
+          name: Build ${{ github.run_number }} (Windows Dev + Android Release)
+          files: |
+            artifacts/Windows-Development.zip
+            artifacts/SeaVillage.aab
+            artifacts/SeaVillage.apk
+          fail_on_unmatched_files: true
+          generate_release_notes: true

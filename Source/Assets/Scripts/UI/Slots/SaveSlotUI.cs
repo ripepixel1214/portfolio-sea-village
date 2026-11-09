@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SeaVillage.Core;
 using SeaVillage.Data;
 
 namespace SeaVillage.UI
@@ -13,6 +14,8 @@ namespace SeaVillage.UI
     {
         [Header("UI References")]
         [SerializeField] private Image playerAvatarImage;
+        [SerializeField] private Sprite malePlayerAvatar;
+        [SerializeField] private Sprite femalePlayerAvatar;
         [SerializeField] private TextMeshProUGUI dayText;
         [SerializeField] private TextMeshProUGUI goldText;
         [SerializeField] private GameObject emptyIndicator;
@@ -31,6 +34,23 @@ namespace SeaVillage.UI
         public Button GetSlotButton() => slotButton;
         public Button GetDeleteButton() => deleteButton;
         public void ToggleEmptyIndicator(bool toggle) => emptyIndicator.SetActive(toggle);
+
+        public void SetLoading(int index)
+        {
+            slotIndex = index;
+            hasSaveData = false;
+
+            if (slotButton != null)
+            {
+                slotButton.gameObject.SetActive(true);
+                slotButton.interactable = false;
+            }
+
+            ClearGameDataContainers();
+
+            if (emptyIndicator != null)
+                emptyIndicator.SetActive(false);
+        }
 
         private void Awake()
         {
@@ -68,8 +88,13 @@ namespace SeaVillage.UI
         /// </summary>
         /// <param name="index">슬롯 인덱스</param>
         /// <param name="hasSave">저장 데이터 유무</param>
-        /// <param name="info">슬롯 정보 텍스트</param>
-        public void Initialize(int index, bool hasSave, string day, string gold)
+        /// <param name="playerGender">저장 데이터의 플레이어 성별. 미리보기 로딩 중에는 생략한다</param>
+        public void Initialize(
+            int index,
+            bool hasSave,
+            string day,
+            string gold,
+            PlayerGender? playerGender = null)
         {
             slotIndex = index;
             hasSaveData = hasSave;
@@ -86,7 +111,12 @@ namespace SeaVillage.UI
             if (hasSave)
             {
                 if (playerAvatarImage != null)
-                    playerAvatarImage.gameObject.SetActive(true);
+                {
+                    playerAvatarImage.sprite = playerGender.HasValue
+                        ? GetPlayerAvatar(playerGender.Value)
+                        : null;
+                    playerAvatarImage.gameObject.SetActive(playerAvatarImage.sprite != null);
+                }
                 if (dayText != null)
                     dayText.text = day;
                 if (goldText != null)
@@ -101,13 +131,33 @@ namespace SeaVillage.UI
         private void ClearGameDataContainers()
         {
             if (playerAvatarImage != null)
+            {
+                playerAvatarImage.sprite = null;
                 playerAvatarImage.gameObject.SetActive(false);
+            }
             if (dayText != null)
                 dayText.text = string.Empty;
             if (goldText != null)
                 goldText.text = string.Empty;
             if (deleteButton != null)
                 deleteButton.gameObject.SetActive(false);
+        }
+
+        private Sprite GetPlayerAvatar(PlayerGender playerGender)
+        {
+            PlayerGender normalizedGender = PlayerGenderPolicy.Normalize(playerGender);
+            Sprite avatar = normalizedGender == PlayerGender.Female
+                ? femalePlayerAvatar
+                : malePlayerAvatar;
+
+            if (avatar == null)
+            {
+                Debug.LogWarning(
+                    $"[SaveSlotUI] {normalizedGender} 플레이어 아바타 스프라이트가 연결되지 않았습니다.",
+                    this);
+            }
+
+            return avatar;
         }
 
         private void OnSlotButtonClicked()

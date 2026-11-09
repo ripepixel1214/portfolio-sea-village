@@ -51,6 +51,8 @@ namespace SeaVillage.Data
         public Dictionary<string, int> eventLastTriggerDays = new Dictionary<string, int>();
         public List<string> consumedEventIds = new List<string>();
         public List<string> completedQuestIds = new List<string>();
+        // 구버전 저장 호환용 단일 활성 퀘스트 ID
+        public string activeEventQuestId = "";
         public Dictionary<string, List<string>> boardAssignedSlots = new Dictionary<string, List<string>>();
 
         // 미배치 고용 직원
@@ -83,6 +85,24 @@ namespace SeaVillage.Data
         // 최초 난파 구제의 트리거·대기·보상 지급 경계
         public FirstWreckRecoverySaveData firstWreckRecovery = new FirstWreckRecoverySaveData();
 
+        // 여러 이벤트 퀘스트를 동시에 진행하기 위한 활성 ID 목록
+        // 기존 필드 순서를 보존하기 위해 신규 필드는 모델의 끝에 추가
+        public List<string> activeEventQuestIds = new List<string>();
+
+        // 여러 이벤트 퀘스트의 현재 시퀀스 스텝과 저장 마을
+        public Dictionary<string, EventQuestProgressSaveData> activeEventQuestProgress =
+            new Dictionary<string, EventQuestProgressSaveData>();
+
         public SaveData() { }
+    }
+
+    [MemoryPackable]
+    public partial class EventQuestProgressSaveData
+    {
+        // 이벤트 시퀀스에서 저장할 다음 실행 스텝
+        public int step = -1;
+
+        // 스텝이 저장된 마을. 씬 재진입 시 다른 마을의 분기와 혼동하지 않도록 사용
+        public int townKey = 0;
     }
 }

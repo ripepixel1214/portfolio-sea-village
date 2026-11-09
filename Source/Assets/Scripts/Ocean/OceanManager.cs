@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.Cinemachine;
 using SeaVillage.Core;
 using SeaVillage.Ocean.Maps;
-using SeaVillage.UI;
 using SeaVillage.Utilities;
 
 namespace SeaVillage.Ocean
@@ -26,9 +25,12 @@ namespace SeaVillage.Ocean
         [SerializeField] private UIMinimapView minimap;
 
         private IslandFleet fleet;
+        private OceanExploration exploration;
+        private SceneChanger sceneChanger;
+        private readonly VoyageLifecycle voyage = new VoyageLifecycle();
 
         private bool initialized;
-        private bool isRunning;
+        private bool shipSubscribed;
 
         /// <summary>
         /// 씬 루트 등록. 실제 시동은 Initialize()에서 한다.
@@ -47,7 +49,6 @@ namespace SeaVillage.Ocean
             EnsureFleet();
             fleet.PlaceShipAtStart();
 
-            SceneChanger sceneChanger = SceneChanger.Instance;
             if (sceneChanger == null || !sceneChanger.IsTransitioning)
             {
                 Initialize();
@@ -63,8 +64,6 @@ namespace SeaVillage.Ocean
             {
                 return;
             }
-            initialized = true;
-
             EnsureFleet();
             SeaArea sea = grid.ResolveSeaArea();
 
@@ -72,16 +71,20 @@ namespace SeaVillage.Ocean
 
             TimeManager.Instance.OnChangeSceneToTime("Ocean");
 
-            minimap.Initialize(ship.transform, islands, sea, config.DefaultIslandName);
+            exploration = new OceanExploration(sea, islands, config);
+            exploration.Tick(ship.WorldPosition);
+            if (minimap != null)
+                minimap.Initialize(ship.transform, islands, sea, exploration);
 
-            oceanEventManager.Initialize(sea.Center, sea.Size, config.DefaultIslandName, fleet.GoToScene);
-            oceanEventManager.VoyageEnded += HandleVoyageEnded;
+            oceanEventManager.Initialize(sea.Center, sea.Size, config.DefaultIslandName, fleet.GoToScene, voyage);
 
             ship.ConfigureBounds(sea.Center, sea.Size, config.WrapInsetMargin);
             ship.Warped += HandleShipWarped;
             ship.Interacted += HandleInteract;
+            shipSubscribed = true;
 
-            isRunning = true;
+            initialized = true;
+            voyage.StartSailing();
         }
 
         private void EnsureFleet()
@@ -89,6 +92,10 @@ namespace SeaVillage.Ocean
             if (fleet == null)
             {
                 fleet = new IslandFleet(ship, islands, config);
+                ship.BindVoyage(voyage);
+                sceneChanger = SceneChanger.Instance;
+                if (sceneChanger != null)
+                    sceneChanger.OnSceneLoadStarted += HandleSceneLoadStarted;
             }
         }
 
@@ -109,11 +116,12 @@ namespace SeaVillage.Ocean
         private void LateUpdate()
         {
             // ship 은 씬 언로드 중 OceanManager 보다 먼저 파괴될 수 있어 NRE 가드
-            if (!isRunning || ship == null)
+            if (!initialized || !voyage.CanControl || ship == null)
             {
                 return;
             }
 
+            exploration.Tick(ship.WorldPosition);
             oceanEventManager.Tick(ship.WorldPosition);
             fleet.Tick();
         }
@@ -121,7 +129,7 @@ namespace SeaVillage.Ocean
         // 상호작용 단일 진입점: 인접 보물 상호작용
         private void HandleInteract()
         {
-            if (UIManager.HasInstance && UIManager.Instance.IsAnyPanelOpened)
+            if (!initialized || ship == null || !ship.CanControl)
                 return;
 
             if (fleet.TryEnter())
@@ -130,10 +138,10 @@ namespace SeaVillage.Ocean
             oceanEventManager.TryInteractTreasure();
         }
 
-        // 항해 종료(식량 고갈 귀항 등) 통지 시 씬 구동 중지
-        private void HandleVoyageEnded()
+        // 페이드 아웃이 시작되는 즉시 물리 이동과 상호작용을 함께 종료한다.
+        private void HandleSceneLoadStarted(string sceneName)
         {
-            isRunning = false;
+            voyage.End();
         }
 
         // X 래핑 시 추적 카메라에 같은 델타 통지해 함께 워프
@@ -148,13 +156,17 @@ namespace SeaVillage.Ocean
         // 구독·도메인 정리 (영속 싱글턴 누수 방지)
         private void OnDestroy()
         {
-            if (ship != null)
+            voyage.End();
+            exploration?.Dispose();
+
+            if (shipSubscribed && ship != null)
             {
                 ship.Interacted -= HandleInteract;
                 ship.Warped -= HandleShipWarped;
             }
 
-            if (oceanEventManager != null) oceanEventManager.VoyageEnded -= HandleVoyageEnded;
+            if (sceneChanger != null)
+                sceneChanger.OnSceneLoadStarted -= HandleSceneLoadStarted;
         }
     }
 }

@@ -99,8 +99,6 @@ namespace SeaVillage.Event
 
         public bool TryGetDialogue(int dialogueId, out EventDialogueData dialogue) => _dialogueDict.TryGetValue(dialogueId, out dialogue);
 
-        public IEnumerable<EventData> GetAllEvents() => _eventDict.Values;
-        
         /// <summary>
         /// 주어진 트리거 타입의 모든 이벤트를 반환
         /// </summary>

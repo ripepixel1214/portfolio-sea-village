@@ -33,6 +33,7 @@ namespace SeaVillage.Core
         private TutorialController _controller;
         private TutorialSequenceSettings _settings;
         private TutorialControlScope _controlScope;
+        private TimeManager _pausedTimeManager;
         private Coroutine _monitorRoutine;
         private Coroutine _rewardRetryRoutine;
         private GameObject _guide;
@@ -171,12 +172,10 @@ namespace SeaVillage.Core
                             yield break;
                         break;
                     case TutorialActionType.PauseTime:
-                        if (TimeManager.HasInstance)
-                            TimeManager.Instance.PauseTimeProgress();
+                        PauseTutorialTime();
                         break;
                     case TutorialActionType.ResumeTime:
-                        if (TimeManager.HasInstance && TimeManager.Instance.IsPaused)
-                            TimeManager.Instance.ResumeTimeProgress();
+                        ReleaseTutorialTime();
                         break;
                     case TutorialActionType.FadeGuide:
                         yield return FadeGuideAndFinish();
@@ -246,6 +245,12 @@ namespace SeaVillage.Core
 
         public void ImportProgress(TutorialProgressSaveData progress)
         {
+            StopOwnedRoutines();
+            ReleaseControlScope();
+            _rewardPending = false;
+            _firstWreckRewardPending = false;
+            _rewardCallback = null;
+            _firstWreckRewardCallback = null;
             _appliedEffectIds.Clear();
             if (progress?.appliedEffectIds != null)
             {
@@ -262,6 +267,42 @@ namespace SeaVillage.Core
                 && (progress.rewardGranted || _appliedEffectIds.Contains(RewardEffectId));
             if (_rewardGranted)
                 _appliedEffectIds.Add(RewardEffectId);
+        }
+
+        public IEnumerator RestorePresentationState(TutorialStepDefinition step, int dialogueIndex, int conditionProgress)
+        {
+            _executionFailed = false;
+            ResetControlPolicies();
+            ResolveSceneReferences();
+            SetMovementConstraint(TutorialMovementConstraint.Unrestricted);
+            yield return ClosePanelsWithTimeout();
+            if (_executionFailed)
+                yield break;
+
+            IReadOnlyList<TutorialActionType> actions = step.RecoveryActions.Count > 0
+                ? step.RecoveryActions
+                : step.EntryMode == TutorialEntryMode.WaitForEvent ? step.ActivationActions : step.EntryActions;
+            yield return ExecuteActions(actions, TutorialEntryCause.Recovery);
+            if (_executionFailed)
+                yield break;
+
+            TutorialDialogueType type = step.Dialogues[dialogueIndex].Type;
+            if (type != TutorialDialogueType.Box)
+            {
+                EnsureGuide();
+                if (type == TutorialDialogueType.Stop)
+                {
+                    SetMovementConstraint(TutorialMovementConstraint.Blocked);
+                    EnsureControlScope().BlockAllInteractions();
+                    FacePlayerAndGuide();
+                }
+            }
+
+            if (step.StepId == "trade.return_to_shop" && conditionProgress == 1)
+                PrepareWorldInteraction(InteractionType.Shop);
+
+            if (!SeaVillage.UI.Tutorial.TutorialUIRecovery.TryRestore(step.StepId, conditionProgress, out string failReason))
+                Fail(failReason);
         }
 
         public void CopyAppliedEffectIdsTo(List<string> target)
@@ -290,8 +331,6 @@ namespace SeaVillage.Core
                 return;
             }
 
-            if (TimeManager.HasInstance)
-                TimeManager.Instance.ResumeTimeProgress();
             ReleaseControlScope();
             SceneChanger.Instance.ChangeScene(sceneName.Trim());
         }
@@ -307,6 +346,7 @@ namespace SeaVillage.Core
 
         public void ReleaseControlScope()
         {
+            ReleaseTutorialTime();
             _controlScope?.Dispose();
             _controlScope = null;
             if (_player != null)
@@ -562,6 +602,10 @@ namespace SeaVillage.Core
             _guideMove = _guide.GetComponent<GuideMove>();
             _guideSkeleton = _guide.GetComponentInChildren<SkeletonAnimation>(true);
 
+            PlayerGender guideGender = ResolveGuideGender();
+            if (!PlayerAppearance.TryApply(_guideSkeleton, guideGender))
+                Debug.LogError($"[TutorialEffectExecutor] 안내자 외형을 적용하지 못했습니다: {guideGender}");
+
             Rigidbody2D body = _guide.GetComponent<Rigidbody2D>();
             if (body != null)
             {
@@ -580,6 +624,18 @@ namespace SeaVillage.Core
             EnsureGuide();
             if (_guide != null)
                 _guide.transform.position = new Vector3(position.x, position.y, _guide.transform.position.z);
+        }
+
+        private static PlayerGender ResolveGuideGender()
+        {
+            PlayerGender playerGender = SaveLoadManager.HasInstance
+                && SaveLoadManager.Instance.CurrentGameData != null
+                    ? PlayerGenderPolicy.Normalize(SaveLoadManager.Instance.CurrentGameData.playerGender)
+                    : PlayerGender.Male;
+
+            return playerGender == PlayerGender.Female
+                ? PlayerGender.Male
+                : PlayerGender.Female;
         }
 
         private void MoveGuide(Vector2 target)
@@ -679,6 +735,21 @@ namespace SeaVillage.Core
         private TutorialControlScope EnsureControlScope()
         {
             return _controlScope ??= new TutorialControlScope();
+        }
+
+        private void PauseTutorialTime()
+        {
+            if (!TimeManager.HasInstance)
+                return;
+            _pausedTimeManager = TimeManager.Instance;
+            _pausedTimeManager.SetTutorialPaused(true);
+        }
+
+        private void ReleaseTutorialTime()
+        {
+            if (_pausedTimeManager != null)
+                _pausedTimeManager.SetTutorialPaused(false);
+            _pausedTimeManager = null;
         }
 
         private void SetMovementConstraint(TutorialMovementConstraint constraint)

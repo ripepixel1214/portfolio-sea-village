@@ -15,6 +15,8 @@ namespace SeaVillage.UI.Tutorial
     /// </summary>
     public sealed class TutorialPresentationController : MonoBehaviour, IPointerClickHandler
     {
+        private const float HighlightTimeoutSeconds = 5f;
+
         [SerializeField] private Canvas presentationCanvas;
         [SerializeField] private RectTransform contentRoot;
         [SerializeField] private GameObject inputCatcher;
@@ -36,6 +38,7 @@ namespace SeaVillage.UI.Tutorial
         private TutorialDialogueContext _currentContext;
         private bool _hasCurrentContext;
         private bool _isGuideSpeechTyping;
+        private float _missingHighlightSince = -1f;
 
         #region Properties
 
@@ -90,7 +93,31 @@ namespace SeaVillage.UI.Tutorial
                 _managerBindingRoutine = null;
             }
 
+            HidePresentation();
             UnbindTutorialManager();
+        }
+
+        private void Update()
+        {
+            if (!_hasCurrentContext
+                || _currentContext.Type != TutorialDialogueType.Box
+                || _currentContext.InputPolicy != TutorialInputPolicy.BlockOutsidePrimaryHighlight)
+            {
+                _missingHighlightSince = -1f;
+                return;
+            }
+
+            IReadOnlyList<string> keys = GetVisibleHighlightKeys(_currentContext);
+            if (inputMask.HasPrimaryHighlight)
+            {
+                _missingHighlightSince = -1f;
+                return;
+            }
+
+            if (_missingHighlightSince < 0f)
+                _missingHighlightSince = Time.unscaledTime;
+            else if (Time.unscaledTime - _missingHighlightSince >= HighlightTimeoutSeconds)
+                FailCurrentPresentation($"클릭 대상 UI를 찾을 수 없습니다: {(keys.Count > 0 ? keys[0] : "미지정")}");
         }
 
         private void OnDestroy()
@@ -164,6 +191,7 @@ namespace SeaVillage.UI.Tutorial
             }
 
             _currentContext = context;
+            _missingHighlightSince = -1f;
             RefreshLayout();
         }
 
@@ -200,7 +228,8 @@ namespace SeaVillage.UI.Tutorial
             if (_boundManager != null)
                 return true;
 
-            if (!TutorialManager.HasInstance || !TutorialManager.Instance.IsInitialized)
+            if (!TutorialManager.HasInstance || !TutorialManager.Instance.IsInitialized
+                || TutorialManager.Instance.IsRestoringPresentation)
                 return false;
 
             _boundManager = TutorialManager.Instance;
@@ -262,6 +291,7 @@ namespace SeaVillage.UI.Tutorial
             StopPresentationRoutine();
             _currentContext = context;
             _hasCurrentContext = true;
+            _missingHighlightSince = -1f;
 
             if (contentRoot != null)
                 contentRoot.gameObject.SetActive(true);

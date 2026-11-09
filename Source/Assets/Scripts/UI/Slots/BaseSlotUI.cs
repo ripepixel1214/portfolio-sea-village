@@ -60,7 +60,11 @@ namespace SeaVillage.UI
             }
 
             if (string.IsNullOrEmpty(imageName))
+            {
+                itemIcon.sprite = null;
+                itemIcon.enabled = false;
                 return;
+            }
 
             // 1. 이미 연결된 Icon이 있는지 확인 (최적화 경로)
             if (itemData != null && itemData.Icon != null)
@@ -81,7 +85,11 @@ namespace SeaVillage.UI
                 if (itemData != null) itemData.Icon = iconSprite;
             }
             else
+            {
+                itemIcon.sprite = null;
+                itemIcon.enabled = false;
                 Debug.LogWarning($"아이템 아이콘을 로드할 수 없습니다: {imageName}");
+            }
         }
 
         public Button GetButton()

@@ -14,6 +14,8 @@
 
 성별 선택 화면과 캐릭터 표현은 [GenderSelectionPanel](../Source/Assets/Scripts/UI/Panels/Main/GenderSelectionPanel.cs), [PlayerAppearance](../Source/Assets/Scripts/Player/PlayerAppearance.cs)에 구현했습니다. 표시 정책과 프리팹 계약을 확인하는 [Editor 테스트](../Source/Assets/Editor/Player/Tests/)도 포함했습니다.
 
+[MainSaveSlotPanel](../Source/Assets/Scripts/UI/Panels/Main/MainSaveSlotPanel.cs)은 슬롯 정보를 읽는 동안 로딩 상태를 표시하고 입력을 잠급니다. 읽기가 끝나면 [SaveSlotUI](../Source/Assets/Scripts/UI/Slots/SaveSlotUI.cs)에 빈 슬롯과 저장이 있는 슬롯을 구분해 표시합니다.
+
 ## 씬 전환과 입력 연결
 
 [SceneChanger](../Source/Assets/Scripts/Utilities/SceneChanger.cs)에서 페이드와 씬 전환을 처리하고, 화면 전환 뒤 [ISceneRoot](../Source/Assets/Scripts/Core/ISceneRoot.cs)의 초기화를 호출하도록 연결했습니다. [GameBootstrapper](../Source/Assets/Scripts/Core/GameBootstrapper.cs)와 [GameManager](../Source/Assets/Scripts/Core/GameManager.cs)는 매니저 준비와 씬 루트를 연결하는 코드입니다.

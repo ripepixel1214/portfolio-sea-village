@@ -4,7 +4,6 @@ namespace SeaVillage.Event
     {
         Ready,
         Running,
-        Waiting,
         Completed,
         Failed
     }

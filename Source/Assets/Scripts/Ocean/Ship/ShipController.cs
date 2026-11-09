@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using SeaVillage.Core;
 using SeaVillage.UI;
+using SeaVillage.Utilities;
 
 namespace SeaVillage.Ocean
 {
@@ -17,6 +18,8 @@ namespace SeaVillage.Ocean
 
         private Rigidbody2D rb = null!;
         private Vector2 moveInput;
+        private bool wasMoving;
+        private VoyageLifecycle? voyage;
 
         // 경계 (ConfigureBounds 주입 전까지 비활성)
         private bool hasBounds;
@@ -34,6 +37,14 @@ namespace SeaVillage.Ocean
         public event Action<Vector2>? Warped;
 
         public Vector2 WorldPosition => rb != null ? rb.position : (Vector2)transform.position;
+        public bool CanControl => voyage != null && voyage.CanControl
+            && !TutorialCommandInputPolicy.IsBlocked
+            && !(SceneChanger.HasInstance && SceneChanger.Instance.IsTransitioning)
+            && !(GameManager.HasInstance && (GameManager.Instance.IsPaused
+                || GameManager.Instance.CurrentGameState == GameState.Loading))
+            && !(TimeManager.HasInstance && TimeManager.Instance.IsPaused)
+            && !(Event.EventManager.HasInstance && Event.EventManager.Instance.IsEventRunning)
+            && !(UIManager.HasInstance && UIManager.Instance.IsAnyPanelOpened);
         public float EffectiveMoveSpeed => moveSpeed
             * (PlayerStatManager.HasInstance ? PlayerStatManager.Instance.MovementSpeedMultiplier : 1f)
             * DollEffectPolicy.ShipSpeedMultiplier;
@@ -47,6 +58,39 @@ namespace SeaVillage.Ocean
         {
             get => moveSpeed;
             set => moveSpeed = Mathf.Max(0f, value);
+        }
+
+        public void BindVoyage(VoyageLifecycle lifecycle)
+        {
+            if (voyage != null)
+                voyage.Changed -= HandleVoyageChanged;
+
+            voyage = lifecycle ?? throw new ArgumentNullException(nameof(lifecycle));
+            voyage.Changed += HandleVoyageChanged;
+            HandleVoyageChanged();
+        }
+
+        private void HandleVoyageChanged()
+        {
+            if (!CanControl && rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                wasMoving = false;
+            }
+        }
+
+        private void OnDisable()
+        {
+            moveInput = Vector2.zero;
+            wasMoving = false;
+            if (rb != null)
+                rb.linearVelocity = Vector2.zero;
+        }
+
+        private void OnDestroy()
+        {
+            if (voyage != null)
+                voyage.Changed -= HandleVoyageChanged;
         }
 
         // 맵 영역 경계를 주입받아 이동 제한(X wrap / Y clamp)을 활성화한다 (OceanManager가 Initialize 에서 호출)
@@ -79,27 +123,24 @@ namespace SeaVillage.Ocean
         // 이동 입력 처리 (PlayerInput의 Player/Move)
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (TutorialCommandInputPolicy.IsBlocked)
-            {
-                moveInput = Vector2.zero;
-                return;
-            }
-
+            // 패널 동안에도 터치의 최신 값과 해제를 기억해 닫힌 뒤 올바르게 재개한다.
             moveInput = context.ReadValue<Vector2>();
-            if (context.performed && moveInput.sqrMagnitude > 0.0001f)
-                TutorialEventReporter.Report(TutorialEventType.PlayerMoved, TutorialTargetIds.OceanPlayer, source: TutorialEventSource.World);
         }
 
         // 상호작용 입력 처리 (PlayerInput의 Player/Interact, Keyboard 'E')
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (TutorialCommandInputPolicy.IsBlocked)
+            if (context.performed)
+                TryInteract();
+        }
+
+        // 키보드와 HUD 터치 모두 동일한 입력 제한과 항해 상호작용 경로를 사용한다.
+        public void TryInteract()
+        {
+            if (!CanControl)
                 return;
 
-            if (context.performed)
-            {
-                Interacted?.Invoke();
-            }
+            Interacted?.Invoke();
         }
 
         // 지정 위치로 즉시 이동시키고 속도를 초기화한다
@@ -116,17 +157,21 @@ namespace SeaVillage.Ocean
         // 입력을 속도 이동으로 적용한다 (패널 열림 시 정지)
         private void FixedUpdate()
         {
-            if (TutorialCommandInputPolicy.IsBlocked
-                || UIManager.HasInstance && UIManager.Instance.IsAnyPanelOpened)
+            if (!CanControl)
             {
-                moveInput = Vector2.zero;
                 rb.linearVelocity = Vector2.zero;
+                wasMoving = false;
                 return;
             }
 
             rb.linearVelocity = moveInput.sqrMagnitude > 0.0001f
                 ? moveInput.normalized * EffectiveMoveSpeed
                 : Vector2.zero;
+
+            bool moving = rb.linearVelocity.sqrMagnitude > 0.0001f;
+            if (moving && !wasMoving)
+                TutorialEventReporter.Report(TutorialEventType.PlayerMoved, TutorialTargetIds.OceanPlayer, source: TutorialEventSource.World);
+            wasMoving = moving;
 
             UpdateFacing(moveInput.x);
         }
@@ -140,7 +185,7 @@ namespace SeaVillage.Ocean
         // 경계 검사: X는 반대편으로 wrap(+카메라 스냅 통지), Y는 clamp
         private void TickBounds()
         {
-            if (!hasBounds)
+            if (!hasBounds || !CanControl)
             {
                 return;
             }

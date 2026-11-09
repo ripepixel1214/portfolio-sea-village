@@ -33,10 +33,11 @@ namespace SeaVillage.Core
         public float DayProgress => dayDuration > 0f ? elapsedTimeInCurrentDay / dayDuration : 0f; // 0~1 (당일 진행도)
         public bool AutoProgress => autoProgress;
         public bool IsInitialized { get; private set; } = false;
-        public bool IsPaused => isPaused;
+        public bool IsPaused => isPaused || tutorialPaused;
 
         private Coroutine dayProgressCoroutine;
         private bool isPaused = false;
+        private bool tutorialPaused;
 
         #region MonoBehaviour
         protected override void Awake()
@@ -182,9 +183,10 @@ namespace SeaVillage.Core
         public void PauseTimeProgress()
         {
             if (isPaused) return;
-
+            bool wasPaused = IsPaused;
             isPaused = true;
-            OnGameplayPaused?.Invoke(true);
+            if (!wasPaused)
+                OnGameplayPaused?.Invoke(true);
         }
 
         /// <summary>
@@ -195,7 +197,16 @@ namespace SeaVillage.Core
             if (!isPaused) return;
 
             isPaused = false;
-            OnGameplayPaused?.Invoke(false);
+            if (!IsPaused)
+                OnGameplayPaused?.Invoke(false);
+        }
+
+        internal void SetTutorialPaused(bool paused)
+        {
+            bool wasPaused = IsPaused;
+            tutorialPaused = paused;
+            if (wasPaused != IsPaused)
+                OnGameplayPaused?.Invoke(IsPaused);
         }
 
         /// <summary>
@@ -221,7 +232,7 @@ namespace SeaVillage.Core
             while (true)
             {
                 // 일시정지 상태면 대기
-                if (isPaused
+                if (IsPaused
                     || GameManager.Instance.CurrentGameState == GameState.MainMenu
                     || GameManager.Instance.CurrentGameState == GameState.Loading)
                 {

@@ -662,7 +662,13 @@ namespace SeaVillage.Data
             if (questService != null)
             {
                 _currentSaveData.completedQuestIds ??= new List<string>();
+                _currentSaveData.activeEventQuestIds ??= new List<string>();
+                _currentSaveData.activeEventQuestProgress ??= new Dictionary<string, EventQuestProgressSaveData>();
                 questService.CopyCompletedQuestIdsTo(_currentSaveData.completedQuestIds);
+                questService.CopyActiveQuestIdsTo(_currentSaveData.activeEventQuestIds);
+                // 구버전 저장 포맷을 읽는 도구와의 호환을 위해 첫 번째 ID도 유지
+                _currentSaveData.activeEventQuestId = questService.GetActiveQuestId() ?? string.Empty;
+                em.CopyActiveQuestProgressTo(_currentSaveData.activeEventQuestProgress);
             }
         }
 
@@ -819,8 +825,23 @@ namespace SeaVillage.Data
 
             // 완료된 퀘스트
             var questService = GetDefaultQuestService(em);
-            if (questService != null && _currentSaveData.completedQuestIds != null)
+            if (questService != null)
+            {
                 questService.LoadCompletedQuests(_currentSaveData.completedQuestIds);
+
+                if (_currentSaveData.activeEventQuestIds != null
+                    && _currentSaveData.activeEventQuestIds.Count > 0)
+                {
+                    questService.LoadActiveQuests(_currentSaveData.activeEventQuestIds);
+                }
+                else
+                {
+                    // activeEventQuestIds가 없는 구버전 저장은 기존 단일 필드로 복원
+                    questService.LoadActiveQuest(_currentSaveData.activeEventQuestId);
+                }
+
+                em.LoadActiveQuestProgress(_currentSaveData.activeEventQuestProgress);
+            }
         }
 
         private void ApplyPlayerShopData()

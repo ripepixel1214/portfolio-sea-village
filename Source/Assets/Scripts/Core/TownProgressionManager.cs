@@ -79,6 +79,16 @@ namespace SeaVillage.Core
             return true;
         }
 
+        public bool SetAffinity(TownKey townKey, int affinity)
+        {
+            if (!TryGetState(townKey, out TownProgressState state))
+                return false;
+
+            int targetAffinity = TownAffinityRules.Clamp(affinity);
+            int delta = targetAffinity - state.Affinity;
+            return delta == 0 || ChangeAffinity(townKey, delta);
+        }
+
         public bool RecordPurchasedItems(TownKey townKey, int quantity)
         {
             if (quantity <= 0 || !TryGetState(townKey, out TownProgressState state))

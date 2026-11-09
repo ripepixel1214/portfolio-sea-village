@@ -27,6 +27,8 @@
 
 고객 AI와 이동 전체가 아닌 가게 상태와 구매 결과의 연결을 담당했습니다.
 
+이벤트에서 상점 NPC가 필요하면 [EventNpcRuntime](../Source/Assets/Scripts/Event/Runtime/EventNpcRuntime.cs)이 [상점 배치 지점](../Source/Assets/Scripts/Event/Runtime/EventNpcShopSpawnPoint.cs)과 연결된 NPC를 준비합니다. [상점 NPC 표시](../Source/Assets/Scripts/Event/Runtime/EventNpcShopVisual.cs)에서 외형과 말풍선 위치를 설정합니다.
+
 ## 물건 구매와 판매 UI
 
 [ShopModel](../Source/Assets/Scripts/UI/Panels/Shop/MVP/ShopModel.cs)에 원본 재고와 선택 수량을 분리했습니다. 수량을 바꿀 때 허용 재고와 구매 무게를 검사하고 `OnDataChanged`로 표시를 갱신합니다. [PurchasePresenter](../Source/Assets/Scripts/UI/Panels/Shop/MVP/PurchasePresenter.cs)와 [SellPresenter](../Source/Assets/Scripts/UI/Panels/Shop/MVP/SellPresenter.cs)가 각각 구매와 판매 화면을 연결합니다.

@@ -15,6 +15,7 @@ namespace SeaVillage.Data
             { "Sea", "바다 마을" },
             { "Dessert", "과자 마을" },
             { "Cave", "동굴 마을" },
+            { "Quest", "퀘스트" },
         };
 
         public static string GetTownDisplayName(string townKey)

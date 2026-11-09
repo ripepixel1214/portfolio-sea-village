@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SeaVillage.Core;
+using DG.Tweening;
 
 namespace SeaVillage.Utilities
 {
@@ -18,8 +19,8 @@ namespace SeaVillage.Utilities
         [SerializeField] private float minimumLoadingTime = 1f; // 최소 로딩 시간 (너무 빠른 전환 방지를 위해)
         [SerializeField] private bool useAsyncLoading = true;
         
-        // 추후 아트 리소스 받으면 인스펙터에서 할당하기
         [Header("Loading UI")]
+        [Tooltip("비어 있으면 Resources/Prefabs/UI/Loading Screen을 자동 생성합니다.")]
         [SerializeField] private GameObject loadingUI; 
         [SerializeField] private UnityEngine.UI.Slider loadingProgressBar;
         [SerializeField] private TMPro.TextMeshProUGUI loadingText;
@@ -39,11 +40,38 @@ namespace SeaVillage.Utilities
         // References
         private FadeController fadeController;
         private Coroutine currentTransitionCoroutine;
+        private LoadingScreenView loadingScreenView;
+        private AsyncOperation activeSceneLoad;
 
         protected override void Awake()
         {
             base.Awake();
+            if (Instance != this)
+                return;
+
             fadeController = FadeController.Instance;
+            EnsureLoadingUI();
+        }
+
+        private void EnsureLoadingUI()
+        {
+            if (loadingUI == null)
+            {
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/UI/Loading Screen");
+                if (prefab == null)
+                {
+                    Debug.LogError("SceneChanger: Loading Screen 프리팹을 찾을 수 없습니다.");
+                    return;
+                }
+
+                loadingUI = Instantiate(prefab, transform, false);
+                loadingUI.name = "Loading Screen";
+                loadingProgressBar = loadingUI.GetComponentInChildren<UnityEngine.UI.Slider>(true);
+                loadingText = loadingUI.GetComponentInChildren<TMPro.TextMeshProUGUI>(true);
+            }
+
+            loadingScreenView = loadingUI.GetComponent<LoadingScreenView>();
+            loadingUI.SetActive(false);
         }
 
         /// <summary>
@@ -63,6 +91,12 @@ namespace SeaVillage.Utilities
             if (string.IsNullOrEmpty(sceneName))
             {
                 Debug.LogError("SceneChanger: Scene 이름이 비어있습니다.");
+                return;
+            }
+
+            if (!Application.CanStreamedLevelBeLoaded(sceneName))
+            {
+                Debug.LogError($"SceneChanger: Scene을 로드할 수 없습니다. ({sceneName})");
                 return;
             }
 
@@ -106,8 +140,8 @@ namespace SeaVillage.Utilities
             // 1. Fade Out
             if (fadeController != null)
             {
-                fadeController.FadeOut(fadeOutDuration);
-                yield return new WaitForSeconds(fadeOutDuration);
+                fadeController.FadeOut(fadeOutDuration)?.SetUpdate(true);
+                yield return new WaitForSecondsRealtime(fadeOutDuration);
             }
 
             // 1-1. 데이터 Load 단계 — 화면이 가려진 이 시점에 새 씬에 필요한 영속 데이터를 로드한다.
@@ -118,8 +152,11 @@ namespace SeaVillage.Utilities
             if (showLoadingUI && loadingUI != null)
             {
                 loadingUI.SetActive(true);
-                UpdateLoadingUI("로딩 중...", 0f);
+                UpdateLoadingUI(0f);
             }
+
+            // 실제 로딩이 메인 스레드를 사용하기 전에 로딩창을 한 프레임 그린다.
+            yield return null;
 
             // 로딩 시간 계산에는 안전하게 Time.unscaledTime 사용
             float startTime = Time.unscaledTime;
@@ -129,6 +166,7 @@ namespace SeaVillage.Utilities
             if (useAsyncLoading)
             {
                 asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+                activeSceneLoad = asyncLoad;
                 asyncLoad.allowSceneActivation = false;
 
                 while (!asyncLoad.isDone)
@@ -140,7 +178,11 @@ namespace SeaVillage.Utilities
 
                     if (showLoadingUI)
                     {
-                        UpdateLoadingUI($"로딩 중... {(progress * 100):F0}%", progress);
+                        float elapsed = Time.unscaledTime - startTime;
+                        float displayProgress = minimumLoadingTime > 0f
+                            ? Mathf.Min(progress, elapsed / minimumLoadingTime)
+                            : progress;
+                        UpdateLoadingUI(displayProgress);
                     }
 
                     // 로딩이 90% 완료되면 최소 로딩 시간 체크
@@ -155,22 +197,31 @@ namespace SeaVillage.Utilities
                 }
 
                 // Scene 활성화
-                LoadingProgress = 1f;
-                if (showLoadingUI)
-                {
-                    UpdateLoadingUI("완료!", 1f);
-                }
-
                 asyncLoad.allowSceneActivation = true;
                 yield return asyncLoad;
+                activeSceneLoad = null;
             }
             else
             {
                 // 동기 로딩
                 SceneManager.LoadScene(sceneName);
+                // LoadScene은 다음 프레임에 완료되므로 이전 Scene에서 UI를 숨기지 않는다.
+                yield return null;
+                float remainingTime = minimumLoadingTime - (Time.unscaledTime - startTime);
+                if (remainingTime > 0f)
+                    yield return new WaitForSecondsRealtime(remainingTime);
             }
 
+            LoadingProgress = 1f;
+            OnSceneLoadProgress?.Invoke(sceneName, 1f);
             OnSceneLoadCompleted?.Invoke(sceneName);
+
+            if (showLoadingUI && loadingUI != null)
+            {
+                UpdateLoadingUI(1f);
+                loadingScreenView?.Complete();
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
 
             // 4. Loading UI 숨기기
             if (showLoadingUI && loadingUI != null)
@@ -181,12 +232,13 @@ namespace SeaVillage.Utilities
             // 5. Fade In
             if (fadeController != null)
             {
-                fadeController.FadeIn(fadeInDuration);
-                yield return new WaitForSeconds(fadeInDuration);
+                fadeController.FadeIn(fadeInDuration)?.SetUpdate(true);
+                yield return new WaitForSecondsRealtime(fadeInDuration);
             }
 
             IsTransitioning = false;
-            ActiveSceneIndex = SceneManager.GetSceneByName(sceneName).buildIndex;
+            currentTransitionCoroutine = null;
+            ActiveSceneIndex = SceneManager.GetActiveScene().buildIndex;
             OnSceneTransitionCompleted?.Invoke(sceneName);
 
             // 전환 애니메이션 종료 — 현재 씬의 총괄 매니저를 시동한다.
@@ -199,13 +251,15 @@ namespace SeaVillage.Utilities
         /// <summary>
         /// Loading UI 업데이트
         /// </summary>
-        private void UpdateLoadingUI(string text, float progress)
+        private void UpdateLoadingUI(float progress)
         {
             if (loadingText != null)
-                loadingText.text = text;
+                loadingText.text = "LOADING...";
             
-            if (loadingProgressBar != null)
-                loadingProgressBar.value = progress;
+            if (loadingScreenView != null)
+                loadingScreenView.SetProgress(progress);
+            else if (loadingProgressBar != null)
+                loadingProgressBar.SetValueWithoutNotify(progress);
         }
 
         /// <summary>
@@ -225,6 +279,12 @@ namespace SeaVillage.Utilities
         /// <param name="sceneName">로드할 Scene 이름</param>
         public void ChangeSceneImmediate(string sceneName)
         {
+            if (activeSceneLoad != null && !activeSceneLoad.isDone)
+            {
+                Debug.LogWarning("SceneChanger: 진행 중인 비동기 로딩이 완료된 후 이동할 수 있습니다.");
+                return;
+            }
+
             if (IsTransitioning)
             {
                 Debug.LogWarning("SceneChanger: 현재 전환 중인 작업을 중단하고 즉시 전환합니다.");
@@ -234,6 +294,10 @@ namespace SeaVillage.Utilities
                 }
             }
 
+            if (loadingUI != null)
+                loadingUI.SetActive(false);
+            fadeController?.SetFadeImmediate(0f);
+            currentTransitionCoroutine = null;
             SceneManager.LoadScene(sceneName);
             IsTransitioning = false;
             ActiveSceneIndex = SceneManager.GetSceneByName(sceneName).buildIndex;
@@ -263,15 +327,23 @@ namespace SeaVillage.Utilities
         /// </summary>
         public void CancelTransition()
         {
+            // Unity의 Scene 비동기 로딩은 취소할 수 없다. 활성화 대기를 남기면 로딩 큐가 멈춘다.
+            if (activeSceneLoad != null && !activeSceneLoad.isDone)
+            {
+                Debug.LogWarning("SceneChanger: Scene 로딩이 시작되어 전환을 취소할 수 없습니다.");
+                return;
+            }
+
             if (IsTransitioning && currentTransitionCoroutine != null)
             {
                 StopCoroutine(currentTransitionCoroutine);
+                currentTransitionCoroutine = null;
                 
                 if (loadingUI != null)
                     loadingUI.SetActive(false);
                 
                 if (fadeController != null)
-                    fadeController.FadeIn(fadeInDuration);
+                    fadeController.FadeIn(fadeInDuration)?.SetUpdate(true);
                 
                 IsTransitioning = false;
                 Debug.Log("SceneChanger: Scene 전환이 취소되었습니다.");
@@ -350,6 +422,9 @@ namespace SeaVillage.Utilities
         /// </summary>
         protected override void OnDestroy()
         {
+            if (activeSceneLoad != null && !activeSceneLoad.isDone)
+                activeSceneLoad.allowSceneActivation = true;
+
             if (currentTransitionCoroutine != null)
             {
                 StopCoroutine(currentTransitionCoroutine);

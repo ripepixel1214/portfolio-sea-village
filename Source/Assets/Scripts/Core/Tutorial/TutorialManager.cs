@@ -30,6 +30,7 @@ namespace SeaVillage.Core
         #region Properties
 
         public bool IsInitialized { get; private set; }
+        public bool IsRestoringPresentation => _controller != null && _controller.IsRestoringPresentation;
         public bool IsActive => _runtime?.HasActiveStep == true;
         public string ActiveStepId => _runtime?.ActiveStepId ?? string.Empty;
         public string ActiveTutorialId => _runtime?.ActiveDialogueId ?? string.Empty;
@@ -196,6 +197,9 @@ namespace SeaVillage.Core
                 return false;
             }
 
+            if (IsRestoringPresentation)
+                return true;
+
             OnEventObserved?.Invoke(tutorialEvent);
 
             string tutorialId = ActiveTutorialId;
@@ -295,7 +299,7 @@ namespace SeaVillage.Core
             if (!IsInitialized)
                 return;
 
-            _runtime.CancelActiveStep();
+            CancelActiveTutorial();
             TutorialProgressSaveData normalized = progress != null
                 && progress.definitionVersion == TutorialDefinitionCatalog.DefinitionVersion
                     ? progress
@@ -305,7 +309,6 @@ namespace SeaVillage.Core
                         legacyRewardGranted);
 
             _runtime.ImportCompletedStepIds(normalized.completedStepIds);
-            _controller.RestoreEffectState(normalized);
 
             if (!string.IsNullOrWhiteSpace(normalized.activeStepId)
                 && !_runtime.IsStepCompleted(normalized.activeStepId)
@@ -335,6 +338,7 @@ namespace SeaVillage.Core
                     _runtime.CancelActiveStep();
                 }
             }
+            _controller.RestoreEffectState(normalized);
         }
 
         public bool CancelActiveTutorial()

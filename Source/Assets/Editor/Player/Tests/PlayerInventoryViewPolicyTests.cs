@@ -29,6 +29,13 @@ namespace SeaVillage.Editor.Tests
             Assert.That(PlayerInventoryViewPolicy.ShouldDisplay(unknownItem, hiddenOrigins), Is.True);
         }
 
+        [Test]
+        public void GetOriginLabel_FormatsQuestOriginInKorean()
+        {
+            Assert.That(PlayerInventoryViewPolicy.GetOriginLabel("Quest"), Is.EqualTo("퀘스트"));
+            Assert.That(PlayerInventoryViewPolicy.GetOriginLabel("quest"), Is.EqualTo("퀘스트"));
+        }
+
         [TestCase(100, 70, 70)]
         [TestCase(100, 135, 135)]
         [TestCase(0, 100, 0)]

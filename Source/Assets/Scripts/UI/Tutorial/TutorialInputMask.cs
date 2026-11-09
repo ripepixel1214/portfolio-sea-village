@@ -23,6 +23,7 @@ namespace SeaVillage.UI.Tutorial
         #region Properties
 
         public RectTransform OverlayRoot => overlayRoot;
+        public bool HasPrimaryHighlight { get; private set; }
 
         #endregion
 
@@ -64,6 +65,7 @@ namespace SeaVillage.UI.Tutorial
 
         public void Hide()
         {
+            HasPrimaryHighlight = false;
             _shouldBlockOutsidePrimaryHighlight = false;
             if (blockerRoot != null)
                 blockerRoot.SetActive(false);
@@ -73,6 +75,7 @@ namespace SeaVillage.UI.Tutorial
 
         public void Refresh(IReadOnlyList<string> highlightKeys)
         {
+            HasPrimaryHighlight = false;
             if (overlayRoot == null)
                 return;
 
@@ -105,6 +108,7 @@ namespace SeaVillage.UI.Tutorial
             }
 
             SetFrameCount(resolvedCount);
+            HasPrimaryHighlight = hasPrimaryRect;
             if (blockerRoot == null || !_shouldBlockOutsidePrimaryHighlight)
             {
                 if (blockerRoot != null)

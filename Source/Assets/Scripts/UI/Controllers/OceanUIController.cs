@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using SeaVillage.Core;
+using SeaVillage.Ocean;
 using SeaVillage.UI.Tutorial;
 
 namespace SeaVillage.UI
 {
-    // 항해 씬 UI Controller. 항해 HUD(일차) 갱신 담당. 이동·상호작용·패널네비는 Input System(PlayerInput)이 담당
+    // 항해 HUD 갱신과 터치 버튼 연결을 담당한다. 이동은 Input System(PlayerInput)을 사용한다.
     public class OceanUIController : BaseUIController
     {
         [Header("Ocean UI Texts")]
@@ -18,6 +19,9 @@ namespace SeaVillage.UI
         [SerializeField] protected Button? inventoryButton;
         [SerializeField] protected Button? newspaperButton;
         [SerializeField] protected Button? toolbarButton;
+
+        [Header("Ocean References")]
+        [SerializeField] private ShipController shipController;
 
         private CurrencyManager _currencyManager;
 
@@ -31,6 +35,13 @@ namespace SeaVillage.UI
 
         protected override void RegisterSceneSpecificEvents()
         {
+            RegisterButton(inventoryButton, () => OpenPanel<ShipInventoryPanel>(), "ShipInventory");
+            RegisterButton(newspaperButton, () => OpenPanel<NewsPanel>(), "Newspaper");
+
+            // 기존 씬의 Animator UnityEvent 연결이 있으면 그대로 사용한다.
+            if (toolbarButton != null && toolbarButton.onClick.GetPersistentEventCount() == 0)
+                RegisterButton(toolbarButton, () => toolbarButton.GetComponent<Animator>()?.SetTrigger("Toggle"), "Toolbar");
+
             TimeManager.OnDayChanged += UpdateDayText;
 
             _currencyManager = CurrencyManager.Instance;
@@ -72,6 +83,9 @@ namespace SeaVillage.UI
         {
             base.FindBaseUIElements();
 
+            if (shipController == null)
+                shipController = FindFirstObjectByType<ShipController>();
+
             if (dayText == null)
                 dayText = GameObject.Find("UI/OceanUIController/Main Canvas/Day Holder/Day Text").GetComponent<TextMeshProUGUI>();
 
@@ -86,6 +100,14 @@ namespace SeaVillage.UI
 
             if (toolbarButton == null)
                 toolbarButton = GameObject.Find("UI/OceanUIController/Main Canvas/Toolbar Button")?.GetComponent<Button>();
+        }
+
+        protected override void OnInteractionButtonClicked()
+        {
+            if (uiManager.IsAnyPanelOpened)
+                base.OnInteractionButtonClicked();
+            else
+                shipController?.TryInteract();
         }
 
         private void UpdateDayText(int currentDay)

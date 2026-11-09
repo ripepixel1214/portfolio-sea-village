@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using System.Linq;
 
 namespace SeaVillage.Data
 {
@@ -12,12 +11,6 @@ namespace SeaVillage.Data
         [SerializeField] private List<EventConditionData> _conditions = new List<EventConditionData>();
         [SerializeField] private List<EventSequenceData> _sequences = new List<EventSequenceData>();
         [SerializeField] private List<EventDialogueData> _dialogues = new List<EventDialogueData>();
-
-        // Dictionaries for quick lookup at runtime
-        private Dictionary<string, EventData> _eventDict;
-        private Dictionary<string, List<EventConditionData>> _conditionDict;
-        private Dictionary<string, List<EventSequenceData>> _sequenceDict;
-        private Dictionary<int, EventDialogueData> _dialogueDict;
 
         // Properties
         public IReadOnlyList<EventData> Events => _events;
@@ -32,52 +25,32 @@ namespace SeaVillage.Data
 
         public void Initialize()
         {
-            if (_events == null) _events = new List<EventData>();
-            if (_conditions == null) _conditions = new List<EventConditionData>();
-            if (_sequences == null) _sequences = new List<EventSequenceData>();
-            if (_dialogues == null) _dialogues = new List<EventDialogueData>();
-
-            _eventDict = new Dictionary<string, EventData>();
-            foreach (var evt in _events)
-                if (!_eventDict.ContainsKey(evt.EventID))
-                    _eventDict.Add(evt.EventID, evt);
-
-            _conditionDict = _conditions
-                .GroupBy(x => x.EventID)
-                .ToDictionary(g => g.Key, g => g.ToList());
-
-            _sequenceDict = _sequences
-                .GroupBy(x => x.EventID)
-                .ToDictionary(g => g.Key, g => g.ToList());
-                
-            _dialogueDict = new Dictionary<int, EventDialogueData>();
-            foreach (var dialogue in _dialogues)
-                if (!_dialogueDict.ContainsKey(dialogue.ID))
-                    _dialogueDict.Add(dialogue.ID, dialogue);
+            _events ??= new List<EventData>();
+            _conditions ??= new List<EventConditionData>();
+            _sequences ??= new List<EventSequenceData>();
+            _dialogues ??= new List<EventDialogueData>();
         }
 
         public EventData GetEvent(string eventID)
-        {
-            if (_eventDict == null) Initialize();
-            return _eventDict.TryGetValue(eventID, out var data) ? data : null;
-        }
+            => FindEvent(eventID);
 
         public List<EventConditionData> GetEventConditions(string eventID)
-        {
-            if (_conditionDict == null) Initialize();
-            return _conditionDict.TryGetValue(eventID, out var list) ? list : null;
-        }
+            => FindByEventId(_conditions, eventID);
 
         public List<EventSequenceData> GetEventSequences(string eventID)
-        {
-            if (_sequenceDict == null) Initialize();
-            return _sequenceDict.TryGetValue(eventID, out var list) ? list : null;
-        }
+            => FindByEventId(_sequences, eventID);
 
         public EventDialogueData GetDialogue(int dialogueID)
         {
-            if (_dialogueDict == null) Initialize();
-            return _dialogueDict.TryGetValue(dialogueID, out var data) ? data : null;
+            Initialize();
+            for (int i = 0; i < _dialogues.Count; i++)
+            {
+                EventDialogueData dialogue = _dialogues[i];
+                if (dialogue != null && dialogue.ID == dialogueID)
+                    return dialogue;
+            }
+
+            return null;
         }
 
         public void SetData(List<EventData> newEvents, List<EventConditionData> newConditions, 
@@ -96,10 +69,49 @@ namespace SeaVillage.Data
             _conditions.Clear();
             _sequences.Clear();
             _dialogues.Clear();
-            _eventDict?.Clear();
-            _conditionDict?.Clear();
-            _sequenceDict?.Clear();
-            _dialogueDict?.Clear();
+        }
+
+        private EventData FindEvent(string eventID)
+        {
+            Initialize();
+            if (string.IsNullOrEmpty(eventID))
+                return null;
+
+            for (int i = 0; i < _events.Count; i++)
+            {
+                EventData eventData = _events[i];
+                if (eventData != null && string.Equals(eventData.EventID, eventID, System.StringComparison.OrdinalIgnoreCase))
+                    return eventData;
+            }
+
+            return null;
+        }
+
+        private static List<T> FindByEventId<T>(List<T> source, string eventID)
+            where T : class
+        {
+            if (source == null || string.IsNullOrEmpty(eventID))
+                return null;
+
+            List<T> matches = null;
+            for (int i = 0; i < source.Count; i++)
+            {
+                T entry = source[i];
+                string entryEventId = entry switch
+                {
+                    EventConditionData condition => condition.EventID,
+                    EventSequenceData sequence => sequence.EventID,
+                    _ => null
+                };
+
+                if (!string.Equals(entryEventId, eventID, System.StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                matches ??= new List<T>();
+                matches.Add(entry);
+            }
+
+            return matches;
         }
     }
 }

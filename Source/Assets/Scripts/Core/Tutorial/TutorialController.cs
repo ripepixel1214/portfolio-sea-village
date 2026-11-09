@@ -23,8 +23,12 @@ namespace SeaVillage.Core
         private bool _subscribed;
         private string _lastFailedStepId = string.Empty;
         private int _failureRetryCount;
+        private bool _restorePending;
+        private bool _isRestoring;
 
         #region Properties
+
+        public bool IsRestoringPresentation => _restorePending || _isRestoring;
 
         public int ForcedFoodPriceTargetDay =>
             _effectExecutor != null ? _effectExecutor.ForcedFoodPriceTargetDay : 0;
@@ -117,7 +121,9 @@ namespace SeaVillage.Core
 
         public void RestoreEffectState(TutorialProgressSaveData progress)
         {
+            StopOwnedRoutines();
             _effectExecutor?.ImportProgress(progress);
+            _restorePending = true;
             ScheduleEvaluation();
         }
 
@@ -170,12 +176,16 @@ namespace SeaVillage.Core
 
         private void HandleTutorialCancelled(string _)
         {
+            StopOwnedRoutines();
+            _restorePending = false;
             _effectExecutor?.ReleaseControlScope();
             ScheduleEvaluation();
         }
 
         private void HandleTutorialFailed(string tutorialId, string failReason)
         {
+            _restorePending = false;
+            _isRestoring = false;
             StopOwnedRoutines();
             _effectExecutor?.ReleaseControlScope();
             Debug.LogError($"[TutorialController] {tutorialId} 실패로 진행을 중단했습니다: {failReason}");
@@ -214,6 +224,8 @@ namespace SeaVillage.Core
 
         private void HandleProgressReset()
         {
+            StopOwnedRoutines();
+            _restorePending = false;
             _effectExecutor?.ResetProgress();
             ScheduleEvaluation();
         }
@@ -300,6 +312,12 @@ namespace SeaVillage.Core
                 return true;
             }
 
+            if (cause == TutorialEntryCause.Recovery)
+            {
+                StartRecoveryRoutine(step);
+                return true;
+            }
+
             IReadOnlyList<TutorialActionType> actions =
                 cause == TutorialEntryCause.Recovery && step.RecoveryActions.Count > 0
                     ? step.RecoveryActions
@@ -360,15 +378,19 @@ namespace SeaVillage.Core
 
         private IEnumerator EvaluateWhenReady()
         {
+            // ImportProgress와 호출자의 씬 전환 요청 이후 복원 시작
+            yield return null;
             float startTime = Time.realtimeSinceStartup;
-            while ((!GameManager.HasInstance || !GameManager.Instance.IsAllManagerInitialized)
+            while ((!GameManager.HasInstance || !GameManager.Instance.IsAllManagerInitialized
+                    || (_sceneChanger != null && _sceneChanger.IsTransitioning))
                    && Time.realtimeSinceStartup - startTime < InitializationTimeoutSeconds)
             {
                 yield return null;
             }
 
             _evaluationRoutine = null;
-            if (!GameManager.HasInstance || !GameManager.Instance.IsAllManagerInitialized)
+            if (!GameManager.HasInstance || !GameManager.Instance.IsAllManagerInitialized
+                || (_sceneChanger != null && _sceneChanger.IsTransitioning))
             {
                 FailSequence("전체 매니저 초기화 대기 시간이 초과되었습니다");
                 yield break;
@@ -385,19 +407,16 @@ namespace SeaVillage.Core
 
                 if (_manager.PlaybackState == TutorialPlaybackState.WaitingForActivation)
                 {
+                    _restorePending = false;
                     StartEntryRoutine(
                         activeStep,
                         TutorialEntryCause.Recovery,
                         activeStep.WaitingActions,
                         startDialogue: false);
                 }
-                else if (_manager.PlaybackState == TutorialPlaybackState.WaitingForEffect)
+                else if (_restorePending || _manager.PlaybackState == TutorialPlaybackState.WaitingForEffect)
                 {
-                    IReadOnlyList<TutorialActionType> recoveryActions =
-                        activeStep.RecoveryActions.Count > 0
-                            ? activeStep.RecoveryActions
-                            : activeStep.EntryActions;
-                    StartEntryRoutine(activeStep, TutorialEntryCause.Recovery, recoveryActions);
+                    StartRecoveryRoutine(activeStep);
                 }
                 else
                 {
@@ -407,6 +426,7 @@ namespace SeaVillage.Core
                 yield break;
             }
 
+            _restorePending = false;
             if (TryStartFirstWreckRecovery(out string wreckFailure))
             {
                 if (!string.IsNullOrEmpty(wreckFailure))
@@ -420,6 +440,60 @@ namespace SeaVillage.Core
             {
                 FailSequence(failReason);
             }
+        }
+
+        private void StartRecoveryRoutine(TutorialStepDefinition step)
+        {
+            if (_entryRoutine != null)
+                StopCoroutine(_entryRoutine);
+            _isRestoring = true;
+            _entryRoutine = StartCoroutine(RestorePresentationRoutine(step));
+        }
+
+        private IEnumerator RestorePresentationRoutine(TutorialStepDefinition step)
+        {
+            float started = Time.realtimeSinceStartup;
+            while (!InventoryManager.HasInstance || !InventoryManager.Instance.IsReady)
+            {
+                if (Time.realtimeSinceStartup - started >= InitializationTimeoutSeconds)
+                {
+                    FailSequence("튜토리얼 UI 복원에 필요한 인벤토리 준비 시간이 초과되었습니다");
+                    yield break;
+                }
+                yield return null;
+            }
+
+            bool startDialogue = _manager.PlaybackState == TutorialPlaybackState.WaitingForEffect;
+            if (startDialogue && step.EntryMode == TutorialEntryMode.RewardThenDialogue)
+            {
+                bool resolved = false;
+                bool succeeded = false;
+                _effectExecutor.ShowReward(success => { resolved = true; succeeded = success; });
+                while (!resolved)
+                    yield return null;
+                if (!succeeded)
+                {
+                    FailSequence("튜토리얼 보상을 복원할 수 없습니다");
+                    yield break;
+                }
+            }
+
+            TutorialProgressSaveData progress = _manager.ExportProgress();
+            int dialogueIndex = Math.Max(0, _manager.CurrentDialogueIndex);
+            yield return _effectExecutor.RestorePresentationState(step, dialogueIndex, progress.conditionProgress);
+            if (!_manager.IsActive || _manager.ActiveStepId != step.StepId)
+                yield break;
+
+            _restorePending = false;
+            _isRestoring = false;
+            _entryRoutine = null;
+            if (startDialogue)
+            {
+                if (!_manager.TryStartPendingStepDialogue(out string failReason))
+                    FailSequence(failReason);
+            }
+            else
+                _manager.RepublishCurrentDialogue();
         }
 
         private IEnumerator FinishSequenceNextFrame()
@@ -583,6 +657,7 @@ namespace SeaVillage.Core
 
         private void StopOwnedRoutines()
         {
+            _isRestoring = false;
             if (_entryRoutine != null)
             {
                 StopCoroutine(_entryRoutine);

@@ -24,8 +24,8 @@ namespace SeaVillage.Event.Services
             EventPanel panel = UIManager.HasInstance ? UIManager.Instance.OpenPanel<EventPanel>() : null;
             if (panel == null)
             {
-                // UI 가 없으면 첫 선택지로 폴백
-                onChosen?.Invoke(options[0]);
+                Debug.LogError("[DefaultChoiceService] EventPanel을 열 수 없습니다");
+                onChosen?.Invoke(null);
                 yield break;
             }
 
@@ -39,14 +39,25 @@ namespace SeaVillage.Event.Services
             panel.ShowStep(null, labels, index => { pickedIndex = index; picked = true; });
 
             while (!picked)
+            {
+                if (panel == null || panel.State == PanelState.Closed)
+                {
+                    onChosen?.Invoke(null);
+                    yield break;
+                }
+
                 yield return null;
+            }
 
             int safeIndex = Mathf.Clamp(pickedIndex, 0, options.Count - 1);
             EventSequenceData chosen = options[safeIndex];
 
-            // 이벤트가 이 선택으로 끝날 때만 패널을 닫는다. 중간 선택이면 결과 레이아웃이 같은 패널을 재사용하도록 열어둔다.
-            if (chosen.NextStep == -1 && UIManager.HasInstance)
+            if (UIManager.HasInstance)
+            {
                 UIManager.Instance.ClosePanel<EventPanel>();
+                while (panel != null && panel.State != PanelState.Closed)
+                    yield return null;
+            }
 
             onChosen?.Invoke(chosen);
         }

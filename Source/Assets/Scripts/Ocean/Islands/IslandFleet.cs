@@ -30,16 +30,24 @@ namespace SeaVillage.Ocean
 
         public void PlaceShipAtStart()
         {
+            if (TryGetDeparturePosition(out Vector2 position))
+                ship.WarpTo(position);
+        }
+
+        public bool TryGetDeparturePosition(out Vector2 position)
+        {
             string targetName = VoyageSession.ResolveOrDefault(config.DefaultIslandName);
 
             Island? target = FindByName(targetName);
             if (target == null)
             {
                 Debug.LogWarning($"[IslandFleet] Island '{targetName}' 찾지 못함. Ship 스폰 생략");
-                return;
+                position = default;
+                return false;
             }
 
-            ship.WarpTo(target.SpawnPosition);
+            position = target.SpawnPosition;
+            return true;
         }
 
         public void Tick()
@@ -107,8 +115,8 @@ namespace SeaVillage.Ocean
                 return;
             }
 
-            VoyageSession.SetLastVisited(sceneName);
-            sceneChanger.ChangeScene(sceneName);
+            sceneChanger.ChangeScene(sceneName,
+                onComplete: () => VoyageSession.SetLastVisited(sceneName));
         }
 
         private Island? FindByName(string islandName)

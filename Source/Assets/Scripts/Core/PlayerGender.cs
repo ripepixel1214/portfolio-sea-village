@@ -8,7 +8,7 @@ namespace SeaVillage.Core
 
     public static class PlayerGenderPolicy
     {
-        public const string MaleSkinName = "Pllayer_Boy/Player_Boy";
+        public const string MaleSkinName = "Player_Boy/Player_Boy";
         public const string FemaleSkinName = "Player_Girl/Player_Girl";
 
         public static bool IsValid(PlayerGender gender)

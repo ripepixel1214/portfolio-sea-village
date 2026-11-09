@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using SeaVillage.Core;
+using SeaVillage.Utilities;
 
 namespace SeaVillage.Ocean
 {
@@ -25,20 +26,17 @@ namespace SeaVillage.Ocean
 
         private TreasureChestManager _treasureManager;
         private Event.EventManager _globalEventManager;
+        private InventoryManager _inventory;
+        private VoyageLifecycle _voyage;
 
         // 식량 소비 (매일 차감, 고갈 시 귀항 절차 1회). 스탯 단위(= config 일치/일 × FoodStatPerDay)
         private float _foodPerDay;
-        private bool _foodDepleted;
         private bool _foodSubscribed;
+        private bool _returnDispatched;
 
         private string _defaultIslandName;
         private Action<string> _goToScene;
         private bool _initialized;
-
-        /// <summary>
-        /// 항해 종료 절차(식량 고갈 귀항 등)가 시작될 때 발생. OceanManager 가 씬 구동 중지에 사용한다.
-        /// </summary>
-        public event Action VoyageEnded;
 
         /// <summary>
         /// 필수 참조 검증 + 보물 프리팹 폴백 로드. 실제 시동은 Initialize()에서 한다.
@@ -58,14 +56,14 @@ namespace SeaVillage.Ocean
         /// OceanManager 가 씬 시동 시 호출하는 진입점. 바다 영역·귀항 통로를 주입받아
         /// 보물 상자를 스폰하고 식량 소비·이벤트 억제 게이트를 가동한다(idempotent).
         /// </summary>
-        public void Initialize(Vector2 seaCenter, Vector2 seaSize, string defaultIslandName, Action<string> goToScene)
+        public void Initialize(Vector2 seaCenter, Vector2 seaSize, string defaultIslandName,
+            Action<string> goToScene, VoyageLifecycle voyage)
         {
             if (_initialized)
             {
                 return;
             }
-            _initialized = true;
-
+            _voyage = voyage ?? throw new ArgumentNullException(nameof(voyage));
             _defaultIslandName = defaultIslandName;
             _goToScene = goToScene;
 
@@ -76,13 +74,16 @@ namespace SeaVillage.Ocean
 
             // config는 일치/일 단위 → 스탯/일로 환산(3 스탯 = 1일치)
             _foodPerDay = Mathf.Max(0f, _config.FoodConsumptionPerDay) * InventoryManager.FoodStatPerDay;
-            _foodDepleted = false;
+            _inventory = InventoryManager.Instance;
+            _inventory.OnShipFoodStorageChanged += HandleFoodChanged;
             TimeManager.OnDayChanged += HandleDayChanged;
             _foodSubscribed = true;
 
             // 고갈일에 보상성 돌발 이벤트가 겹치지 않도록 억제 게이트 등록 (전역 EventManager)
             _globalEventManager = Event.EventManager.Instance;
             _globalEventManager?.SetDailyRandomSuppressor(IsFoodDepletedOrAboutToDeplete);
+            _initialized = true;
+            HandleFoodChanged();
         }
 
         /// <summary>
@@ -98,7 +99,9 @@ namespace SeaVillage.Ocean
         /// </summary>
         public bool TryInteractTreasure()
         {
-            if (_globalEventManager != null && _globalEventManager.AreEventsSuppressed)
+            if (!_initialized || !_voyage.CanControl
+                || (_globalEventManager != null && (_globalEventManager.AreEventsSuppressed
+                    || _globalEventManager.IsEventRunning)))
                 return false;
 
             return _treasureManager != null && _treasureManager.TryInteract();
@@ -108,25 +111,37 @@ namespace SeaVillage.Ocean
         private void HandleDayChanged(int currentDay)
         {
             if (IsFoodConsumptionBlockedByTutorial()
-                || _foodDepleted
+                || !_initialized || !_voyage.CanControl
                 || _foodPerDay <= 0f)
             {
                 return;
             }
 
-            InventoryManager inventory = InventoryManager.Instance;
-            if (inventory == null)
-            {
+            _inventory.ConsumeShipFood(_foodPerDay);
+        }
+
+        private void HandleFoodChanged()
+        {
+            if (!_initialized || _inventory == null)
                 return;
-            }
 
-            inventory.ShipFoodStorage -= _foodPerDay;
+            // 이동 튜토리얼의 식량 유예가 끝나면 LateUpdate에서 다시 평가한다.
+            _voyage.ObserveFood(IsFoodConsumptionBlockedByTutorial() ? 1f : _inventory.ShipFoodStorage);
+        }
 
-            if (inventory.ShipFoodStorage <= 0f)
-            {
-                _foodDepleted = true;
+        private void LateUpdate()
+        {
+            if (!_initialized || _voyage.Phase != VoyagePhase.Sailing)
+                return;
+
+            HandleFoodChanged();
+            bool isBusy = (_globalEventManager != null && _globalEventManager.IsEventRunning)
+                || (UI.UIManager.HasInstance && UI.UIManager.Instance.IsAnyPanelOpened)
+                || (SceneChanger.HasInstance && SceneChanger.Instance.IsTransitioning);
+
+            // OnEventCompleted보다 뒤에 실행하여 기존 이벤트의 완료 콜백까지 보장한다.
+            if (_voyage.TryBeginFoodReturn(isBusy))
                 HandleFoodDepleted();
-            }
         }
 
         private static bool IsFoodConsumptionBlockedByTutorial()
@@ -140,7 +155,10 @@ namespace SeaVillage.Ocean
         // 고갈됐거나 다음 차감으로 고갈될지 판정 (전역 DailyRandom 억제 게이트용)
         private bool IsFoodDepletedOrAboutToDeplete()
         {
-            if (_foodDepleted)
+            if (IsFoodConsumptionBlockedByTutorial())
+                return false;
+
+            if (_voyage.IsFoodDepleted || _voyage.Phase == VoyagePhase.Ending)
             {
                 return true;
             }
@@ -149,20 +167,17 @@ namespace SeaVillage.Ocean
                 return false;
             }
 
-            InventoryManager inventory = InventoryManager.Instance;
-            return inventory != null && inventory.ShipFoodStorage <= _foodPerDay;
+            return _inventory != null && _inventory.ShipFoodStorage <= _foodPerDay;
         }
 
         // 식량 고갈 시 난파 이벤트 재생 후 마지막 항구로 귀환
         private void HandleFoodDepleted()
         {
-            VoyageEnded?.Invoke();
-
             string returnScene = VoyageSession.ResolveOrDefault(_defaultIslandName);
 
-            Event.EventManager eventManager = Event.EventManager.Instance;
+            Event.EventManager eventManager = _globalEventManager;
             if (eventManager != null && !string.IsNullOrWhiteSpace(_config.ShipwreckEventId))
-                eventManager.StartEvent(_config.ShipwreckEventId, () => _goToScene?.Invoke(returnScene));
+                eventManager.StartEvent(_config.ShipwreckEventId, () => ReturnToPort(returnScene));
             else
                 FallbackReturnToPort(returnScene);
         }
@@ -170,11 +185,20 @@ namespace SeaVillage.Ocean
         // 난파 이벤트가 없는 경우 알림 후 즉시 귀항하는 폴백
         private void FallbackReturnToPort(string returnScene)
         {
-            UI.UIManager uiManager = UI.UIManager.Instance;
+            UI.UIManager uiManager = UI.UIManager.HasInstance ? UI.UIManager.Instance : null;
             if (uiManager != null)
-                uiManager.ShowAlertMessage("식량이 모두 떨어져 가장 가까운 항구로 돌아간다", () => _goToScene?.Invoke(returnScene));
+                uiManager.ShowAlertMessage("식량이 모두 떨어져 마지막으로 방문한 항구로 돌아간다", () => ReturnToPort(returnScene));
             else
-                _goToScene?.Invoke(returnScene);
+                ReturnToPort(returnScene);
+        }
+
+        private void ReturnToPort(string returnScene)
+        {
+            if (!_initialized || _returnDispatched)
+                return;
+
+            _returnDispatched = true;
+            _goToScene?.Invoke(returnScene);
         }
 
         /// <summary>
@@ -182,11 +206,14 @@ namespace SeaVillage.Ocean
         /// </summary>
         private void OnDestroy()
         {
+            _initialized = false;
             if (_globalEventManager != null) _globalEventManager.SetDailyRandomSuppressor(null);
 
             if (_foodSubscribed)
             {
                 TimeManager.OnDayChanged -= HandleDayChanged;
+                if (_inventory != null)
+                    _inventory.OnShipFoodStorageChanged -= HandleFoodChanged;
                 _foodSubscribed = false;
             }
 

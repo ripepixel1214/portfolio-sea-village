@@ -112,14 +112,8 @@ namespace SeaVillage.UI
 
             StaffInfo? assignment = PlayerShopManager.Instance.GetAssignment(_townKey, role);
             bool hasStaff = assignment is { IsAssigned: true };
-            int staffId = hasStaff ? assignment.Value.StaffId : 0;
-            Sprite staffSprite = GetStaffSprite(staffId);
+            Sprite staffSprite = hasStaff ? StaffDisplayUtility.GetSprite(assignment.Value) : null;
             slot.ShowActive(label, hasStaff, staffSprite, assignment?.Intelligence ?? 0, assignment?.Charm ?? 0);
-        }
-
-        private static Sprite GetStaffSprite(int staffId)
-        {
-            return StaffDisplayUtility.GetSprite(staffId);
         }
 
         private void OpenCashierChange() => OpenChange(StaffRole.Cashier);
@@ -136,6 +130,17 @@ namespace SeaVillage.UI
 
     internal static class StaffDisplayUtility
     {
+        public static Sprite GetSprite(StaffInfo staff)
+        {
+            if (!staff.IsAssigned)
+                return null;
+
+            if (staff.StaffId == 0)
+                return GetDefaultCashierSprite();
+
+            return GetSprite(staff.StaffId);
+        }
+
         public static Sprite GetSprite(int staffId)
         {
             if (staffId <= 0 || !DataManager.HasInstance)
@@ -157,6 +162,30 @@ namespace SeaVillage.UI
                 icon = UIManager.Instance.LoadItemIcon(item.Image);
 
             return icon;
+        }
+
+        private static Sprite GetDefaultCashierSprite()
+        {
+            if (!DataManager.HasInstance || DataManager.Instance.StaffCatalog == null)
+            {
+                Debug.LogWarning("기본 계산원 프로필을 가져올 StaffCatalog가 준비되지 않았습니다");
+                return null;
+            }
+
+            PlayerGender playerGender = SaveLoadManager.HasInstance
+                && SaveLoadManager.Instance.CurrentGameData != null
+                    ? PlayerGenderPolicy.Normalize(SaveLoadManager.Instance.CurrentGameData.playerGender)
+                    : PlayerGender.Male;
+
+            StaffCatalog catalog = DataManager.Instance.StaffCatalog;
+            Sprite sprite = playerGender == PlayerGender.Male
+                ? catalog.FemalePlayerIcon
+                : catalog.MalePlayerIcon;
+
+            if (sprite == null)
+                Debug.LogWarning("StaffCatalog에 기본 계산원 프로필 Sprite가 연결되지 않았습니다");
+
+            return sprite;
         }
     }
 }

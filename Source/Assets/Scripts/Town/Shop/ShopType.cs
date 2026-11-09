@@ -13,6 +13,11 @@ namespace SeaVillage.Town
         SunflowerFarm = 312002,
         Bear = 312003,
 
+        FlowerShop = 314001,
+        FoodShop = 314002,
+        GoodsShop = 314003,
+        PotionShop = 314004,
+
         /// <summary>유저 소유 상점. ShopDatabase 행이 없고 판매 목록은 PlayerShopManager 의 런타임 상태에서 온다.</summary>
         PlayerShop = -1
     }

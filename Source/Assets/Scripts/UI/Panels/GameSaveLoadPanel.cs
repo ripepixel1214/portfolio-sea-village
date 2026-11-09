@@ -204,7 +204,12 @@ namespace SeaVillage.UI
                 bool hasSaveData = previewData != null;
                 string day = hasSaveData ? $"Day {previewData.gameDate}" : UnknownDay;
                 string gold = hasSaveData ? previewData.gold + "골드" : UnknownGold;
-                slots[i].Initialize(i, hasSaveData, day, gold);
+                slots[i].Initialize(
+                    i,
+                    hasSaveData,
+                    day,
+                    gold,
+                    previewData?.playerGender);
             }
         }
 

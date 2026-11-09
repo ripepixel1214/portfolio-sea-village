@@ -121,6 +121,12 @@ namespace SeaVillage.UI
 
             if (interactionButton != null)
                 RegisterButton(interactionButton, () => OnInteractionButtonClicked(), UIManager.InteractionButtonName);
+
+            // 이동은 OnScreenButton이 PlayerInput에 전달하고, 패널이 열려 있으면 선택을 이동한다.
+            RegisterButton(leftButton, () => OnDirectionButtonClicked(Vector2.left));
+            RegisterButton(rightButton, () => OnDirectionButtonClicked(Vector2.right));
+            RegisterButton(upButton, () => OnDirectionButtonClicked(Vector2.up));
+            RegisterButton(downButton, () => OnDirectionButtonClicked(Vector2.down));
         }
 
         /// <summary>
@@ -146,6 +152,17 @@ namespace SeaVillage.UI
 
         protected virtual void OnInteractionButtonClicked()
         {
+            if (TutorialCommandInputPolicy.IsBlocked)
+                return;
+
+            // 항해 씬처럼 플레이어 캐릭터가 없는 경우에도 열린 패널의 선택을 실행한다.
+            if (uiManager.IsAnyPanelOpened)
+            {
+                if (uiManager.CurrentActivePanel.IsNavigationEnabled)
+                    uiManager.CurrentActivePanel.ClickSelectedButton();
+                return;
+            }
+
             Player.Player player = Core.GameManager.Instance.Player;
 
             if (player == null)
@@ -159,10 +176,27 @@ namespace SeaVillage.UI
                 return;
             }
 
-            if (uiManager.IsAnyPanelOpened)
-                uiManager.CurrentActivePanel.ClickSelectedButton();
-            else
+            if (player.GetComponent<Player.PlayerController>()?.IsInputBlocked != true)
                 player.Interactor.TryInteract();
+        }
+
+        private void OnDirectionButtonClicked(Vector2 direction)
+        {
+            if (TutorialCommandInputPolicy.IsBlocked || !uiManager.IsAnyPanelOpened)
+                return;
+
+            UIPanel panel = uiManager.CurrentActivePanel;
+            if (!panel.IsNavigationEnabled || panel.IsClosing)
+                return;
+
+            if (direction.x < 0f)
+                panel.NavigateToLeftButton();
+            else if (direction.x > 0f)
+                panel.NavigateToRightButton();
+            else if (direction.y > 0f)
+                panel.NavigateToUpperButton();
+            else if (direction.y < 0f)
+                panel.NavigateToLowerButton();
         }
         #endregion
 

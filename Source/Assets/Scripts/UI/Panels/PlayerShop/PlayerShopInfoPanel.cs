@@ -111,7 +111,7 @@ namespace SeaVillage.UI
         private static void RefreshStaffSlot(StaffInfo? assignment, GameObject icon, Image staffImage, TMP_Text statText)
         {
             bool isAssigned = assignment is { IsAssigned: true };
-            Sprite staffSprite = isAssigned ? GetStaffSprite(assignment.Value.StaffId) : null;
+            Sprite staffSprite = isAssigned ? StaffDisplayUtility.GetSprite(assignment.Value) : null;
 
             if (icon != null)
                 icon.SetActive(isAssigned);
@@ -124,11 +124,6 @@ namespace SeaVillage.UI
 
             if (statText != null)
                 statText.text = FormatStaffStat(assignment);
-        }
-
-        private static Sprite GetStaffSprite(int staffId)
-        {
-            return StaffDisplayUtility.GetSprite(staffId);
         }
 
         private static string FormatStaffStat(StaffInfo? assignment)
